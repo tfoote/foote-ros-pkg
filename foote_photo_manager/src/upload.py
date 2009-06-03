@@ -138,7 +138,7 @@ class WebAlbumUploader:
         album_url = '/data/feed/api/user/%s/albumid/%s' % (self.username, album_ref.gphoto_id.text)
         for p in self.get_photo_list_from_server(album_url).entry:
             filename = p.title.text.replace(self.slash_str,'/')
-            fullname = os.path.join(local_dir, filename)
+            fullname = os.path.join(local_dir, album_name, filename)
             if not os.path.exists(os.path.dirname(fullname)):
                 os.makedirs(os.path.dirname(fullname))
             if not os.path.exists(fullname):
@@ -186,4 +186,4 @@ if __name__ == '__main__':
 
     if options.download:
         if len(options.album_name) > 1:
-            uploader.download(options.album_name, '/tmp/trial_photo_repo')
+            uploader.download(options.album_name, options.local_dir)
