@@ -3,6 +3,7 @@ import gdata.media
 import gdata.geo
 
 import sys, os
+from optparse import OptionParser
 
 import urllib
 
@@ -111,7 +112,7 @@ class WebAlbumUploader:
 
     def upload(self, album_name, local_dir):
         album_ref = self.find_album(album_name, True)
-        album_url = '/data/feed/api/user/%s/albumid/%s' % (username, album_ref.gphoto_id.text)
+        album_url = '/data/feed/api/user/%s/albumid/%s' % (self.username, album_ref.gphoto_id.text)
         for local_filename in find_local_files(local_dir):
             fullfilename = os.path.join(local_dir, local_filename)
             #print "Looking to upload %s"%i
@@ -126,7 +127,7 @@ class WebAlbumUploader:
                     pass
             if  not match_found:
                 print "Uploading photo %s"%local_filename
-                photo_uploaded = self.gd_client.InsertPhotoSimple(self.album_url, local_filename.replace('/',self.slash_str), 
+                photo_uploaded = self.gd_client.InsertPhotoSimple(album_url, local_filename.replace('/',self.slash_str), 
                                                              'Caption: Uploaded using the API', fullfilename, content_type='image/jpeg')
             else:
                 print "Photo %s already uploaded"%fullfilename
@@ -134,7 +135,7 @@ class WebAlbumUploader:
 
     def download(self, album_name, local_dir):
         album_ref = self.find_album(album_name, True)
-        album_url = '/data/feed/api/user/%s/albumid/%s' % (username, album_ref.gphoto_id.text)
+        album_url = '/data/feed/api/user/%s/albumid/%s' % (self.username, album_ref.gphoto_id.text)
         for p in self.get_photo_list_from_server(album_url).entry:
             filename = p.title.text.replace(self.slash_str,'/')
             fullname = os.path.join(local_dir, filename)
@@ -149,15 +150,40 @@ class WebAlbumUploader:
             
 
 
-username = "tbfoote@gmail.com"
-password = "none"
-
-album_name = 'test'
-local_dir = '/home/tfoote/gdata_test'
-
-uploader = WebAlbumUploader(username, password)
-uploader.upload(album_name, local_dir)
 
 
 
-#uploader.download(album_name, '/tmp/trial_photo_repo')
+
+
+
+if __name__ == '__main__':
+    parser = OptionParser(usage="usage: %prog [options]", prog='upload')
+    parser.add_option("-u", dest="upload", default=False, 
+                      action="store_true", help="Whether to upload")
+    parser.add_option("-d", dest="download", default=False, 
+                      action="store_true", help="Whether to download")
+    parser.add_option("--username", dest="username", dest="username", default='',
+                      type="string", help="username to use")
+    parser.add_option("--password", dest="password", dest="password", default='',
+                      type="string", help="password to use")
+    parser.add_option("--album_name", dest="album_name", dest="album_name", default='',
+                      type="string", help="album_name to use")
+    parser.add_option("--local_dir", dest="local_dir", dest="local_dir", default='.',
+                      type="string", help="local_dir to use")
+
+
+    options, args = parser.parse_args()
+
+    if len(options.username) == 0 or len(options.password) == 0:
+        print "Please enter a usernamem and password of non zero length"
+        sys.exit(-1)
+
+    uploader = WebAlbumUploader(options.username, options.password)
+        
+    if options.upload:
+        if len(options.album_name) > 1:
+            uploader.upload(options.album_name, options.local_dir)
+
+    if options.download:
+        if len(options.album_name) > 1:
+            uploader.download(options.album_name, '/tmp/trial_photo_repo')
