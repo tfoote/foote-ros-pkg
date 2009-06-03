@@ -8,7 +8,7 @@ username = "tbfoote@gmail.com"
 
 gd_client = gdata.photos.service.PhotosService()
 gd_client.email = username
-gd_client.password = 'tula1984'
+gd_client.password = 'none'
 gd_client.source = 'tullys-exampleApp-1'
 gd_client.ProgrammaticLogin()
 

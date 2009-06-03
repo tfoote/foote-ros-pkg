@@ -150,7 +150,7 @@ class WebAlbumUploader:
 
 
 username = "tbfoote@gmail.com"
-password = "tula1984"
+password = "none"
 
 album_name = 'test'
 local_dir = '/home/tfoote/gdata_test'
