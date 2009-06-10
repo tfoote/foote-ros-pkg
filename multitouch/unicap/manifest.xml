@@ -4,13 +4,15 @@
     A uniform interface for video devices
 
   </description>
-  <author>Tully Foote/ YOUR E-MAIL HERE</author>
+  <author>Tully Foote/ tully.foote@gmail.com</author>
   <license>BSD</license>
   <review status="3rdpary" notes=""/>
   <url>http://unicap-imaging.org/</url>
 <export>
   <cpp cflags="-I${prefix}/build/unicap/include" lflags="${prefix}/build/unicap/lib"/>
 </export>
+
+<rosdep name="libxv"/>
 
 </package>
 

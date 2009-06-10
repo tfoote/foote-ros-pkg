@@ -1,0 +1,23 @@
+<package>
+  <description brief="unicap 3rdpary">
+
+    A uniform interface for video devices
+
+  </description>
+  <author>Tully Foote/ YOUR E-MAIL HERE</author>
+  <license>BSD</license>
+  <review status="3rdpary" notes=""/>
+  <url>http://unicap-imaging.org/</url>
+
+  <depend package="unicap"/>
+  <export>
+    <cpp cflags="-I${prefix}/build/unicap/include" lflags="${prefix}/build/unicap/lib"/>
+  </export>
+  
+  <rosdep name="intltool"/>
+  <rosdep name="libglade2-dev"/>
+  <rosdep name="libgconf2-dev"/>
+  
+</package>
+
+
