@@ -42,10 +42,13 @@ int main(int argc, char** argv)
   printf("Opening\n");
   myRFID.open(-1);
 
-  printf("Attaching\n");
-  //wait 5 seconds for attachment
-  if(myRFID.waitForAttachment(5000))
-    printf("ATTACH FAILED\n");
+  printf("Attaching . . . timeout in 30 seconds\n");
+  //wait 30 seconds for attachment
+  if(myRFID.waitForAttachment(30000))
+  {
+    printf("ATTACH FAILED\n Make sure device is plugged in and this user has permission\n");
+    exit(-1);
+  }
   else
     printf("Success Ataching\n");
 
