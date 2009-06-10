@@ -49,33 +49,28 @@ int main(int argc, char** argv)
   else
     printf("Success Ataching\n");
 
+  printf("Phidget type: %s\n", myRFID.getDeviceType().c_str());
+  printf("Phidget label: %s\n", myRFID.getDeviceLabel().c_str());
+  printf("Phidget name: %s\n", myRFID.getDeviceName().c_str());
+
   printf("Turning ANtenna On\n");
   sleep(1);
-  myRFID.setAntenna(true);
+  myRFID.setAntennaOn(true);
 
+
+  std::cerr << "antenna is on: " << myRFID.isAntennaOn()<<std::endl;
   //  std::cerr <<myRFID.getType() <<std::endl;;
   //std::cout <<myRFID.getType() <<std::endl;; //FIXME Segfaults!!!
 
-  for (unsigned int i = 0; i < 1000; i++)
-    {
-      myRFID.setLed(true);
-      usleep(10000);
-      myRFID.setLed(false);
-      usleep(10000);
-    }
-  
-  
+  std::cout << "Blinking LED and waiting until user termination" << std::endl;
   while(true)
     {
       //      printf("HI\n");
-      myRFID.setLed(true);
+      myRFID.setLedOn(true);
       usleep(10000);
-      myRFID.setLed(false);
+      myRFID.setLedOn(false);
       usleep(10000);
-      //unsigned char mytag[10]; 
-      //std::cerr << "Getting Last" << std::endl;
-      myRFID.getLastTag();
-      //std::cout << getLastTag() << std::endl; //INOP
+      std::cerr << "Last Tag seen was: " << myRFID.getLastTag() << std::endl;
       sleep(1);      
     }
   

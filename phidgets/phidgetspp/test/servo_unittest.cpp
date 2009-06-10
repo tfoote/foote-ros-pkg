@@ -84,7 +84,7 @@ TEST(Servo, Basic){
     }
   myServo.setEngaged(0, PFALSE);
   std::cout << "Monitering position for 10 seconds"<<std::endl;
-  for (unsigned int i = 0; i < 10; i++)
+  for (unsigned int i = 0; i < 100; i++)
     {
       usleep(100000);
       std::cout << myServo.getPosition(0)<<std::endl;

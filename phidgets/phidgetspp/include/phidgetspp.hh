@@ -55,19 +55,22 @@ public:
 
 
   std::string getDeviceType(){
-    const char * deviceptr;
+    char a[1000];
+    const char * deviceptr = a;
     CPhidget_getDeviceType( *mHandle, &deviceptr);
     return std::string(deviceptr);
   };
 
   std::string getDeviceName(){
-    const char * deviceptr;
+    char a[1000];
+    const char * deviceptr = a;
     CPhidget_getDeviceName( *mHandle, &deviceptr);
     return std::string(deviceptr);
   };
 
   std::string getDeviceLabel(){
-    const char * deviceptr;
+    char a[1000];
+    const char * deviceptr = a;
     CPhidget_getDeviceType( *mHandle, &deviceptr);
     return std::string(deviceptr);
   };
@@ -224,7 +227,12 @@ public:
   
   /** @brief Get the Position of the servo
    * @todo broken returns bad values */
-  double getPosition(int index) { double position; CPhidgetServo_getPosition(servoHandle, index, &position); return position;};
+  double getPosition(int index) 
+  { 
+    double position; 
+    CPhidgetServo_getPosition(servoHandle, index, &position); 
+    return position;
+  };
   /** @brief Set the position of a servo
    * @param index Which motor
    * @param position The position to go to
@@ -253,34 +261,43 @@ private:
 
 };
 
-
+/**@brief The basic class for interfacing with the RFIDPhidget 
+ * This class is designed to either standalone for basic usage, 
+ * or to provide a baseclass for further customization. */
 class RFIDPhidget : public Phidget
 {
 public:
+/**@brief Default Constructor */
   RFIDPhidget(): Phidget((CPhidgetHandle*)&RFID),
                  RFID(0)
   {
+    //Setup the phidget
     CPhidgetRFID_create(&RFID);
-    
+    //Setup the handler for the new tag event
     CPhidgetRFID_set_OnTag_Handler(RFID, RFIDPhidget::tag_function, this);
+    //Setup the handler for the lost tag event
     CPhidgetRFID_set_OnTagLost_Handler(RFID, RFIDPhidget::tagLost_function, this);
+    //Setup the attachment handler from the base class
     CPhidget_set_OnAttach_Handler((CPhidgetHandle)RFID, RFIDPhidget::AttachHandler, this);  ///@TODO find how to move to base class?? It can't go in constructor due ot order
   };
   
-  int main_loop();
 
-  virtual int gotTag(unsigned char * tag){
-    std::cout << "RFID! " << *(unsigned int*)tag <<std::endl;
+  /**@brief An example function for handling new tag events 
+   * This is expected to be overriden in a subclass */
+  virtual int gotTag(unsigned int tag){
+    std::cout << "Default gotTag response! " << tag <<std::endl;
     return 0;
   }
 
-  virtual int lostTag(unsigned char * tag){
-      printf( "BYE! %u\n", *(unsigned int*)tag);
+  /**@brief An example function for handling lost tag events 
+   * This is expected to be overriden in a subclass */
+  virtual int lostTag(unsigned int tag){
+      printf( "Default lostTag response! %u\n", tag);
       return 0;
   };
 
-
-  int setAntenna(bool state)
+  /**@brief Set the antenna on(true) or off (false) */
+  int setAntennaOn(bool state)
   {
     if (state == true)
       return CPhidgetRFID_setAntennaOn(RFID, PTRUE);
@@ -288,50 +305,64 @@ public:
       return CPhidgetRFID_setAntennaOn(RFID, PFALSE);
   };
   
+  /**@brief Return whether the RFID antenna is currently on */
+  bool isAntennaOn()
+  {
+    int status;
+    ///\todo ignoring return code
+    CPhidgetRFID_getAntennaOn(RFID, &status);
+    if (status == PTRUE) return true;
+    else return false;
+  };
 
-  int setLed(bool state)
+  /** @brief Turn the LED on(true) or off(false) */
+  int setLedOn(bool state)
   {
     if (state == true)
       return CPhidgetRFID_setLEDOn(RFID, PTRUE);
     else
       return CPhidgetRFID_setLEDOn(RFID, PFALSE);
   };
-  
-  //INOP
-  std::string getLastTag()
+
+  /** @brief Return whether the LED is on at the moment */
+  bool isLedOn()
   {
-    unsigned char mytag[100];
-    CPhidgetRFID_getLastTag(RFID, mytag);
-    std::string outstring = "hi";
-    //printf("hi\n");
-    outstring = (char *)mytag;
-    printf("Last: %u\n", *(unsigned int*)(mytag));
-  //  std::cout << outstring; //fixme
-    return outstring;
+    int status;
+    ///\todo ignoring return code
+    CPhidgetRFID_getLEDOn(RFID, &status);
+    if (status == PTRUE) return true;
+    else return false;
   };
   
-  std::string getType()
+  /** @brief Return whether a tag is present at the moment */
+  bool isTagPresent()
   {
-    std::string retString;
-    const char ** m_str;// = NULL; Setting to null makes this segfault??
-    CPhidget_getDeviceType((CPhidgetHandle)RFID, m_str);
-    //  printf("%s\n", *m_str);
-    retString = *m_str;
-    return retString;
+    int status;
+    ///\todo ignoring return code
+    CPhidgetRFID_getTagStatus(RFID, &status);
+    if (status == PTRUE) return true;
+    else return false;
+  }    
+  
+  /** @brief Get the number of the last tag seen */
+  unsigned int getLastTag()
+  {
+    unsigned char mytag[100];
+    ///\todo ignoring return code
+    CPhidgetRFID_getLastTag(RFID, mytag);
+    return *(unsigned int*)(mytag);
   };
   
 private:
-  CPhidgetRFIDHandle RFID;
+  CPhidgetRFIDHandle RFID; ///<! The handle for the C API
 
   //Static functions to callback to from the C library
   static int tag_function(CPhidgetRFIDHandle RFID, void* userptr, unsigned char * tag)
-  { return ((RFIDPhidget*)userptr)->gotTag(tag);};
+  { return ((RFIDPhidget*)userptr)->gotTag(*(unsigned int*)(tag));};
   static int tagLost_function(CPhidgetRFIDHandle RFID, void* userptr, unsigned char * tag)
-  { return ((RFIDPhidget*)userptr)->lostTag(tag);};
+  { return ((RFIDPhidget*)userptr)->lostTag(*(unsigned int*)(tag));};
   static int AttachHandler(CPhidgetHandle RFID, void *userptr)
   { return ((RFIDPhidget*)userptr)->attachHandler();};
-
-
 
 };
 
