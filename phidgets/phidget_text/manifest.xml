@@ -1,0 +1,17 @@
+<package>
+  <description brief="A simple package to display text on a phidget LCD">
+
+    This package provides a way to display text to the text LCD phidget.  
+
+  </description>
+  <author>Tully Foote</author>
+  <license>BSD</license>
+  <url>http://code.google.com/p/phidgetspp-ros-pkg/</url>
+  <export>
+    <!--cpp lflags="-L${prefix}/lib -lphidgets21 " cflags="-I${prefix}/include "/-->
+  </export>
+  <depend package="phidgetspp"/>
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+</package>
+
