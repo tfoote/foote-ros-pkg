@@ -42,17 +42,21 @@ public:
   Phidget(CPhidgetHandle * handle):mHandle(handle){;};
   ~Phidget(){CPhidget_delete(*mHandle);};
 
+  /**@brief Open a connection to a Phidget
+   * @param serial_number THe serial number of the phidget to which to attach (-1 will connect to any)*/
   int open(int serial_number){
     return CPhidget_open(*mHandle,serial_number);};
   
+  /**@brief Close the connection to the phidget */
   int close(int serial_number){
     return CPhidget_close(*mHandle);};
   
-  
+  /** @brief Block until the unit is attached or timeout occurs
+   * @param timeout Milliseconds to wait before timing out */
   int waitForAttachment(int timeout)
   {return CPhidget_waitForAttachment(*mHandle, timeout);};
 
-
+  /** @brief Get the device type string */
   std::string getDeviceType(){
     char a[1000];
     const char * deviceptr = a;
@@ -60,6 +64,7 @@ public:
     return std::string(deviceptr);
   };
 
+  /** @brief Get the device name string */
   std::string getDeviceName(){
     char a[1000];
     const char * deviceptr = a;
@@ -67,28 +72,32 @@ public:
     return std::string(deviceptr);
   };
 
+  /** @brief Get the device label string */
   std::string getDeviceLabel(){
     char a[1000];
     const char * deviceptr = a;
     CPhidget_getDeviceType( *mHandle, &deviceptr);
     return std::string(deviceptr);
   };
-
+  /*
   std::string getServerID(){
-    const char * deviceptr;
+    char a[1000];
+    const char * deviceptr = a;
     CPhidget_getServerID( *mHandle, &deviceptr);
     return std::string(deviceptr);
   };
 
   std::string getServerAddress(){
-    const char * deviceptr;
+    char a[1000];
+    const char * deviceptr = a;
     int port;
     CPhidget_getServerAddress( *mHandle, &deviceptr, &port);
     return std::string(deviceptr);
   };
 
   int getServerPort(){
-    const char * deviceptr;
+    char a[1000];
+    const char * deviceptr = a;
     int port;
     CPhidget_getServerAddress( *mHandle, &deviceptr, &port);
     return port;
@@ -99,27 +108,35 @@ public:
     CPhidget_getServerStatus( *mHandle, &status);
     return status;
   };
-  
+  */ 
+  /** @brief Get the library version string */ 
   std::string getLibraryVersion(){
-    const char * deviceptr;
+    char a[1000];
+    const char * deviceptr = a;
     CPhidget_getLibraryVersion(&deviceptr);
     return std::string(deviceptr);
   };
 
+
+  /** @brief Get the Phidget's serial number */
   int getSerialNumber(){
     int sernum;
     CPhidget_getSerialNumber(*mHandle, &sernum);
     return sernum;
   };
   
+  /** @brief Get the Phidget's version */
   int getDeviceVersion(){
     int version;
     CPhidget_getDeviceVersion(*mHandle, &version);
     return version;
   };
   
+  /** @brief Lookup the string for a CPhidget Error Code 
+   *@param errorCode The error code returned from the CPhidget API */
   static std::string getErrorDescription(int errorCode){
-    const char * errorPtr;
+    char a[1000];
+    const char * errorPtr = a;
     CPhidget_getErrorDescription(errorCode, &errorPtr);
     return std::string(errorPtr);
   };
