@@ -40,6 +40,7 @@ class Phidget
 {
 public:
   Phidget(CPhidgetHandle * handle):mHandle(handle){;};
+  ~Phidget(){CPhidget_delete(*mHandle);};
 
   int open(int serial_number){
     return CPhidget_open(*mHandle,serial_number);};
@@ -47,8 +48,6 @@ public:
   int close(int serial_number){
     return CPhidget_close(*mHandle);};
   
-  int deletePhidget(){
-    return CPhidget_delete(*mHandle);};
   
   int waitForAttachment(int timeout)
   {return CPhidget_waitForAttachment(*mHandle, timeout);};
