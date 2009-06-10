@@ -58,6 +58,15 @@ int main(int argc, char** argv)
   myRFID.setAntennaOn(true);
 
 
+  printf("Number of outputs is: %u\n", myRFID.getOutputCount());
+  myRFID.setOutputState(0, false);
+  myRFID.setOutputState(1, false);
+  sleep(1);
+  printf("Output states 1: %d 2:%d\n", myRFID.getOutputState(0), myRFID.getOutputState(1));
+  myRFID.setOutputState(0, true);
+  myRFID.setOutputState(1, true);
+  printf("Output states 1: %d 2:%d\n", myRFID.getOutputState(0), myRFID.getOutputState(1));
+
   std::cerr << "antenna is on: " << myRFID.isAntennaOn()<<std::endl;
   //  std::cerr <<myRFID.getType() <<std::endl;;
   //std::cout <<myRFID.getType() <<std::endl;; //FIXME Segfaults!!!

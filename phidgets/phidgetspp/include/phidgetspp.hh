@@ -353,6 +353,34 @@ public:
     return *(unsigned int*)(mytag);
   };
   
+  /** @brief Get the number of outputs available */
+  unsigned int getOutputCount()
+  {
+    int status;
+    ///\todo ignoring return code
+    CPhidgetRFID_getOutputCount(RFID, &status);
+    return (unsigned int)status;
+  }; 
+
+  /** @brief Get the state of the output numbered index */
+  bool getOutputState(int index)
+  {
+    int status;
+    ///\todo ignoring return code
+    CPhidgetRFID_getOutputState(RFID, index, &status);
+    if (status == PTRUE) return true;
+    else return false;    
+  };
+
+  /**@brief Set the state of the output number index */
+  void setOutputState(int index, bool state)
+  {
+    if (state == true)
+      CPhidgetRFID_setOutputState(RFID, index, PTRUE);
+    else
+      CPhidgetRFID_setOutputState(RFID, index, PFALSE);
+  };
+
 private:
   CPhidgetRFIDHandle RFID; ///<! The handle for the C API
 
