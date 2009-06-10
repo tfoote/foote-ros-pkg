@@ -89,12 +89,11 @@ int main(int argc, char* argv[])
     }
 
   std::cout << "Flashing backlight" << std::endl;
-  for (int i = 0 ; i < 10; i++)
+  for (int i = 0 ; i < 4; i++)
   {
     myLCD.setBacklight(PFALSE);
     usleep(200000);
     myLCD.setBacklight(PTRUE);
-    std::cout << i%2 << std::endl;
     myLCD.setDisplayString(i%2,"      Flashing");
     myLCD.setDisplayString(i%2,"");
     usleep(500000);
