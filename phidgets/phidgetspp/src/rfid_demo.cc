@@ -55,6 +55,9 @@ int main(int argc, char** argv)
   printf("Phidget type: %s\n", myRFID.getDeviceType().c_str());
   printf("Phidget label: %s\n", myRFID.getDeviceLabel().c_str());
   printf("Phidget name: %s\n", myRFID.getDeviceName().c_str());
+  printf("Phidget Version: %d\n", myRFID.getDeviceVersion());
+  printf("Phidget Serial number: %d\n", myRFID.getDeviceSerialNumber());
+  printf("Library Version: %s\n", myRFID.getLibraryVersion().c_str());
 
   printf("Turning ANtenna On\n");
   sleep(1);

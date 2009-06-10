@@ -119,7 +119,7 @@ public:
 
 
   /** @brief Get the Phidget's serial number */
-  int getSerialNumber(){
+  int getDeviceSerialNumber(){
     int sernum;
     CPhidget_getSerialNumber(*mHandle, &sernum);
     return sernum;
