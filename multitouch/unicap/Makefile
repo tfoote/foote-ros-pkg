@@ -1,4 +1,4 @@
-all: unicap
+all: installed
 
 
 TARBALL     = build/unicap-0.9.5.tar.gz
@@ -8,13 +8,17 @@ SOURCE_DIR  = build/unicap-0.9.5
 
 include $(shell rospack find mk)/download_unpack_build.mk
 
-unicap: $(SOURCE_DIR)/unpacked
+installed: wiped $(SOURCE_DIR)/unpacked
 	cd $(SOURCE_DIR) && ./configure --prefix=$(PWD)/build/unicap
 	cd $(SOURCE_DIR) && make && make install
-
+	touch installed
 
 clean:
 	rm -rf $(SOURCE_DIR)
 
 wipe: clean
 	rm -rf build
+
+wiped: Makefile
+	make wipe
+	touch wiped
