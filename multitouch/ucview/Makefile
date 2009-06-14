@@ -16,7 +16,7 @@ clean:
 	rm -rf $(SOURCE_DIR)
 
 wipe: clean
-	rm -rf build
+	rm -rf build installed
 
 wiped: Makefile
 	make wipe
