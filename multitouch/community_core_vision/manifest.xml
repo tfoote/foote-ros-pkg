@@ -1,0 +1,15 @@
+<package>
+  <description brief="community_core_vision">
+
+     community_core_vision also known as tbeta is the open source project from nuigroup.  
+
+  </description>
+  <author>Tully Foote</author>
+  <license>BSD</license>
+  <review status="3rdparty" notes=""/>
+  <url>http://nuicode.com/projects/tbeta</url>
+  <depend package="unicap"/>
+
+</package>
+
+
