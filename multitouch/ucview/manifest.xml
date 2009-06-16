@@ -15,8 +15,8 @@
   </export>
   
   <rosdep name="intltool"/>
-  <rosdep name="libglade2-dev"/>
-  <rosdep name="libgconf2-dev"/>
+  <rosdep name="libglade2"/>
+  <rosdep name="libgconf2"/>
   
 </package>
 
