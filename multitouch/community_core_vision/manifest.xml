@@ -9,7 +9,18 @@
   <review status="3rdparty" notes=""/>
   <url>http://nuicode.com/projects/tbeta</url>
   <depend package="unicap"/>
-
+  <rosdep name="libgstreamer0.10"/>
+  <rosdep name="libgstreamer-plugins-base0.10"/>
+  <rosdep name="libavcodec"/>
+  <rosdep name="libavformat"/>
+  <rosdep name="libavutil"/>
+  <rosdep name="libswscale"/>
+  <rosdep name="freeglut3"/>
+  <rosdep name="libasound2"/>
+  <rosdep name="libxmu"/>
+  <rosdep name="libxxf86vm"/>
+  <rosdep name="opengl"/>
+  <rosdep name="libraw1394"/>
 </package>
 
 
