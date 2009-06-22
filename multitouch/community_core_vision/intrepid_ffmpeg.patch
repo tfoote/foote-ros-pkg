@@ -1,0 +1,36 @@
+Index: apps/addonsExamples/Codeblocks_8_linux/Community Core Vision.layout
+===================================================================
+--- apps/addonsExamples/Codeblocks_8_linux/Community Core Vision.layout	(revision 179)
++++ apps/addonsExamples/Codeblocks_8_linux/Community Core Vision.layout	(working copy)
+@@ -7,7 +7,7 @@
+ 	<File name="../../../libs/openFrameworks/utils/ofUtils.cpp" open="0" top="0" tabpos="0">
+ 		<Cursor position="6373" topLine="347" />
+ 	</File>
+-	<File name="../../../libs/openFrameworks/video/ofUCUtils.cpp" open="1" top="1" tabpos="1">
++	<File name="../../../libs/openFrameworks/video/ofUCUtils.cpp" open="1" top="0" tabpos="1">
+ 		<Cursor position="453" topLine="3" />
+ 	</File>
+ 	<File name="../../../libs/openFrameworks/video/ofUCUtils.h" open="0" top="0" tabpos="0">
+@@ -16,4 +16,7 @@
+ 	<File name="../../../libs/openFrameworks/video/ofVideoPlayer.cpp" open="0" top="0" tabpos="0">
+ 		<Cursor position="5895" topLine="0" />
+ 	</File>
++	<File name="../../../libs/openFrameworks/video/ofVideoPlayer.h" open="1" top="1" tabpos="2">
++		<Cursor position="196" topLine="1" />
++	</File>
+ </CodeBlocks_layout_file>
+Index: libs/openFrameworks/video/ofUCUtils.cpp
+===================================================================
+--- libs/openFrameworks/video/ofUCUtils.cpp	(revision 179)
++++ libs/openFrameworks/video/ofUCUtils.cpp	(working copy)
+@@ -16,8 +16,8 @@
+ // to avoid the warnings
+ extern "C"
+ {
+-#include <libswscale/swscale.h>
+-#include <libavformat/avformat.h>
++#include <ffmpeg/swscale.h>
++#include <ffmepg/avformat.h>
+ }
+ 
+ 
