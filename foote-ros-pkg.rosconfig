@@ -1,5 +1,5 @@
 - svn:
-    uri: https://ros.svn.sourceforge.net/svnroot/ros/trunk
+    uri: https://ros.svn.sourceforge.net/svnroot/ros/tags/stable
     local-name: ros
 - svn:
     uri: https://personalrobots.svn.sourceforge.net/svnroot/personalrobots/pkg/trunk
