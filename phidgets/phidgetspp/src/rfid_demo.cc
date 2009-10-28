@@ -82,8 +82,12 @@ int main(int argc, char** argv)
     {
       //      printf("HI\n");
       myRFID.setLedOn(true);
+      myRFID.setOutputState(0, true);
+      myRFID.setOutputState(1, true);
       usleep(10000);
       myRFID.setLedOn(false);
+      myRFID.setOutputState(0, false);
+      myRFID.setOutputState(1, false);
       usleep(10000);
       std::cerr << "Last Tag seen was: " << myRFID.getLastTag() << std::endl;
       sleep(1);      
