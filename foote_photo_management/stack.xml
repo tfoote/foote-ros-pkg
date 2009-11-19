@@ -1,0 +1,11 @@
+<stack>
+  <description brief="A stack for managing photo galleries">
+    Currently an interface to picasa web albums.  
+  </description>
+  <version>0.0.0</version>
+  <author>Tully Foote/tfoote@willowgarage.com </author>
+  <license>LGPL</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://code.ros.org/wiki/foote_photo_management</url>
+</stack>
+
