@@ -3,6 +3,7 @@ all:build
 
 TARBALL     = build/Phidgetlinux_2.1.6.20091020.tar.gz
 TARBALL_URL = http://www.phidgets.com/downloads/libraries/Phidgetlinux_2.1.6.20091020.tar.gz
+MD5SUM_FILE = Phidgetlinux.md5sum
 UNPACK_CMD  = tar xzf
 SOURCE_DIR  = build/Phidgetlinux
 
