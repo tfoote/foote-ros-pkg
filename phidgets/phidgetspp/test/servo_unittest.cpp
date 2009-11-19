@@ -50,9 +50,11 @@ TEST(Servo, Basic){
   if (engaged != PTRUE)
     {
       myServo.setEngaged(0, PTRUE);
+      std::cout << "Engaging" << std::endl;
       engaged = myServo.getEngaged(0);
     }
-  std::cout << engaged << " should be " << PTRUE << std::endl;
+  else std::cout << "Already engaged" << std::endl;
+  std::cout << "Enguaged = " <<engaged << " should be " << PTRUE << std::endl;
   ASSERT_EQ(engaged, PTRUE);
 
   double max = myServo.getPositionMax(0);
