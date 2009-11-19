@@ -1,8 +1,8 @@
 all:build
 
 
-TARBALL     = build/Phidgetlinux_2.1.6.20090317.tar.gz
-TARBALL_URL = http://www.phidgets.com/downloads/libraries/Phidgetlinux_2.1.6.20090317.tar.gz
+TARBALL     = build/Phidgetlinux_2.1.6.20091020.tar.gz
+TARBALL_URL = http://www.phidgets.com/downloads/libraries/Phidgetlinux_2.1.6.20091020.tar.gz
 UNPACK_CMD  = tar xzf
 SOURCE_DIR  = build/Phidgetlinux
 
