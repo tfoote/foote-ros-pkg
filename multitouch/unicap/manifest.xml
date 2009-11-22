@@ -1,7 +1,9 @@
 <package>
   <description brief="unicap video library">
 
-    A uniform interface for video devices
+    A uniform interface for video devices. 
+    This package will track the latest released version of unicap.  
+    <a href url="http://unicap-imaging.org/">http://unicap-imaging.org/</a>
 
   </description>
   <author>Tully Foote/ tully.foote@gmail.com</author>
