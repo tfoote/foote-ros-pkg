@@ -1,1 +1,0 @@
-mmpython package has exif and iptc
