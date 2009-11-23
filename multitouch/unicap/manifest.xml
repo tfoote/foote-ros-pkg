@@ -3,7 +3,7 @@
 
     A uniform interface for video devices. 
     This package will track the latest released version of unicap.  
-    <a href url="http://unicap-imaging.org/">http://unicap-imaging.org/</a>
+    <a href="http://unicap-imaging.org/">http://unicap-imaging.org</a>
 
   </description>
   <author>Tully Foote/ tully.foote@gmail.com</author>
