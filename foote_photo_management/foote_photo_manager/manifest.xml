@@ -10,8 +10,9 @@ This package will help you manage your photo collection.
   <url>http://pr.willowgarage.com/wiki/foote_photo_manager</url>
 
 <depend package="gdata_python_client"/>
+<rosdep name="python-kaa-metadata"/>
 <rosdep name="python-iptcdata"/>
-<rosdep name="python-mmpython"/>
+
 
 </package>
 
