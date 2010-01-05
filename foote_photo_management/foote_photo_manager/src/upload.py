@@ -162,13 +162,13 @@ if __name__ == '__main__':
                       action="store_true", help="Whether to upload")
     parser.add_option("-d", dest="download", default=False, 
                       action="store_true", help="Whether to download")
-    parser.add_option("--username", dest="username", dest="username", default='',
+    parser.add_option("--username", dest="username", default='',
                       type="string", help="username to use")
-    parser.add_option("--password", dest="password", dest="password", default='',
+    parser.add_option("--password", dest="password", default='',
                       type="string", help="password to use")
-    parser.add_option("--album_name", dest="album_name", dest="album_name", default='',
+    parser.add_option("--album_name", dest="album_name", default='',
                       type="string", help="album_name to use")
-    parser.add_option("--local_dir", dest="local_dir", dest="local_dir", default='.',
+    parser.add_option("--local_dir", dest="local_dir", default='.',
                       type="string", help="local_dir to use")
 
 
