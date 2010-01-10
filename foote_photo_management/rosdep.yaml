@@ -2,3 +2,5 @@ python-kaa-metadata:
   ubuntu: python-kaa-metadata
 python-iptcdata:
   ubuntu: python-iptcdata
+python-gdata:
+  ubuntu: python-gdata
