@@ -33,9 +33,9 @@ photos = gd_client.GetUserFeed(kind='photo', limit='10')
 for photo in photos.entry:
   print 'Recently added photo title:', photo.title.text
 
-print help(photo)
-url =  photo.GetMediaURL()
-urllib.urlretrieve(url, photo.title.text)
+#print help(photo)
+#url =  photo.GetMediaURL()
+#urllib.urlretrieve(url, photo.title.text)
 
 #gd_client.Delete(album)
 
