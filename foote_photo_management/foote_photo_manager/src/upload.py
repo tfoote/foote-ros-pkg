@@ -9,6 +9,12 @@ import urllib
 
 import iptcdata
 
+def check_for_dataset(f, rs):
+    for ds in f.datasets:
+        if (ds.record, ds.tag) == rs:
+            return ds
+    return None
+
 def check_local_dir(dir_name):
     local_dir = os.path.normpath(dir_name)
     if not os.path.isdir(local_dir):
@@ -72,14 +78,16 @@ class WebAlbumUploader:
         return self.gd_client.GetFeed('%s?kind=photo' % (album_url))
 
     def upload_tags(self, filename, gphoto):
-        iptc_handle = None
         try:
             iptc_handle = iptcdata.open(filename)
         except:
-            print "iptcdata.open of %s failed"%filename
+            print "iptcdata failed to open %s"%filename
+            return
+
+
         if (len(iptc_handle.datasets) == 0):
             print "No IPTC data!"
-            sys.exit(0)
+            #sys.exit(0)
 
         new_tags = []
         for ds in iptc_handle.datasets:
@@ -107,7 +115,54 @@ class WebAlbumUploader:
             gphoto = self.gd_client.UpdatePhotoMetadata(gphoto)
         else:
             print "Tags up to date."
+
         iptc_handle.close()
+
+    def download_tags(self, filename, gphoto):
+        try:
+            iptc_handle = iptcdata.open(filename)
+        except:
+            print "iptcdata open failed on %s"%filename
+            return
+
+        if (len(iptc_handle.datasets) == 0):
+            print "No IPTC data!"
+            #sys.exit(0)
+
+        if not gphoto.media:
+            gphoto.media = gdata.media.Group()
+        if not gphoto.media.keywords:
+            gphoto.media.keywords = gdata.media.Keywords()
+
+        if gphoto.media.keywords.text:
+            web_tags = set(gphoto.media.keywords.text.split(', '))
+        else:
+            web_tags = set() # this could return, but we need to save and close
+
+        old_tags = set()
+        for ds in iptc_handle.datasets:
+            #print "Tag: %d, Record: %d" %(ds.record, ds.tag)
+            #print "Title: %s"%ds.title
+            #descr = iptcdata.get_tag_description(record=ds.record, tag=ds.tag)
+            #print "Description: %s" % (descr)
+            #print "Value: %s" % (ds.value)
+            if ds.title == 'Keywords':
+                if ds.value in web_tags:
+                    old_tags.add(ds.value)
+        new_tags = web_tags - old_tags
+
+        rs = iptcdata.find_record_by_name("Keywords")
+        for tag in new_tags:
+            ds = iptc_handle.add_dataset(rs)
+            ds.value = tag
+
+        try:
+            iptc_handle.save()
+            iptc_handle.close()
+            print "Closed %s"%filename
+        except:
+            print "iptcdata save or close failed on %s"%filename
+                    
                     
 
     def upload(self, album_name, local_dir):
@@ -146,6 +201,7 @@ class WebAlbumUploader:
                 print "Saved %s: "%fullname
             else:
                 print "Already Present, Skipped: %s"%fullname
+            self.download_tags(fullname, p)
             ###\todo check for size/checksum and date if older replace
             
 
