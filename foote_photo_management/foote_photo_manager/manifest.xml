@@ -7,7 +7,7 @@ This package will help you manage your photo collection.
   <author>Tully Foote/ tully.foote@gmail.com</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://pr.willowgarage.com/wiki/foote_photo_manager</url>
+  <url>http://www.ros.org/wiki/foote_photo_manager</url>
 
 <rosdep name="python-gdata"/>
 <rosdep name="python-iptcdata"/>
