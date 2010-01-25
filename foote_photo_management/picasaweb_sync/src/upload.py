@@ -1,13 +1,17 @@
+#!/usr/bin/env python
+
 import gdata.photos.service
 import gdata.media
-import gdata.geo
+#import gdata.geo
 
 import sys, os
 from optparse import OptionParser
+import yaml
+
 
 import urllib
-
 import iptcdata
+
 
 def check_for_dataset(f, rs):
     for ds in f.datasets:
@@ -213,7 +217,7 @@ class WebAlbumUploader:
 
 
 if __name__ == '__main__':
-    parser = OptionParser(usage="usage: %prog [options]", prog='upload')
+    parser = OptionParser(usage="usage: %prog COMMAND FILES", prog='upload')
     parser.add_option("-u", dest="upload", default=False, 
                       action="store_true", help="Whether to upload")
     parser.add_option("-d", dest="download", default=False, 
@@ -227,19 +231,44 @@ if __name__ == '__main__':
     parser.add_option("--local_dir", dest="local_dir", default='.',
                       type="string", help="local_dir to use")
 
-
     options, args = parser.parse_args()
 
-    if len(options.username) == 0 or len(options.password) == 0:
-        print "Please enter a usernamem and password of non zero length"
-        sys.exit(-1)
+    possible_cmds = ["upload", "download"]
 
-    uploader = WebAlbumUploader(options.username, options.password)
+    if len(args) < 1:
+        parser.error("Please enter a command")
+
+    cmd = args[0]
+    if cmd not in possible_cmds:
+        parser.error("Command must be either 'upload' or 'download'")
+
+    if len(args) < 2:
+        parser.error("Command %s requires additional arguments of yaml files"%cmd)
+    
+    yaml_files = args[1:]
+
+    for f in yaml_files:
+        if not os.path.exists(f):
+            parser.error("File: %s doesn't exits."%f)
+        with open(f) as fh:
+            file_text = fh.read()
+            try:
+                file_map = yaml.load(file_text)
+            except yaml.YAMLError, exc:
+                parser.error("Failed parsing yaml while processing %s\n"%path, exc)
+                
+        print "yaml result is ", file_map
+        required_fields = set(["username", "password", "album", "album_username", "local_path"])
+        missing_fields = required_fields - set(file_map.keys())
+        extra_fields = set(file_map.keys()) - required_fields
+        print "missing fields = ", missing_fields
+        print "extra fields = ", extra_fields
+
         
-    if options.upload:
-        if len(options.album_name) > 1:
-            uploader.upload(options.album_name, options.local_dir)
+        uploader = WebAlbumUploader(file_map["username"], file_map["password"])
+        if cmd == "upload":
+            uploader.upload(file_map["album"], file_map["local_path"])
+        if cmd == "download":
+            uploader.download(file_map["album"], file_map["local_path"])
 
-    if options.download:
-        if len(options.album_name) > 1:
-            uploader.download(options.album_name, options.local_dir)
+    sys.exit(-1)
