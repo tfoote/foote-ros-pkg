@@ -172,7 +172,7 @@ class WebAlbumUploader:
     def upload(self, album_name, local_dir):
         album_ref = self.find_album(album_name, True)
         album_url = '/data/feed/api/user/%s/albumid/%s' % (self.username, album_ref.gphoto_id.text)
-        for local_filename in find_local_files(local_dir):
+        for local_filename in find_local_files(os.path.join(local_dir, album_name)):
             fullfilename = os.path.join(local_dir, local_filename)
             #print "Looking to upload %s"%i
             match_found = False
