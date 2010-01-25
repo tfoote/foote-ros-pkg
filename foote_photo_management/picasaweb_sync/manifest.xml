@@ -1,13 +1,13 @@
 <package>
-  <description brief="A photo management utility">
+  <description brief="A command line interface to upload and download photos from Picasa Web Albums">
 
-This package will help you manage your photo collection.  
+This package will upload and download files from Picasa Web Albums.  
 
   </description>
   <author>Tully Foote/ tully.foote@gmail.com</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://www.ros.org/wiki/foote_photo_manager</url>
+  <url>http://www.ros.org/wiki/picasaweb_sync</url>
 
 <rosdep name="python-gdata"/>
 <rosdep name="python-iptcdata"/>
