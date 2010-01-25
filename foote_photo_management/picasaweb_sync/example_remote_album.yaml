@@ -1,0 +1,6 @@
+album: test
+album_username: invalid@gmail.com
+
+username: invalid@gmail.com
+password: changeme
+local_path: /tmp/test
