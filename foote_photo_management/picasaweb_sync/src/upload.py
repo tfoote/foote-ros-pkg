@@ -66,13 +66,13 @@ class WebAlbumUploader:
         self.gd_client.source = self.program_name
         self.gd_client.ProgrammaticLogin()
         
-    def find_album(self, album_name, auto_create=False):
-        albums = self.gd_client.GetUserFeed(user=self.username)
+    def find_album(self, album_name, album_username, auto_create=False):
+        albums = self.gd_client.GetUserFeed(user=album_username)
         for album in albums.entry:
             if album.title.text == album_name:
                 return album
         if auto_create:
-            return self.gd_client.InsertAlbum(title=self.album_name, summary='Web Album Uploader Album')            
+            return self.gd_client.InsertAlbum(title=album_name, summary='Web Album Uploader Album')            
 
 
 
@@ -169,28 +169,37 @@ class WebAlbumUploader:
                     
                     
 
-    def upload(self, album_name, local_dir):
-        album_ref = self.find_album(album_name, True)
-        album_url = '/data/feed/api/user/%s/albumid/%s' % (self.username, album_ref.gphoto_id.text)
+    def upload(self, album_name, local_dir, album_user=False):
+        if not album_user:
+            album_user = self.username
+        album_ref = self.find_album(album_name, album_user, True)
+        if not album_ref:
+            print >> sys.stderr, "No album found into which to upload."
+            return False
+        album_url = '/data/feed/api/user/%s/albumid/%s' % (album_user, album_ref.gphoto_id.text)
         for local_filename in find_local_files(os.path.join(local_dir, album_name)):
-            fullfilename = os.path.join(local_dir, local_filename)
+            fullfilename = os.path.join(local_dir, album_name, local_filename)
             #print "Looking to upload %s"%i
             match_found = False
+            photo = None
             for p in self.get_photo_list_from_server(album_url).entry:
                 if p.title.text.replace(self.slash_str,'/') == local_filename:
                     #print "found photo %s"%local_filename
-                    match_found = True
+                    photo = p
                     break
                 else:
                     #print "%s didn't match %s"%(p.title.text, local_filename)
                     pass
-            if  not match_found:
+            if  not photo:
                 print "Uploading photo %s"%local_filename
-                photo_uploaded = self.gd_client.InsertPhotoSimple(album_url, local_filename.replace('/',self.slash_str), 
-                                                             'Caption: Uploaded using the API', fullfilename, content_type='image/jpeg')
+                print fullfilename
+                photo = self.gd_client.InsertPhotoSimple(album_url, local_filename.replace('/',self.slash_str), 
+                                                         'Caption: Uploaded using the API', fullfilename, content_type='image/jpeg')
+
             else:
                 print "Photo %s already uploaded"%fullfilename
-            self.upload_tags(fullfilename, p)
+            self.upload_tags(fullfilename, photo)
+        return True
 
     def download(self, album_name, local_dir):
         album_ref = self.find_album(album_name, True)
@@ -257,12 +266,12 @@ if __name__ == '__main__':
             except yaml.YAMLError, exc:
                 parser.error("Failed parsing yaml while processing %s\n"%path, exc)
                 
-        print "yaml result is ", file_map
+        #print "yaml result is ", file_map
         required_fields = set(["username", "password", "album", "album_username", "local_path"])
         missing_fields = required_fields - set(file_map.keys())
         extra_fields = set(file_map.keys()) - required_fields
-        print "missing fields = ", missing_fields
-        print "extra fields = ", extra_fields
+        #print "missing fields = ", missing_fields
+        #print "extra fields = ", extra_fields
 
         
         uploader = WebAlbumUploader(file_map["username"], file_map["password"])
