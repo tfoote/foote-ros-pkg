@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 #small example program to print out IPTC data from a file
 
 import sys

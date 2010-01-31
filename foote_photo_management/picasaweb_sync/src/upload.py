@@ -201,9 +201,13 @@ class WebAlbumUploader:
             self.upload_tags(fullfilename, photo)
         return True
 
-    def download(self, album_name, local_dir):
-        album_ref = self.find_album(album_name, True)
-        album_url = '/data/feed/api/user/%s/albumid/%s' % (self.username, album_ref.gphoto_id.text)
+    def download(self, album_name, local_dir, album_user=False):
+        if not album_user:
+            album_user = self.username
+        album_ref = self.find_album(album_name, album_user, False)
+        if not album_ref:
+            print "Failed to find album, %s on username %s "
+        album_url = '/data/feed/api/user/%s/albumid/%s' % (album_user, album_ref.gphoto_id.text)
         for p in self.get_photo_list_from_server(album_url).entry:
             filename = p.title.text.replace(self.slash_str,'/')
             fullname = os.path.join(local_dir, album_name, filename)
@@ -227,18 +231,14 @@ class WebAlbumUploader:
 
 if __name__ == '__main__':
     parser = OptionParser(usage="usage: %prog COMMAND FILES", prog='upload')
-    parser.add_option("-u", dest="upload", default=False, 
-                      action="store_true", help="Whether to upload")
-    parser.add_option("-d", dest="download", default=False, 
-                      action="store_true", help="Whether to download")
-    parser.add_option("--username", dest="username", default='',
-                      type="string", help="username to use")
-    parser.add_option("--password", dest="password", default='',
-                      type="string", help="password to use")
-    parser.add_option("--album_name", dest="album_name", default='',
-                      type="string", help="album_name to use")
-    parser.add_option("--local_dir", dest="local_dir", default='.',
-                      type="string", help="local_dir to use")
+#    parser.add_option("--username", dest="username", default='',
+#                     type="string", help="username to use")
+#    parser.add_option("--password", dest="password", default='',
+#                      type="string", help="password to use")
+#    parser.add_option("--album_name", dest="album_name", default='',
+#                      type="string", help="album_name to use")
+#    parser.add_option("--local_dir", dest="local_dir", default='.',
+#                      type="string", help="local_dir to use")
 
     options, args = parser.parse_args()
 
