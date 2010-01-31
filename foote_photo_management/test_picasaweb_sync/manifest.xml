@@ -9,6 +9,7 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/test_picasaweb_sync</url>
   <depend package="picasaweb_sync"/>
+  <depend package="rostest"/>
 
 </package>
 
