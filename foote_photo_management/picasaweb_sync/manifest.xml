@@ -5,7 +5,7 @@ This package will upload and download files from Picasa Web Albums.
 
   </description>
   <author>Tully Foote/ tully.foote@gmail.com</author>
-  <license>BSD</license>
+  <license>LGPL</license>
   <review status="unreviewed" notes=""/>
   <url>http://www.ros.org/wiki/picasaweb_sync</url>
 

@@ -1,11 +1,11 @@
 <package>
   <description brief="test_picasaweb_sync">
 
-     test_picasaweb_sync
+    A package to test the picasaweb_sync package.  
 
   </description>
   <author>Tully Foote</author>
-  <license>BSD</license>
+  <license>LGPL</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/test_picasaweb_sync</url>
   <depend package="picasaweb_sync"/>
