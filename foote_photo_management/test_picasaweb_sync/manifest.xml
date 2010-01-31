@@ -1,0 +1,15 @@
+<package>
+  <description brief="test_picasaweb_sync">
+
+     test_picasaweb_sync
+
+  </description>
+  <author>Tully Foote</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/test_picasaweb_sync</url>
+  <depend package="picasaweb_sync"/>
+
+</package>
+
+
