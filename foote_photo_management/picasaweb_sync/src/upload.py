@@ -72,7 +72,8 @@ class WebAlbumUploader:
             if album.title.text == album_name:
                 return album
         if auto_create:
-            return self.gd_client.InsertAlbum(title=album_name, summary='Web Album Uploader Album')            
+            return self.gd_client.InsertAlbum(title=album_name, access="private")            
+            #return self.gd_client.InsertAlbum(title=album_name, access="private", summary='Web Album Uploader Album')            
 
 
 
@@ -206,7 +207,9 @@ class WebAlbumUploader:
             album_user = self.username
         album_ref = self.find_album(album_name, album_user, False)
         if not album_ref:
-            print "Failed to find album, %s on username %s "
+            
+            print "Failed to find album, %s on username %s "%(album_name, album_user)
+            return False
         album_url = '/data/feed/api/user/%s/albumid/%s' % (album_user, album_ref.gphoto_id.text)
         for p in self.get_photo_list_from_server(album_url).entry:
             filename = p.title.text.replace(self.slash_str,'/')
@@ -276,8 +279,8 @@ if __name__ == '__main__':
         
         uploader = WebAlbumUploader(file_map["username"], file_map["password"])
         if cmd == "upload":
-            uploader.upload(file_map["album"], file_map["local_path"])
+            uploader.upload(file_map["album"], file_map["local_path"], file_map["album_username"])
         if cmd == "download":
-            uploader.download(file_map["album"], file_map["local_path"])
+            uploader.download(file_map["album"], file_map["local_path"], file_map["album_username"])
 
-    sys.exit(-1)
+
