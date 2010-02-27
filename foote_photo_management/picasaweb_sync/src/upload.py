@@ -11,7 +11,7 @@ import yaml
 
 import urllib
 import iptcdata
-
+import getpass
 
 def check_for_dataset(f, rs):
     for ds in f.datasets:
@@ -270,14 +270,16 @@ if __name__ == '__main__':
                 parser.error("Failed parsing yaml while processing %s\n"%path, exc)
                 
         #print "yaml result is ", file_map
-        required_fields = set(["username", "password", "album", "album_username", "local_path"])
+        required_fields = set(["username", "album", "album_username", "local_path"])
         missing_fields = required_fields - set(file_map.keys())
         extra_fields = set(file_map.keys()) - required_fields
         #print "missing fields = ", missing_fields
         #print "extra fields = ", extra_fields
 
         
-        uploader = WebAlbumUploader(file_map["username"], file_map["password"])
+        password = getpass.getpass("Please enter password for username %s:"%file_map["username"])
+        
+        uploader = WebAlbumUploader(file_map["username"], password)
         if cmd == "upload":
             uploader.upload(file_map["album"], file_map["local_path"], file_map["album_username"])
         if cmd == "download":
