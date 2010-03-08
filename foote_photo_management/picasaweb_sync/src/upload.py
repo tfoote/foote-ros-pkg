@@ -66,6 +66,10 @@ class WebAlbumUploader:
         self.gd_client.source = self.program_name
         self.gd_client.ProgrammaticLogin()
         
+    def list_album_names(self, album_username):
+        albums = self.gd_client.GetUserFeed(user=album_username)
+        return set([a.title.text for a in albums.entry])
+
     def find_album(self, album_name, album_username, auto_create=False):
         albums = self.gd_client.GetUserFeed(user=album_username)
         for album in albums.entry:
@@ -124,8 +128,10 @@ class WebAlbumUploader:
         iptc_handle.close()
 
     def download_tags(self, filename, gphoto):
+        print "downloading tags for ", filename
         try:
             iptc_handle = iptcdata.open(filename)
+            print "Opented iptchandle", filename
         except:
             print "iptcdata open failed on %s"%filename
             return
@@ -160,11 +166,12 @@ class WebAlbumUploader:
         for tag in new_tags:
             ds = iptc_handle.add_dataset(rs)
             ds.value = tag
+            print "adding tag %s"%(tag)
 
         try:
             iptc_handle.save()
             iptc_handle.close()
-            print "Closed %s"%filename
+            print "Closed iptc handle %s"%filename
         except:
             print "iptcdata save or close failed on %s"%filename
                     
@@ -203,6 +210,7 @@ class WebAlbumUploader:
         return True
 
     def download(self, album_name, local_dir, album_user=False):
+        print "downloading ", album_name
         if not album_user:
             album_user = self.username
         album_ref = self.find_album(album_name, album_user, False)
@@ -245,7 +253,7 @@ if __name__ == '__main__':
 
     options, args = parser.parse_args()
 
-    possible_cmds = ["upload", "download"]
+    possible_cmds = ["upload", "download", "downloadall"]
 
     if len(args) < 1:
         parser.error("Please enter a command")
@@ -284,5 +292,9 @@ if __name__ == '__main__':
             uploader.upload(file_map["album"], file_map["local_path"], file_map["album_username"])
         if cmd == "download":
             uploader.download(file_map["album"], file_map["local_path"], file_map["album_username"])
-
-
+        if cmd == "downloadall":
+            albums = uploader.list_album_names(file_map["album_username"])
+            for a in albums:
+                print "album name", a, " of ",albums 
+                uploader.download(a, file_map["local_path"], file_map["album_username"])
+                
