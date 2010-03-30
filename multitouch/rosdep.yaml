@@ -6,3 +6,24 @@ libxv:
   ubuntu: libxv-dev
 libglade2:
   ubuntu: libglade2-dev
+libxmu:
+  ubuntu: libxmu-dev
+libgstreamer-plugins-base0.10:
+  ubuntu: libgstreamer-plugins-base0.10-dev 
+# dev needed?
+libgstreamer0.10:
+  ubuntu: libgstreamer0.10-dev 
+libavutil:
+  ubuntu: libavutil-dev
+freeglut3:
+  ubuntu: freeglut3
+libavformat:
+  ubuntu: libavformat-dev
+libavcodec:
+  ubuntu: libavcodec-dev
+libasound2:
+  ubuntu: libasound2-dev
+libswscale:
+  ubuntu: libswscale-dev
+libraw1394:
+  ubuntu: libraw1394-dev
