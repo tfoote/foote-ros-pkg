@@ -1,0 +1,9 @@
+<stack>
+  <description brief="multitouch">multitouch</description>
+  <author>Maintained by Tully Foote</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/multitouch</url>
+  <depend stack="ros" />
+
+</stack>

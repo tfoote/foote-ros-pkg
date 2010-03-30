@@ -1,0 +1,8 @@
+intltool:
+  ubuntu: intltool
+libgconf2:
+  ubuntu: libgconf2-dev
+libxv:
+  ubuntu: libxv-dev
+libglade2:
+  ubuntu: libglade2-dev
