@@ -9,7 +9,7 @@ SOURCE_DIR  = build/unicap-0.9.7
 include $(shell rospack find mk)/download_unpack_build.mk
 
 installed: wiped $(SOURCE_DIR)/unpacked
-	cd $(SOURCE_DIR) && ./configure --prefix=$(PWD)/build/unicap
+	cd $(SOURCE_DIR) && ./configure --prefix=$(PWD)
 	cd $(SOURCE_DIR) && make && make install
 	touch installed
 

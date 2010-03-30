@@ -11,7 +11,7 @@
   <review status="3rdpary" notes=""/>
   <url>http://unicap-imaging.org/</url>
 <export>
-  <cpp cflags="-I${prefix}/build/unicap/include" lflags="${prefix}/build/unicap/lib"/>
+  <cpp cflags="-I${prefix}/include" lflags="${prefix}/lib" pkgconfig="${prefix}/lib/pkgconfig" />
 </export>
 
 <rosdep name="libxv"/>
