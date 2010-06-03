@@ -1,0 +1,24 @@
+<robot name="sensor_array">
+  <link name="nxt_brick">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" /> 
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/sensors/nxt_intelligent_brick_9841.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0.045" rpy="0 0 0" />
+      <geometry>
+        <box size="0.277 0.179 0.099"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
