@@ -1,0 +1,19 @@
+<package>
+  <description brief="nxt_robot_2.0_kit_test">
+
+     nxt_robot_2.0_kit_test
+
+  </description>
+  <author>Melonee Wise</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/nxt_robot_2.0_kit_test</url>
+
+  <depend package="roscpp" />
+  <depend package="tf" />
+  <depend package="robot_state_publisher" />
+  <depend package="sensor_msgs" />
+
+</package>
+
+
