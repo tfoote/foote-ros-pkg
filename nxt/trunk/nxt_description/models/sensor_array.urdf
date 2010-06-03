@@ -15,10 +15,261 @@
     </visual>
     <collision>
       <!-- collision origin is defined w.r.t. link local coordinate system -->
-      <origin xyz="0 0 0.045" rpy="0 0 0" />
+      <origin xyz="0 0 0.050" rpy="0 0 -1.57079" />
       <geometry>
-        <box size="0.277 0.179 0.099"/>
+        <box size="0.2775 0.1795 0.100"/>
       </geometry>
     </collision>
   </link>
+
+  <link name="beam_1">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/beams/beam_15M.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.018 0.298 0.020"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="beam_2">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/beams/beam_15M.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.018 0.298 0.020"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="connector_1">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/connectors/beam_3M_with_4_connector_pegs.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.020 0.060 0.060"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="connector_2">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/connectors/beam_3M_with_4_connector_pegs.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.020 0.060 0.060"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="connector_3">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/connectors/beam_3M_with_4_connector_pegs.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.020 0.060 0.060"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="connector_4">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/connectors/beam_3M_with_4_connector_pegs.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.020 0.060 0.060"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="ultrasonic_sensor_1">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/sensors/ultrasonic_sensor_9846.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 -0.02875 0.0305" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.1375 0.1085 0.0785"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="touch_sensor_1">
+    <inertial>
+      <mass value="0.1479" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/sensors/touch_sensor_9843.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 -0.0405 0.0305" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.0595 0.0985 0.0785"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint1" type="fixed">
+    <parent link="world"/>
+    <child link="nxt_brick"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <joint name="joint2" type="fixed">
+    <parent link="nxt_brick"/>
+    <child link="beam_1"/>
+    <origin xyz="0.09875 0 0.090" rpy="0 1.57079 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <joint name="joint3" type="fixed">
+    <parent link="nxt_brick"/>
+    <child link="beam_2"/>
+    <origin xyz="-0.09875 0 0.090" rpy="0 1.57079 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <joint name="joint4" type="fixed">
+    <parent link="beam_1"/>
+    <child link="connector_1"/>
+    <origin xyz="0 0.120 0.020" rpy="1.57079 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <joint name="joint5" type="fixed">
+    <parent link="beam_1"/>
+    <child link="connector_2"/>
+    <origin xyz="0 -0.120 0.020" rpy="1.57079 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <joint name="joint6" type="fixed">
+    <parent link="beam_2"/>
+    <child link="connector_3"/>
+    <origin xyz="0 0.120 -0.020" rpy="1.57079 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <joint name="joint7" type="fixed">
+    <parent link="beam_2"/>
+    <child link="connector_4"/>
+    <origin xyz="0 -0.120 -0.020" rpy="1.57079 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+
+  <joint name="joint8" type="fixed">
+    <parent link="connector_1"/>
+    <child link="ultrasonic_sensor_1"/>
+    <origin xyz="0 0.020 0" rpy="1.57079 0 -1.57079" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <joint name="joint9" type="fixed">
+    <parent link="connector_2"/>
+    <child link="touch_sensor_1"/>
+    <origin xyz="0 0.020 0" rpy="1.57079 0 -1.57079" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+
+
 </robot>
