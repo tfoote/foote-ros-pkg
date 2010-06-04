@@ -1,0 +1,14 @@
+<package>
+  <description brief="nxt_robot_2.0_quick_start">
+
+     nxt_robot_2.0_quick_start
+
+  </description>
+  <author>Melonee Wise</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/nxt_robot_2.0_quick_start</url>
+
+</package>
+
+

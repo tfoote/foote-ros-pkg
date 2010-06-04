@@ -2,6 +2,7 @@
 <robot xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        name="kit_test_robot" >
 
+  <property name="M_PI" value="3.1415926535897931" />
   <!-- The following included files set up definitions of parts of the robot body -->
   <include filename="$(find nxt_description)/models/servos/servo_v0.urdf.xacro" />
   <include filename="$(find nxt_description)/models/beams/beams_v0.urdf.xacro" />
@@ -157,77 +158,77 @@
   <joint name="joint2" type="fixed">
     <parent link="nxt_brick"/>
     <child link="beam_1"/>
-    <origin xyz="0.09875 0 0.090" rpy="0 1.57079 0" />
+    <origin xyz="0.09875 0 0.090" rpy="0 ${M_PI/2} 0" />
     <axis xyz="0 0 1" />
   </joint>
 
   <joint name="joint3" type="fixed">
     <parent link="nxt_brick"/>
     <child link="beam_2"/>
-    <origin xyz="-0.09875 0 0.090" rpy="0 1.57079 0" />
+    <origin xyz="-0.09875 0 0.090" rpy="0 ${M_PI/2} 0" />
     <axis xyz="0 0 1" />
   </joint>
 
   <joint name="joint4" type="fixed">
     <parent link="beam_1"/>
     <child link="connector_1"/>
-    <origin xyz="0 0.120 0.020" rpy="1.57079 0 0" />
+    <origin xyz="0 0.120 0.020" rpy="${M_PI/2} 0 0" />
     <axis xyz="0 1 0" />
   </joint>
 
   <joint name="joint5" type="fixed">
     <parent link="beam_1"/>
     <child link="connector_2"/>
-    <origin xyz="0 -0.120 0.020" rpy="1.57079 0 0" />
+    <origin xyz="0 -0.120 0.020" rpy="${M_PI/2} 0 0" />
     <axis xyz="0 1 0" />
   </joint>
 
   <joint name="joint6" type="fixed">
     <parent link="beam_2"/>
     <child link="connector_3"/>
-    <origin xyz="0 0.120 -0.020" rpy="1.57079 0 0" />
+    <origin xyz="0 0.120 -0.020" rpy="${M_PI/2} 0 0" />
     <axis xyz="0 1 0" />
   </joint>
 
   <joint name="joint7" type="fixed">
     <parent link="beam_2"/>
     <child link="connector_4"/>
-    <origin xyz="0 -0.120 -0.020" rpy="1.57079 0 0" />
+    <origin xyz="0 -0.120 -0.020" rpy="${M_PI/2} 0 0" />
     <axis xyz="0 1 0" />
   </joint>
 
   <joint name="joint8" type="fixed">
     <parent link="connector_1"/>
     <child link="left_ultrasonic_link"/>
-    <origin xyz="0 0.020 0" rpy="1.57079 0 -1.57079" />
+    <origin xyz="0 0.020 0" rpy="${M_PI/2} 0 ${-M_PI/2}" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint9" type="fixed">
     <parent link="connector_2"/>
     <child link="left_touch_link"/>
-    <origin xyz="0 0.020 0" rpy="-1.57079 0 1.57079" />
+    <origin xyz="0 0.020 0" rpy="${-M_PI/2} 0 ${M_PI/2}" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint10" type="fixed">
     <parent link="connector_3"/>
     <child link="right_color_link"/>
-    <origin xyz="0 -0.020 0" rpy="1.57079 0 -1.57079" />
+    <origin xyz="0 -0.020 0" rpy="${M_PI/2} 0 ${-M_PI/2}" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint11" type="fixed">
     <parent link="connector_4"/>
     <child link="right_servo_link"/>
-    <origin xyz="-0.020 -0.040 0.162" rpy="1.57079 0 1.57079" />
+    <origin xyz="-0.020 -0.040 0.162" rpy="${M_PI/2} 0 ${M_PI/2}" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint13" type="fixed">
     <parent link="right_servo_hubs_link"/>
     <child link="beam_3"/>
-    <origin xyz="0.040 0 0" rpy="0 1.57079 0" />
+    <origin xyz="0.040 0 0" rpy="0 ${M_PI/2} 0" />
     <axis xyz="1 0 0" />
   </joint>
 
