@@ -1,0 +1,17 @@
+<package>
+  <description brief="nxt_ros">
+
+     nxt_ros
+
+  </description>
+  <author>Wim Meeussen</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/nxt_ros</url>
+  <depend package="rospy"/>
+  <depend package="nxt_python"/>
+  <depend package="sensor_msgs" /> 
+
+</package>
+
+
