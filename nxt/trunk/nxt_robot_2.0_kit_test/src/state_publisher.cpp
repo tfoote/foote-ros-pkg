@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     joint_state.header.stamp = ros::Time::now();
     joint_state.name.resize(1);
     joint_state.position.resize(1);
-    joint_state.name[0] ="servo_1_joint";
+    joint_state.name[0] ="right_servo_joint";
     joint_state.position[0] = angle;
 
 

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="nxt_beams_v0" params="name length">
+
+ <link name="${name}">
+    <inertial>
+      <mass value="${length*0.000275}" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0.0 0.0 0" />
+      <inertia  ixx="0.1" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://nxt_description/meshes/collada/beams/beam_${length}M.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <!-- collision origin is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" rpy="0 0 0.0" />
+      <geometry>
+        <box size="0.018 ${length*0.0196} 0.020"/>
+      </geometry>
+    </collision>
+  </link>
+
+  </xacro:macro>
+</robot>
