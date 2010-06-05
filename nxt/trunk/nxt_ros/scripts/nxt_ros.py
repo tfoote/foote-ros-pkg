@@ -10,7 +10,7 @@ import nxt.sensor
 import nxt.motor 
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Bool
-from nxt_msgs.msg import Range, Contact
+from nxt_msgs.msg import Range, Contact, JointCommand
 
 POWER_TO_NM = 0.02
 
@@ -32,6 +32,16 @@ class Motor:
         self.pub = rospy.Publisher('joint_state', JointState)
         self.last_js = None
         
+        # create subscriber
+        self.sub = rospy.Subscriber('joint_command', JointCommand, self.cmd_cb)
+
+
+    def cmd_cb(self, msg):
+        if msg.name == self.name:
+            self.motor.run(msg.effort, 0)
+            print 'commanding motor %s'%self.name
+
+
     def trigger(self):
         js = JointState()
         js.header.stamp = rospy.Time.now()
