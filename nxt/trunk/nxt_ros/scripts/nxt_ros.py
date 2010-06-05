@@ -8,12 +8,15 @@ from nxt.motor import PORT_A, PORT_B, PORT_C
 from nxt.sensor import PORT_1, PORT_2, PORT_3, PORT_4
 import nxt.sensor 
 import nxt.motor 
+import thread
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Bool
 from nxt_msgs.msg import Range, Contact, JointCommand
 
-POWER_TO_NM = 0.02
+POWER_TO_NM = 1.0
 
+global my_lock
+my_lock = thread.allocate_lock()
 
 def check_params(ns, params):
     for p in params:
@@ -38,8 +41,9 @@ class Motor:
 
     def cmd_cb(self, msg):
         if msg.name == self.name:
-            self.motor.run(msg.effort, 0)
-            print 'commanding motor %s'%self.name
+            my_lock.acquire()
+            self.motor.run(int(msg.effort * POWER_TO_NM), 0)
+            my_lock.release()
 
 
     def trigger(self):
@@ -112,8 +116,10 @@ def main():
 
     rate = rospy.Rate(100)
     while not rospy.is_shutdown():
+        my_lock.acquire()
         for c in components:
             c.trigger()
+        my_lock.release()
         rate.sleep()
 
 
