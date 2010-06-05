@@ -9,6 +9,7 @@ nxt_ros:
 
 
   - type: touch
+    frame_id: test_frame
     name: touch_sensor
     port: PORT_4
 

@@ -10,7 +10,7 @@ import nxt.sensor
 import nxt.motor 
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Bool
-from nxt_msgs.msg import Range
+from nxt_msgs.msg import Range, Contact
 
 POWER_TO_NM = 0.02
 
@@ -53,15 +53,17 @@ class Touch:
     def __init__(self, params, comm):
         # create touch sensor
         self.touch = nxt.sensor.TouchSensor(comm, eval(params['port']))
+        self.frame_id = params['frame_id']
 
         # create publisher
-        self.pub = rospy.Publisher(params['name'], Bool)
+        self.pub = rospy.Publisher(params['name'], Contact)
         
     def trigger(self):
-        bl = Bool()
-        bl.data = self.touch.get_sample()
-        self.pub.publish(bl)
-
+        ct = Contact()
+        ct.contact = self.touch.get_sample()
+        ct.header.frame_id = self.frame_id
+        ct.header.stamp = rospy.Time.now()
+        self.pub.publish(ct)
 
 
 class UltraSonic:
@@ -76,7 +78,6 @@ class UltraSonic:
         ds = Range()
         ds.range = self.touch.get_sample()
         self.pub.publish(ds)
-
 
 
 
