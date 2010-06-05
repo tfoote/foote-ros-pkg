@@ -1,0 +1,18 @@
+nxt_ros:
+  - type: motor
+    name: test_wom
+    port: PORT_A
+
+  - type: motor
+    name: test_wim
+    port: PORT_B
+
+
+  - type: touch
+    name: touch_sensor
+    port: PORT_4
+
+    
+  - type: ultrasonic
+    name: ultrisonic_sensor
+    port: PORT_3

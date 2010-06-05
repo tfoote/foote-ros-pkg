@@ -11,6 +11,7 @@
   <depend package="rospy"/>
   <depend package="nxt_python"/>
   <depend package="sensor_msgs" /> 
+  <depend package="nxt_msgs" /> 
 
 </package>
 
