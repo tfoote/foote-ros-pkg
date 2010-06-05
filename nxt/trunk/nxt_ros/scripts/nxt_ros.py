@@ -80,16 +80,20 @@ class Touch:
         self.pub.publish(ct)
 
 
+
 class UltraSonic:
     def __init__(self, params, comm):
         # create ultrasonic sensor
         self.touch = nxt.sensor.UltrasonicSensor(comm, eval(params['port']))
+        self.frame_id = params['frame_id']
 
         # create publisher
         self.pub = rospy.Publisher(params['name'], Range)
         
     def trigger(self):
         ds = Range()
+        ds.header.frame_id = self.frame_id
+        ds.header.stamp = rospy.Time.now()
         ds.range = self.touch.get_sample()
         self.pub.publish(ds)
 

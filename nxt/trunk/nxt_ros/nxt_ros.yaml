@@ -1,19 +1,20 @@
 nxt_ros:
   - type: motor
-    name: test_wom
+    name: motor_1
     port: PORT_A
 
   - type: motor
-    name: test_wim
+    name: motor_2
     port: PORT_B
 
 
   - type: touch
-    frame_id: test_frame
+    frame_id: base_link
     name: touch_sensor
     port: PORT_4
 
     
   - type: ultrasonic
+    frame_id: base_link
     name: ultrisonic_sensor
     port: PORT_3

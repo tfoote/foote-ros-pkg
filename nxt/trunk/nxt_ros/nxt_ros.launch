@@ -1,0 +1,4 @@
+<launch>
+   <rosparam command="load" file="$(find nxt_ros)/nxt_ros.yaml" />
+   <node pkg="nxt_ros" type="nxt_ros.py" name="nxt_ros" output="screen" />
+</launch>
