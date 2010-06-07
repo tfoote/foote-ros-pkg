@@ -11,7 +11,7 @@ import nxt.motor
 import thread
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Bool
-from nxt_msgs.msg import Range, Contact, JointCommand
+from nxt_msgs.msg import Range, Contact, JointCommand, Color
 
 POWER_TO_NM = 1.0
 
@@ -36,7 +36,7 @@ class Motor:
         self.last_js = None
         
         # create subscriber
-        self.sub = rospy.Subscriber('joint_command', JointCommand, self.cmd_cb)
+        self.sub = rospy.Subscriber('joint_command', JointCommand, self.cmd_cb, None, 1)
 
 
     def cmd_cb(self, msg):
@@ -63,7 +63,7 @@ class Motor:
 
 
 
-class Touch:
+class TouchSensor:
     def __init__(self, params, comm):
         # create touch sensor
         self.touch = nxt.sensor.TouchSensor(comm, eval(params['port']))
@@ -81,7 +81,7 @@ class Touch:
 
 
 
-class UltraSonic:
+class UltraSonicSensor:
     def __init__(self, params, comm):
         # create ultrasonic sensor
         self.ultrasonic = nxt.sensor.UltrasonicSensor(comm, eval(params['port']))
@@ -101,6 +101,49 @@ class UltraSonic:
         self.pub.publish(ds)
 
 
+class ColorSensor:
+    def __init__(self, params, comm):
+        # create color sensor
+        self.color = nxt.sensor.ColorSensor(comm, eval(params['port']))
+        self.frame_id = params['frame_id']
+
+        # create publisher
+        self.pub = rospy.Publisher(params['name'], Color)
+        
+    def trigger(self):
+        co = Color()
+        co.header.frame_id = self.frame_id
+        co.header.stamp = rospy.Time.now()
+        color = self.color.get_color()
+        if color == 1:  # black
+            co.r = 0.0
+            co.g = 0.0
+            co.b = 0.0
+        elif color == 2: # blue
+            co.r = 0.0
+            co.g = 0.0
+            co.b = 1.0
+        elif color == 3: # green
+            co.r = 0.0
+            co.g = 1.0
+            co.b = 0.0
+        elif color == 4: # yellow
+            co.r = 1.0
+            co.g = 1.0
+            co.b = 0.0
+        elif color == 5: # red
+            co.r = 1.0
+            co.g = 0.0
+            co.b = 1.0
+        elif color == 6: # white
+            co.r = 1.0
+            co.g = 1.0
+            co.b = 1.0
+        else:
+            rospy.logerr('Undefined color of color sensor')
+        self.pub.publish(co)
+
+
 
 
 def main():
@@ -116,18 +159,20 @@ def main():
         if c['type'] == 'motor':
             components.append(Motor(c, b))
         if c['type'] == 'touch':
-            components.append(Touch(c, b))
+            components.append(TouchSensor(c, b))
         if c['type'] == 'ultrasonic':
-            components.append(UltraSonic(c, b))
+            components.append(UltraSonicSensor(c, b))
+        if c['type'] == 'color':
+            components.append(ColorSensor(c, b))
 
 
-    rate = rospy.Rate(100)
+    rate = rospy.Rate(50)
     while not rospy.is_shutdown():
         my_lock.acquire()
         for c in components:
             c.trigger()
         my_lock.release()
-        rate.sleep()
+        rospy.sleep(0.01)
 
 
 

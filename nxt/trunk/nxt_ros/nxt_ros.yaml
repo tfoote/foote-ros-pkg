@@ -8,13 +8,7 @@ nxt_ros:
     port: PORT_B
 
 
-  - type: touch
+  - type: color
+    name: color
     frame_id: base_link
-    name: touch_sensor
-    port: PORT_4
-
-    
-  - type: ultrasonic
-    frame_id: base_link
-    name: ultrasonic_sensor
-    port: PORT_3
+    port: PORT_1
