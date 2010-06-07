@@ -1,0 +1,10 @@
+name: nxt_rviz_plugin
+library: nxt_rviz_plugin
+displays:
+  -
+    class_name: nxt_rviz_plugin::NXTUltrasonciDisplay
+    display_name: NXTUltrasonciDisplay
+    description: |
+      Displays data from a nxt_msgs::Range message as a cone.
+
+
