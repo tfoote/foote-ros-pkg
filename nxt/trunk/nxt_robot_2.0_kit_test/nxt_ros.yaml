@@ -1,0 +1,12 @@
+nxt_ros:
+  - type: motor
+    name: left_servo_joint
+    port: PORT_A
+  - type: touch
+    frame_id: right_touch_link
+    name: touch_sensor
+    port: PORT_4    
+  - type: ultrasonic
+    frame_id: right_ultrasonic_link
+    name: ultrisonic_sensor
+    port: PORT_3

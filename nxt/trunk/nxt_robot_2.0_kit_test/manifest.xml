@@ -13,6 +13,7 @@
   <depend package="tf" />
   <depend package="robot_state_publisher" />
   <depend package="sensor_msgs" />
+  <depend package="nxt_ros" />
 
 </package>
 

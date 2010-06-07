@@ -7,14 +7,14 @@
   <include filename="$(find nxt_description)/models/servos/servo_v0.urdf.xacro" />
   <include filename="$(find nxt_description)/models/beams/beams_v0.urdf.xacro" />
   <include filename="$(find nxt_description)/models/sensors/sensors_v0.urdf.xacro" />
-  <xacro:nxt_servo_v0 name="right" reflect="1" />
+  <xacro:nxt_servo_v0 name="left" reflect="0" />
   <xacro:nxt_beams_v0 name="beam_1" length="15" />
   <xacro:nxt_beams_v0 name="beam_2" length="15" />
   <xacro:nxt_beams_v0 name="beam_3" length="5" />
   <xacro:nxt_brick_v0 name="nxt_brick" />
-  <xacro:nxt_color_v0 name="right_color_link" />
-  <xacro:nxt_touch_v0 name="left_touch_link" />
-  <xacro:nxt_ultrasonic_v0 name="left_ultrasonic_link" />
+  <xacro:nxt_color_v0 name="left_color_link" />
+  <xacro:nxt_touch_v0 name="right_touch_link" />
+  <xacro:nxt_ultrasonic_v0 name="right_ultrasonic_link" />
 
   <link name="connector_1">
     <inertial>
@@ -199,50 +199,50 @@
 
   <joint name="joint8" type="fixed">
     <parent link="connector_1"/>
-    <child link="left_ultrasonic_link"/>
+    <child link="right_ultrasonic_link"/>
     <origin xyz="0 0.020 0" rpy="${M_PI/2} 0 ${-M_PI/2}" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint9" type="fixed">
     <parent link="connector_2"/>
-    <child link="left_touch_link"/>
+    <child link="right_touch_link"/>
     <origin xyz="0 0.020 0" rpy="${-M_PI/2} 0 ${M_PI/2}" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint10" type="fixed">
     <parent link="connector_3"/>
-    <child link="right_color_link"/>
+    <child link="left_color_link"/>
     <origin xyz="0 -0.020 0" rpy="${M_PI/2} 0 ${-M_PI/2}" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint11" type="fixed">
     <parent link="connector_4"/>
-    <child link="right_servo_link"/>
+    <child link="left_servo_link"/>
     <origin xyz="-0.020 -0.040 0.162" rpy="${M_PI/2} 0 ${M_PI/2}" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint13" type="fixed">
-    <parent link="right_servo_hubs_link"/>
+    <parent link="left_servo_hubs_link"/>
     <child link="beam_3"/>
-    <origin xyz="0.040 0 0" rpy="0 ${M_PI/2} 0" />
+    <origin xyz="-0.040 0 0" rpy="0 ${M_PI/2} 0" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint14" type="fixed">
-    <parent link="right_servo_hubs_link"/>
+    <parent link="left_servo_hubs_link"/>
     <child link="connector_5"/>
-    <origin xyz="0.030 0.020 0" rpy="0 0 0" />
+    <origin xyz="-0.030 0.020 0" rpy="0 0 0" />
     <axis xyz="1 0 0" />
   </joint>
 
   <joint name="joint15" type="fixed">
-    <parent link="right_servo_hubs_link"/>
+    <parent link="left_servo_hubs_link"/>
     <child link="connector_6"/>
-    <origin xyz="0.030 -0.020 0" rpy="0 0 0" />
+    <origin xyz="-0.030 -0.020 0" rpy="0 0 0" />
     <axis xyz="1 0 0" />
   </joint>
 
