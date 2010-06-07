@@ -8,5 +8,5 @@ nxt_ros:
     port: PORT_4    
   - type: ultrasonic
     frame_id: right_ultrasonic_link
-    name: ultrisonic_sensor
+    name: ultrasonic_sensor
     port: PORT_3
