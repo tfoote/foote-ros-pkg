@@ -16,5 +16,5 @@ nxt_ros:
     
   - type: ultrasonic
     frame_id: base_link
-    name: ultrisonic_sensor
+    name: ultrasonic_sensor
     port: PORT_3
