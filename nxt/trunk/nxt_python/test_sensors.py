@@ -26,8 +26,8 @@ def test_sensors(b):
 #	print 'OFF:', ColorSensor(b, PORT_2).set_illuminated(None)
         color_sensor = ColorSensor(b, PORT_3)
         while not rospy.is_shutdown():
-          #print 'COLOR:', color_sensor.get_reflected_light('blue')
-          print 'COLOR:', color_sensor.get_color()
+          print 'COLOR:', color_sensor.get_reflected_light('blue')
+          #print 'COLOR:', color_sensor.get_color()
           time.sleep(0.1)
 
 #	print 'Ultrasonic:', UltrasonicSensor(b, PORT_3).get_sample()

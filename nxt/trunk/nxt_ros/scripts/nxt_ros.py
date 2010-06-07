@@ -6,6 +6,7 @@ import rospy
 import math
 from nxt.motor import PORT_A, PORT_B, PORT_C
 from nxt.sensor import PORT_1, PORT_2, PORT_3, PORT_4
+from nxt.sensor import Type
 import nxt.sensor 
 import nxt.motor 
 import thread
@@ -114,6 +115,7 @@ class ColorSensor:
         co = Color()
         co.header.frame_id = self.frame_id
         co.header.stamp = rospy.Time.now()
+        co.intensity = 0.0
         color = self.color.get_color()
         if color == 1:  # black
             co.r = 0.0
@@ -146,6 +148,42 @@ class ColorSensor:
 
 
 
+
+class IntensitySensor:
+    def __init__(self, params, comm):
+        # create intensity sensor
+        self.intensity = nxt.sensor.ColorSensor(comm, eval(params['port']))
+        self.frame_id = params['frame_id']
+        self.color_r = params['color_r']
+        self.color_g = params['color_g']
+        self.color_b = params['color_b']
+
+        if self.color_r == 1.0 and self.color_g == 0.0 and self.color_b == 0.0:
+            self.color = Type.COLORRED
+        elif self.color_r == 0.0 and self.color_g == 1.0 and self.color_b == 0.0:
+            self.color = Type.COLORGREEN
+        elif self.color_r == 0.0 and self.color_g == 0.0 and self.color_b == 1.0:
+            self.color = Type.COLORBLUE
+        elif self.color_r == 1.0 and self.color_g == 1.0 and self.color_b == 1.0:
+            self.color = Type.COLORFULL
+        elif self.color_r == 0.0 and self.color_g == 0.0 and self.color_b == 0.0:
+            self.color = Type.COLORNONE
+        else:
+            rospy.logerr('Invalid RGB values specifies for intensity color sensor')
+
+        # create publisher
+        self.pub = rospy.Publisher(params['name'], Color)
+        
+    def trigger(self):
+        co = Color()
+        co.header.frame_id = self.frame_id
+        co.header.stamp = rospy.Time.now()
+        co.r = self.color_r
+        co.g = self.color_g
+        co.b = self.color_b
+        co.intensity = self.intensity.get_reflected_light(self.color)
+        self.pub.publish(co)
+
 def main():
     sock = nxt.locator.find_one_brick()
     b = sock.connect()
@@ -158,15 +196,17 @@ def main():
         print c
         if c['type'] == 'motor':
             components.append(Motor(c, b))
-        if c['type'] == 'touch':
+        elif c['type'] == 'touch':
             components.append(TouchSensor(c, b))
-        if c['type'] == 'ultrasonic':
+        elif c['type'] == 'ultrasonic':
             components.append(UltraSonicSensor(c, b))
-        if c['type'] == 'color':
+        elif c['type'] == 'color':
             components.append(ColorSensor(c, b))
+        elif c['type'] == 'intensity':
+            components.append(IntensitySensor(c, b))
+        else:
+            rospy.logerr('Invalid sensor/actuator type %s'%c['type'])
 
-
-    rate = rospy.Rate(50)
     while not rospy.is_shutdown():
         my_lock.acquire()
         for c in components:
