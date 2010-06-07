@@ -11,7 +11,7 @@ nxt_ros:
   - type: intensity
     name: intensity
     color_r: 1.0
-    color_g: 1.0
-    color_b: 1.0
+    color_g: 0.0
+    color_b: 0.0
     frame_id: base_link
     port: PORT_1

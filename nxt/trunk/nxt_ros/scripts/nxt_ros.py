@@ -159,15 +159,15 @@ class IntensitySensor:
         self.color_b = params['color_b']
 
         if self.color_r == 1.0 and self.color_g == 0.0 and self.color_b == 0.0:
-            self.color = Type.COLORRED
+            self.color = 'red'
         elif self.color_r == 0.0 and self.color_g == 1.0 and self.color_b == 0.0:
-            self.color = Type.COLORGREEN
+            self.color = 'green'
         elif self.color_r == 0.0 and self.color_g == 0.0 and self.color_b == 1.0:
-            self.color = Type.COLORBLUE
+            self.color = 'blue'
         elif self.color_r == 1.0 and self.color_g == 1.0 and self.color_b == 1.0:
-            self.color = Type.COLORFULL
+            self.color = 'full'
         elif self.color_r == 0.0 and self.color_g == 0.0 and self.color_b == 0.0:
-            self.color = Type.COLORNONE
+            self.color = 'off'
         else:
             rospy.logerr('Invalid RGB values specifies for intensity color sensor')
 
