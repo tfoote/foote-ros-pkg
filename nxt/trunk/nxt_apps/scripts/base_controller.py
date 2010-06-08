@@ -37,8 +37,8 @@ class JointPositionController:
 
 
     def cmd_vel_cb(self, msg):
-        self.vel_rot_desi = msg.angular.z
-        self.vel_trans_desi = msg.linear.x
+        self.vel_rot_desi = msg.angular.z*10
+        self.vel_trans_desi = msg.linear.x*20
 
 
     def jnt_state_cb(self, msg):
@@ -47,8 +47,6 @@ class JointPositionController:
             velocity[name] = vel
         self.vel_trans = 0.5*self.vel_trans + 0.5*(velocity[self.r_joint] + velocity[self.l_joint])/2.0
         self.vel_rot   = 0.5*self.vel_rot   + 0.5*(velocity[self.r_joint] - velocity[self.l_joint])/RADIUS
-        print self.vel_rot
-
         
         l_cmd = JointCommand()
         l_cmd.name = self.l_joint
@@ -59,8 +57,6 @@ class JointPositionController:
         r_cmd.name = self.r_joint
         r_cmd.effort = K_TRANS*(self.vel_trans_desi - self.vel_trans) + K_ROT*(self.vel_rot_desi - self.vel_rot)
         self.pub.publish(r_cmd)
-
-        print "commanding %f %f"%(l_cmd.effort, r_cmd.effort)
 
 
 def main():
