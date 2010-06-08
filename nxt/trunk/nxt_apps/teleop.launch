@@ -1,5 +1,7 @@
 <launch>
 
+ <node pkg="nxt_ros" type="base_controller.py" name="base_controller"/>
+
  <!-- joy node -->
   <node respawn="true" pkg="joy"
         type="joy_node" name="nxt_joy" >
