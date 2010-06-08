@@ -1,17 +1,8 @@
 nxt_ros:
   - type: motor
-    name: motor_1
+    name: r_wheel
     port: PORT_A
 
   - type: motor
-    name: motor_2
+    name: l_wheel
     port: PORT_B
-
-
-  - type: intensity
-    name: intensity
-    color_r: 1.0
-    color_g: 0.0
-    color_b: 0.0
-    frame_id: base_link
-    port: PORT_1
