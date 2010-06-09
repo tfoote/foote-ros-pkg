@@ -24,9 +24,13 @@ def test_sensors(b):
 #	print 'WHITE:', ColorSensor(b, PORT_2).set_illuminated('white')
 #        time.sleep(1.0)
 #	print 'OFF:', ColorSensor(b, PORT_2).set_illuminated(None)
-        color_sensor = ColorSensor(b, PORT_3)
+#        color_sensor = ColorSensor(b, PORT_3)
+        accel_sensor = AccelerometerSensor(b, PORT_2)
+        gyro_sensor = GyroSensor(b, PORT_3)
         while not rospy.is_shutdown():
-          print 'COLOR:', color_sensor.get_reflected_light('blue')
+          print 'Gyro', gyro_sensor.get_sample()
+          #print 'Accelerometer', accel_sensor.get_sample()
+          #print 'COLOR:', color_sensor.get_reflected_light('blue')
           #print 'COLOR:', color_sensor.get_color()
           time.sleep(0.1)
 
