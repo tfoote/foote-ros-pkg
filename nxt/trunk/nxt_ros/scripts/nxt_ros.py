@@ -14,7 +14,8 @@ from sensor_msgs.msg import JointState
 from std_msgs.msg import Bool
 from nxt_msgs.msg import Range, Contact, JointCommand, Color
 
-POWER_TO_NM = 1.0
+POWER_TO_NM = 0.01
+POWER_MAX = 125
 
 global my_lock
 my_lock = thread.allocate_lock()
@@ -43,7 +44,13 @@ class Motor:
     def cmd_cb(self, msg):
         if msg.name == self.name:
             my_lock.acquire()
-            self.motor.run(int(msg.effort * POWER_TO_NM), 0)
+            cmd = msg.effort / POWER_TO_NM
+            if cmd > POWER_MAX:
+                cmd = POWER_MAX
+            elif cmd < -POWER_MAX:
+                cmd = -POWER_MAX
+            
+            self.motor.run(int(cmd), 0)
             my_lock.release()
 
 

@@ -11,8 +11,8 @@ from nxt_msgs.msg import Range, JointCommand
 
 
 RADIUS = 2.0
-K_ROT = 5.0
-K_TRANS = 5.0
+K_ROT = 0.15
+K_TRANS = 0.1
 
 class JointPositionController:
     def __init__(self):
