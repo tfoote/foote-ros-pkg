@@ -14,7 +14,7 @@ RADIUS = 2.0
 K_ROT = 0.15
 K_TRANS = 0.1
 
-class JointPositionController:
+class BaseController:
     def __init__(self):
         self.initialized = False
         self.vel_rot_desi = 0
@@ -60,8 +60,8 @@ class JointPositionController:
 
 
 def main():
-    rospy.init_node('jnt_pos_controller')
-    jnt_pos_controller = JointPositionController()
+    rospy.init_node('base_controller')
+    base_controller = BaseController()
     rospy.spin()
 
 

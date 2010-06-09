@@ -11,6 +11,8 @@
   <depend package="nxt_ros"/>
   <depend package="geometry_msgs"/>
   <depend package="joy"/>
+  <depend package="kdl"/>
+  <depend package="tf"/>
 
 </package>
 

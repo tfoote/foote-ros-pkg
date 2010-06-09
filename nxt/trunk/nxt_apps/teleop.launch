@@ -1,6 +1,7 @@
 <launch>
 
  <node pkg="nxt_apps" type="base_controller.py" name="base_controller"/>
+ <node pkg="nxt_apps" type="base_odometry.py" name="base_odometry" output="screen"/>
 
  <!-- joy node -->
   <node respawn="true" pkg="joy"
