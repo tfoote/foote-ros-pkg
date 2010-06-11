@@ -36,7 +36,7 @@ link_template = """
         <!-- visual origin is defined w.r.t. link local coordinate system -->
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="%(mesh)s" scale="0.0004 0.0004 0.0004"/>
+          <mesh filename="%(mesh)s" scale="0.001 0.001 0.001"/>
         </geometry>
       </visual>
       <collision>
@@ -62,6 +62,7 @@ def parseLXFML(handle, name):
   #print "Parsing file %s" % handle.name
   print "<robot name=%s>" % name
   ldraw = open('ldraw.xml','r') #we need to add the ldraw.xml transformations
+  ldr_file = open('%s.ldr' % name.strip('.lxf'),'r') 
   ldraw_doc = xml.dom.minidom.parse(ldraw)
   lxf_doc = xml.dom.minidom.parse(handle)
 
@@ -122,6 +123,17 @@ def parseLXFML(handle, name):
     t['angle'] = float(transformation.getAttribute('angle'))
     transformations[t['ldraw']] = t
 
+  ldr_trans={}
+  count=0
+  for line in ldr_file:
+    if line.startswith('1'):
+      ldr= [x for x in line.split(' ')]
+      l={}
+      l['ldraw'] = ldr[14].strip('.dat\r\n')
+      l['transformation'] = [-1*float(ldr[2]), float(ldr[3]), float(ldr[4]), float(ldr[5]), float(ldr[6]), float(ldr[7]), float(ldr[8]), float(ldr[9]), float(ldr[10]), float(ldr[11]), float(ldr[12]), float(ldr[13])]    
+      ldr_trans[count]=l
+      count=count+1 
+
   for refID in sorted(rigids.keys()):
     rigid = rigids[refID]
     designID = bones[rigid['boneRefs'][0]]['parent']['parent']['designID']
@@ -147,48 +159,35 @@ def parseLXFML(handle, name):
     #all units are in CM
     #the models are in LDU which are 0.4mm 
     #let's compute some transforms
-    c_to_ldraw = homogeneous_matrix(TF.rotation_matrix(transformations[str(bricks[child_refID]['designID'])]['angle'],
-                                    numpy.array(transformations[str(bricks[child_refID]['designID'])]['axis'])),
-                                    numpy.transpose(numpy.array(transformations[str(bricks[child_refID]['designID'])]['t'])))
-    #print c_to_ldraw
-    p_to_ldraw = homogeneous_matrix(TF.rotation_matrix(transformations[str(bricks[parent_refID]['designID'])]['angle'],
-                                    numpy.array(transformations[str(bricks[parent_refID]['designID'])]['axis'])),
-                                    numpy.zeros((1,3))) 
-                                    #numpy.transpose(numpy.array(transformations[str(bricks[parent_refID]['designID'])]['t'])))
-    world_to_c = homogeneous_matrix(numpy.array(rigids[child_refID]['transformation'][:9]).reshape(3,3), rigids[child_refID]['transformation'][9:12]) #this should be correct looking at models
-    world_to_p = homogeneous_matrix(numpy.array(rigids[parent_refID]['transformation'][:9]).reshape(3,3), rigids[parent_refID]['transformation'][9:12]) #this should be correct looking at models
-    c_world_to_ldraw = numpy.dot(world_to_c, c_to_ldraw)
-    p_world_to_ldraw = numpy.dot(world_to_p, p_to_ldraw)
+    world_to_c = homogeneous_matrix(ldr_trans[child_refID]['transformation'])
+    world_to_p = homogeneous_matrix(ldr_trans[parent_refID]['transformation'])
+
     #now let's get the stuff for the URDF
-    p_to_c = numpy.dot(inv(p_world_to_ldraw), c_world_to_ldraw)
-    rpy = TF.euler_from_matrix(p_to_c) 
+    p_to_c = numpy.dot(inv(world_to_p), world_to_c)
+    rpy = TF.euler_from_matrix(p_to_c, 'sxzy') 
 
     d = {
       'refID' : refID,
       'joint_type' : joint_type,
       'parent_link' : 'ref_%s_link' % parent_refID,
       'child_link' : 'ref_%s_link' % child_refID,
-      'origin_x' : '%s' % str(float(p_to_c[0,3])/100.0), 
-      'origin_y' : '%s'% str(float(p_to_c[1,3])/100.0),
-      'origin_z' : '%s' % str(float(p_to_c[2,3])/100.0),
+      'origin_x' : '%s' % str(float(p_to_c[0,3])*0.001),
+      'origin_y' : '%s'% str(float(p_to_c[2,3])*0.001),
+      'origin_z' : '%s' % str(float(p_to_c[1,3])*0.001),
       'origin_roll' : '%s' % rpy[0],
-      'origin_pitch' : '%s' % rpy[1],
-      'origin_yaw' : '%s' % rpy[2],
+      'origin_pitch' : '%s' % rpy[2],
+      'origin_yaw' : '%s' % rpy[1],
       'axis_x' : 0, 'axis_y' : 0, 'axis_z' : 0,
     }
     print joint_template % d
   print "</robot>"
 
-def homogeneous_matrix(rot, trans):
-  if rot.shape != (3,3):
-    rot[:3,3] = trans
-    return rot
-  else:  
-    tmp = numpy.ones((4,4))
-    tmp[:3,:3] = rot
-    tmp[:3,3] = trans
-    tmp[3,:3] = numpy.zeros((1,3))
-    return tmp
+def homogeneous_matrix(transform):
+  tmp = numpy.ones((4,4))
+  tmp[:3,:3] = numpy.array(transform[3:]).reshape(3,3)
+  tmp[:3,3] = numpy.transpose(numpy.array(transform[:3]))
+  tmp[3,:3] = numpy.zeros((1,3))
+  return tmp
 
 def handleLXF(filename):
   z = zipfile.ZipFile(filename)
