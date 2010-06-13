@@ -36,7 +36,7 @@ link_template = """
         <!-- visual origin is defined w.r.t. link local coordinate system -->
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="%(mesh)s" scale="0.001 0.001 0.001"/>
+          <mesh filename="%(mesh)s" scale="%(m_scale)s %(m_scale)s %(m_scale)s"/>
         </geometry>
       </visual>
       <collision>
@@ -62,6 +62,7 @@ def parseLXFML(handle, name):
   #print "Parsing file %s" % handle.name
   print "<robot name=%s>" % name
   ldraw = open('ldraw.xml','r') #we need to add the ldraw.xml transformations
+  print name 
   ldr_file = open('%s.ldr' % name.strip('.lxf'),'r') 
   ldraw_doc = xml.dom.minidom.parse(ldraw)
   lxf_doc = xml.dom.minidom.parse(handle)
@@ -101,7 +102,7 @@ def parseLXFML(handle, name):
     r['transformation'] = parseFloats(rigid.getAttribute('transformation'))
     r['boneRefs'] = parseInts(rigid.getAttribute('boneRefs'))
     rigids[r['refID']] = r
-  
+
   joints = []
   for joint in lxf_doc.getElementsByTagName('Joint'):
     j = []
@@ -117,6 +118,7 @@ def parseLXFML(handle, name):
   transformations = {}
   for transformation in ldraw_doc.getElementsByTagName('Transformation'):
     t = {}
+
     t['ldraw'] = transformation.getAttribute('ldraw').strip('.dat')
     t['t'] = [float(transformation.getAttribute('tx')), float(transformation.getAttribute('ty')), float(transformation.getAttribute('tz'))]
     t['axis'] = [float(transformation.getAttribute('ax')), float(transformation.getAttribute('ay')), float(transformation.getAttribute('az'))]
@@ -130,19 +132,22 @@ def parseLXFML(handle, name):
       ldr= [x for x in line.split(' ')]
       l={}
       l['ldraw'] = ldr[14].strip('.dat\r\n')
-      l['transformation'] = [-1*float(ldr[2]), float(ldr[3]), float(ldr[4]), float(ldr[5]), float(ldr[6]), float(ldr[7]), float(ldr[8]), float(ldr[9]), float(ldr[10]), float(ldr[11]), float(ldr[12]), float(ldr[13])]    
+      l['transformation'] = [float(ldr[2]), float(ldr[3]), float(ldr[4]), float(ldr[5]), float(ldr[6]), float(ldr[7]), float(ldr[8]), float(ldr[9]), float(ldr[10]), float(ldr[11]), float(ldr[12]), float(ldr[13])]    
       ldr_trans[count]=l
       count=count+1 
 
   for refID in sorted(rigids.keys()):
     rigid = rigids[refID]
     designID = bones[rigid['boneRefs'][0]]['parent']['parent']['designID']
+
+    scale =0.0004
     d = {
       'refID' : refID,
       'mesh' : "package://nxt_description/meshes/parts/%s.dae" % designID,
       'bound_x' : 0,
       'bound_y' : 0,
       'bound_z' : 0,
+      'm_scale' :' %s' % str(scale),
       'bound_roll' : 0,
       'bound_pitch' : 0,
       'bound_yaw' : 0,
@@ -163,20 +168,21 @@ def parseLXFML(handle, name):
     world_to_p = homogeneous_matrix(ldr_trans[parent_refID]['transformation'])
 
     #now let's get the stuff for the URDF
-    p_to_c = numpy.dot(inv(world_to_p), world_to_c)
+    p_to_c = numpy.dot(inv(world_to_p),world_to_c)
     rpy = TF.euler_from_matrix(p_to_c, 'sxzy') 
+
 
     d = {
       'refID' : refID,
       'joint_type' : joint_type,
       'parent_link' : 'ref_%s_link' % parent_refID,
       'child_link' : 'ref_%s_link' % child_refID,
-      'origin_x' : '%s' % str(float(p_to_c[0,3])*0.001),
-      'origin_y' : '%s'% str(float(p_to_c[2,3])*0.001),
-      'origin_z' : '%s' % str(float(p_to_c[1,3])*0.001),
+      'origin_x' : '%s' % str(-1*float(p_to_c[0,3])*scale),
+      'origin_y' : '%s'% str(float(p_to_c[2,3])*scale),
+      'origin_z' : '%s' % str(float(p_to_c[1,3])*scale),
       'origin_roll' : '%s' % rpy[0],
-      'origin_pitch' : '%s' % rpy[2],
-      'origin_yaw' : '%s' % rpy[1],
+      'origin_pitch' : '%s' % rpy[1],
+      'origin_yaw' : '%s' % rpy[2],
       'axis_x' : 0, 'axis_y' : 0, 'axis_z' : 0,
     }
     print joint_template % d
@@ -185,7 +191,9 @@ def parseLXFML(handle, name):
 def homogeneous_matrix(transform):
   tmp = numpy.ones((4,4))
   tmp[:3,:3] = numpy.array(transform[3:]).reshape(3,3)
+  #tmp[:3,0] = -1*tmp[:3,0]
   tmp[:3,3] = numpy.transpose(numpy.array(transform[:3]))
+  #tmp[3,0]=-1*tmp[3,0]
   tmp[3,:3] = numpy.zeros((1,3))
   return tmp
 
