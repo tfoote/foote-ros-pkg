@@ -1995,9 +1995,6 @@
 	<!--  Electric Mindstorms NXT Sound Sensor (Complete)   -->
   	<Transformation ldraw="55963.dat" tx="-0.4" ty="0" tz="-0.8" ax="0" ay="1" az="0" angle="-1.570796"/>
 
-        <!--  Electric Mindstorms NXT Color Sensor (Complete)   -->
-  	<Transformation ldraw="64892.dat" tx="-0.4" ty="0" tz="-0.8" ax="0" ay="1" az="0" angle="-1.570796"/>
-
 	<!--  Electric Mindstorms NXT Ultrasonic Sensor (Complete)   -->
   	<Transformation ldraw="53792.dat" tx="-0.4" ty="0" tz="-0.8" ax="0" ay="1" az="0" angle="-1.570796"/>
   

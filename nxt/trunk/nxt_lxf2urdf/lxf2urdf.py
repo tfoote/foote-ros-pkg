@@ -62,7 +62,6 @@ def parseLXFML(handle, name):
   #print "Parsing file %s" % handle.name
   print "<robot name=%s>" % name
   ldraw = open('ldraw.xml','r') #we need to add the ldraw.xml transformations
-  print name 
   ldr_file = open('%s.ldr' % name.strip('.lxf'),'r') 
   ldraw_doc = xml.dom.minidom.parse(ldraw)
   lxf_doc = xml.dom.minidom.parse(handle)
@@ -101,6 +100,7 @@ def parseLXFML(handle, name):
     r['refID'] = int(rigid.getAttribute('refID'))
     r['transformation'] = parseFloats(rigid.getAttribute('transformation'))
     r['boneRefs'] = parseInts(rigid.getAttribute('boneRefs'))
+    r['handled'] = False
     rigids[r['refID']] = r
 
   joints = []
@@ -138,7 +138,8 @@ def parseLXFML(handle, name):
 
   for refID in sorted(rigids.keys()):
     rigid = rigids[refID]
-    designID = bones[rigid['boneRefs'][0]]['parent']['parent']['designID']
+    #print rigid
+    designID = bricks[refID]['designID']
 
     scale =0.0004
     d = {
@@ -157,45 +158,50 @@ def parseLXFML(handle, name):
     }
     print link_template % d
 
+        
   for refID, joint_list in enumerate(joints):
     joint_type = "fixed"
     child_refID = joint_list[0]['rigidRef']
     parent_refID = joint_list[1]['rigidRef']
+
     #all units are in CM
     #the models are in LDU which are 0.4mm 
     #let's compute some transforms
     world_to_c = homogeneous_matrix(ldr_trans[child_refID]['transformation'])
     world_to_p = homogeneous_matrix(ldr_trans[parent_refID]['transformation'])
-
+    #print p_to_c_trans
     #now let's get the stuff for the URDF
-    p_to_c = numpy.dot(inv(world_to_p),world_to_c)
+    p_to_c = world_to_p.I*world_to_c
+    #print p_to_c
     rpy = TF.euler_from_matrix(p_to_c, 'sxzy') 
 
-
     d = {
-      'refID' : refID,
-      'joint_type' : joint_type,
-      'parent_link' : 'ref_%s_link' % parent_refID,
-      'child_link' : 'ref_%s_link' % child_refID,
-      'origin_x' : '%s' % str(-1*float(p_to_c[0,3])*scale),
-      'origin_y' : '%s'% str(float(p_to_c[2,3])*scale),
-      'origin_z' : '%s' % str(float(p_to_c[1,3])*scale),
-      'origin_roll' : '%s' % rpy[0],
-      'origin_pitch' : '%s' % rpy[1],
-      'origin_yaw' : '%s' % rpy[2],
-      'axis_x' : 0, 'axis_y' : 0, 'axis_z' : 0,
+    'refID' : refID,
+    'joint_type' : joint_type,
+    'parent_link' : 'ref_%s_link' % parent_refID,
+    'child_link' : 'ref_%s_link' % child_refID,
+    'origin_x' : '%s' % str(-1*float(p_to_c[0,3])*scale),
+    'origin_y' : '%s'% str(1*float(p_to_c[2,3])*scale),
+    'origin_z' : '%s' % str(-1*float(p_to_c[1,3])*scale),
+    'origin_roll' : '%s' % str(1*rpy[0]),
+    'origin_pitch' : '%s' % str(-1*rpy[1]),
+    'origin_yaw' : '%s' % str(1*rpy[2]),
+    'axis_x' : 0, 'axis_y' : 0, 'axis_z' : 0,
     }
     print joint_template % d
+ 
+
   print "</robot>"
+
 
 def homogeneous_matrix(transform):
   tmp = numpy.ones((4,4))
-  tmp[:3,:3] = numpy.array(transform[3:]).reshape(3,3)
-  #tmp[:3,0] = -1*tmp[:3,0]
+  tmp[:3,:3] = (numpy.array(transform[3:]).reshape(3,3))
+  #print tmp
   tmp[:3,3] = numpy.transpose(numpy.array(transform[:3]))
-  #tmp[3,0]=-1*tmp[3,0]
+  #print tmp
   tmp[3,:3] = numpy.zeros((1,3))
-  return tmp
+  return numpy.matrix(tmp)
 
 def handleLXF(filename):
   z = zipfile.ZipFile(filename)
