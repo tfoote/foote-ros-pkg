@@ -11,6 +11,7 @@ import numpy
 from numpy.linalg import inv
 
 import transformations as TF
+tree=[]
 
 def parseInts(s):
   if s:
@@ -71,6 +72,7 @@ def parseLXFML(handle, name):
   bones = {}
   for brick in lxf_doc.getElementsByTagName('Brick'):
     b = {}
+    b['refID']= int(brick.getAttribute('refID'))
     b['parts'] = []
     b['designID'] = int(brick.getAttribute('designID'))
     i = parseInts(brick.getAttribute('itemNos'))
@@ -158,11 +160,20 @@ def parseLXFML(handle, name):
     }
     print link_template % d
 
+  for refID in sorted(rigids.keys()):
+    create_tree(refID, joints, rigids)
         
-  for refID, joint_list in enumerate(joints):
+
+  #for refID, joint_list in enumerate(joints):
+  for refID, branch in enumerate(tree):
     joint_type = "fixed"
-    child_refID = joint_list[0]['rigidRef']
-    parent_refID = joint_list[1]['rigidRef']
+    #for rigid in rigids[branch[1]]['boneRefs']:
+    #print rigid
+    child_refID = branch[1]#joint_list[0]['rigidRef']
+    parent_refID = branch[0] #joint_list[1]['rigidRef']
+    #child_refID = bones[rigid]['parent']['parent']['refID']#branch[1]#joint_list[0]['rigidRef']
+    #print bones[rigid]['parent']['parent']['refID']
+    #parent_refID = branch[0]#joint_list[1]['rigidRef']
 
     #all units are in CM
     #the models are in LDU which are 0.4mm 
@@ -193,6 +204,22 @@ def parseLXFML(handle, name):
 
   print "</robot>"
 
+def create_tree(refID, joints, rigids):
+  if not rigids[refID]['handled']:
+    rigids[refID]['handled']=True
+    parent =refID
+    for joint_list in joints:
+      if joint_list[0]['rigidRef'] == parent:
+        if not rigids[joint_list[1]['rigidRef']]['handled']:
+          tree.append([parent, joint_list[1]['rigidRef']])
+          create_tree(joint_list[1]['rigidRef'], joints, rigids)
+          #rigids[joint_list[1]['rigidRef']]['handled']=True    
+      if joint_list[1]['rigidRef'] == parent:
+        if not rigids[joint_list[0]['rigidRef']]['handled']:
+          tree.append([parent, joint_list[0]['rigidRef']])
+          create_tree(joint_list[0]['rigidRef'], joints, rigids)
+          #rigids[joint_list[0]['rigidRef']]['handled']=True
+          
 
 def homogeneous_matrix(transform):
   tmp = numpy.ones((4,4))
