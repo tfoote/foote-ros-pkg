@@ -1,0 +1,14 @@
+nxt_ros:
+  - type: motor
+    name: r_wheel
+    port: PORT_A
+
+  - type: motor
+    name: l_wheel
+    port: PORT_B
+
+  - type: motor
+    name: front_motor
+    port: PORT_C
+
+
