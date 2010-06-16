@@ -1,4 +1,4 @@
-nxt_ros:
+nxt_robot:
   - type: motor
     name: r_wheel
     port: PORT_A

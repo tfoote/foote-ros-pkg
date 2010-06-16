@@ -193,12 +193,13 @@ class IntensitySensor:
         self.pub.publish(co)
 
 def main():
-    sock = nxt.locator.find_one_brick()
+    ns = 'nxt_robot'
+    rospy.init_node('nxt_ros')
+    host = rospy.get_param("~host", None)
+    sock = nxt.locator.find_one_brick(host)
     b = sock.connect()
 
-    ns = 'nxt_ros'
-    rospy.init_node(ns)
-    config = rospy.get_param(ns)
+    config = rospy.get_param("~"+ns)
     components = []
     for c in config:
         print c
