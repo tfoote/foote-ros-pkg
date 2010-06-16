@@ -43,7 +43,7 @@ class JSAggregator:
                                                     data.velocity[i], 
                                                     data.effort[i])
             
-        todelete = [v for k, v in self.observed_states.iteritems() if  data.header.stamp - v.header.stamp > rospy.Duration().from_sec(1.0) ] #hack parametersize
+        todelete = [k for k, v in self.observed_states.iteritems() if  data.header.stamp - v.header.stamp > rospy.Duration().from_sec(1.0) ] #hack parametersize
         for td in todelete:
             del self.observed_states[td]
 
