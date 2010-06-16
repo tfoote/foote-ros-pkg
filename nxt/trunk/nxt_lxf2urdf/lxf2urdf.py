@@ -141,7 +141,7 @@ def parseLXFML(handle, name):
   for refID in sorted(rigids.keys()):
     rigid = rigids[refID]
     #print rigid
-    designID = bricks[refID]['designID']
+    designID = ldr_trans[refID]['ldraw']#bricks[refID]['designID']
 
     scale =0.0004
     d = {
@@ -184,7 +184,9 @@ def parseLXFML(handle, name):
     #now let's get the stuff for the URDF
     p_to_c = world_to_p.I*world_to_c
     #print p_to_c
+    #print p_to_c  
     rpy = TF.euler_from_matrix(p_to_c, 'sxzy') 
+    
 
     d = {
     'refID' : refID,
@@ -225,7 +227,9 @@ def homogeneous_matrix(transform):
   tmp = numpy.ones((4,4))
   tmp[:3,:3] = (numpy.array(transform[3:]).reshape(3,3))
   #print tmp
-  tmp[:3,3] = numpy.transpose(numpy.array(transform[:3]))
+  tmp[0,3] = numpy.transpose(numpy.array(transform[0]))
+  tmp[1,3] = numpy.transpose(numpy.array(transform[1]))
+  tmp[2,3] = numpy.transpose(numpy.array(transform[2]))
   #print tmp
   tmp[3,:3] = numpy.zeros((1,3))
   return numpy.matrix(tmp)
