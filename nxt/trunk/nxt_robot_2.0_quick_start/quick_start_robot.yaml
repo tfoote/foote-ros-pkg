@@ -15,7 +15,7 @@ nxt_robot:
     name: gyro
     frame_id: gyro_frame
     port: PORT_3
-    offset: 593
+    offset: 0
 
   - type: accelerometer
     name: accel

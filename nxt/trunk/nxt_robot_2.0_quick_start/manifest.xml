@@ -8,7 +8,7 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/nxt_robot_2.0_quick_start</url>
-
+  <depend package="nxt_ros"/>
 </package>
 
 
