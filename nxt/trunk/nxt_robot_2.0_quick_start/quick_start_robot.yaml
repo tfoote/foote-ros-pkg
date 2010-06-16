@@ -17,3 +17,8 @@ nxt_robot:
     port: PORT_3
     offset: 593
 
+  - type: accelerometer
+    name: accel
+    frame_id: accel_frame
+    port: PORT_2
+

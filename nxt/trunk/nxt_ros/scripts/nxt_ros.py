@@ -12,7 +12,7 @@ import nxt.motor
 import thread
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Bool
-from nxt_msgs.msg import Range, Contact, JointCommand, Color, Gyro
+from nxt_msgs.msg import Range, Contact, JointCommand, Color, Gyro, Accelerometer
 
 POWER_TO_NM = 0.01
 POWER_MAX = 125
@@ -130,8 +130,28 @@ class GyroSensor:
         gs.calibration_offset.z = self.offset
         gs.angular_velocity.x = 0.0
         gs.angular_velocity.y = 0.0
-        gs.angular_velocity.z = self.gyro.get_sample()-self.offset
+        gs.angular_velocity.z = (self.gyro.get_sample()-self.offset)*math.pi/180.0
         gs.angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 1]
+        self.pub.publish(gs)
+
+class AccelerometerSensor:
+    def __init__(self, params, comm):
+        #create gyro sensor
+        self.accel = nxt.sensor.AccelerometerSensor(comm, eval(params['port']))
+        self.frame_id = params['frame_id']
+
+        # create publisher
+        self.pub = rospy.Publisher(params['name'], Accelerometer)
+
+    def trigger(self):
+        gs = Accelerometer()
+        gs.header.frame_id = self.frame_id
+        gs.header.stamp = rospy.Time.now()
+        x,y,z = self.accel.get_sample()
+        gs.linear_acceleration.x = x*9.8
+        gs.linear_acceleration.y = y*9.8
+        gs.linear_acceleration.z = z*9.8
+        gs.linear_acceleration_covariance = [1, 0, 0, 0, 1, 0, 0, 0, 1]
         self.pub.publish(gs)
 
 class ColorSensor:
@@ -234,6 +254,8 @@ def main():
             components.append(IntensitySensor(c, b))
         elif c['type'] == 'gyro':
             components.append(GyroSensor(c, b))
+        elif c['type'] == 'accelerometer':
+            components.append(AccelerometerSensor(c, b))
         else:
             rospy.logerr('Invalid sensor/actuator type %s'%c['type'])
 
