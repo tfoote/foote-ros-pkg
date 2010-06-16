@@ -28,5 +28,5 @@
 +
 +        def get_sample(self):
 +                self.get_input_values() 
-+                return self.scaled_value
++                return -self.scaled_value # negative sign to make it return angular rate about z axis up.  
 +                
