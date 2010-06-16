@@ -11,4 +11,9 @@ nxt_robot:
     name: front_motor
     port: PORT_C
 
+  - type: gyro
+    name: gyro
+    frame_id: gyro_frame
+    port: PORT_3
+    offset: 593
 

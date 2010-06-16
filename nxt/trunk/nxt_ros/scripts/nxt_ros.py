@@ -12,7 +12,7 @@ import nxt.motor
 import thread
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Bool
-from nxt_msgs.msg import Range, Contact, JointCommand, Color
+from nxt_msgs.msg import Range, Contact, JointCommand, Color, Gyro
 
 POWER_TO_NM = 0.01
 POWER_MAX = 125
@@ -111,6 +111,28 @@ class UltraSonicSensor:
         ds.range_max = 2.54
         self.pub.publish(ds)
 
+class GyroSensor:
+    def __init__(self, params, comm):
+        #create gyro sensor
+        self.gyro = nxt.sensor.GyroSensor(comm, eval(params['port']))
+        self.frame_id = params['frame_id']
+        self.offset = params['offset']
+
+        # create publisher
+        self.pub = rospy.Publisher(params['name'], Gyro)
+
+    def trigger(self):
+        gs = Gyro()
+        gs.header.frame_id = self.frame_id
+        gs.header.stamp = rospy.Time.now()
+        gs.calibration_offset.x = 0.0
+        gs.calibration_offset.y = 0.0
+        gs.calibration_offset.z = self.offset
+        gs.angular_velocity.x = 0.0
+        gs.angular_velocity.y = 0.0
+        gs.angular_velocity.z = self.gyro.get_sample()-self.offset
+        gs.angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 1]
+        self.pub.publish(gs)
 
 class ColorSensor:
     def __init__(self, params, comm):
@@ -154,9 +176,6 @@ class ColorSensor:
         else:
             rospy.logerr('Undefined color of color sensor')
         self.pub.publish(co)
-
-
-
 
 
 class IntensitySensor:
@@ -213,6 +232,8 @@ def main():
             components.append(ColorSensor(c, b))
         elif c['type'] == 'intensity':
             components.append(IntensitySensor(c, b))
+        elif c['type'] == 'gyro':
+            components.append(GyroSensor(c, b))
         else:
             rospy.logerr('Invalid sensor/actuator type %s'%c['type'])
 
