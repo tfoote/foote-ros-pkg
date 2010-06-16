@@ -1,4 +1,4 @@
-nxt_ros:
+nxt_robot:
   - type: motor
     name: left_servo_joint
     port: PORT_A
