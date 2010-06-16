@@ -25,7 +25,18 @@ class JSAggregator:
                  
         
     def callback(self, data):
-        for i in xrange(0, len(data.name)):
+        num_joints = len(data.name)
+        if len(data.position) < num_joints:
+            rospy.logerr("Position array shorter than names %s < %d"%(len(data.position), num_joints))
+            return
+        elif len(data.velocity) < num_joints:
+            rospy.logerr("Velocity array shorter than names %s < %d"%(len(data.velocity), num_joints))
+            return
+        elif len(data.effort) < num_joints:
+            rospy.logerr("Effort array shorter than names %s < %d"%(len(data.effort), num_joints))
+            return
+
+        for i in xrange(0, num_joints):
             self.observed_states[data.name[i]] = JS(data.name[i], 
                                                     data.header, 
                                                     data.position[i], 
