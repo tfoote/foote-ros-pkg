@@ -65,6 +65,9 @@ class Motor:
         if self.last_js:
             vel = (js.position[0]-self.last_js.position[0])/(js.header.stamp-self.last_js.header.stamp).to_sec()
             js.velocity.append(vel)
+        else:
+            vel = 0
+            js.velocity.append(vel)
         self.pub.publish(js)
         self.last_js = js
 
