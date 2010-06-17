@@ -25,6 +25,63 @@ def parseFloats(s):
   else:
     return None
 
+motor_template = """
+    <link name="ref_%(refID)s_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="%(mesh)s" scale="%(m_scale)s %(m_scale)s %(m_scale)s"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="%(bound_x)s %(bound_y)s %(bound_z)s" rpy="%(bound_roll)s %(bound_pitch)s %(bound_yaw)s" />
+        <geometry>
+          <box size="%(dim_x)s %(dim_y)s %(dim_z)s"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="ref_%(refID)s_link_hub">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/servo_hubs.dae" scale="%(m_scale)s %(m_scale)s %(m_scale)s"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="%(bound_x)s %(bound_y)s %(bound_z)s" rpy="%(bound_roll)s %(bound_pitch)s %(bound_yaw)s" />
+        <geometry>
+          <box size="%(dim_x)s %(dim_y)s %(dim_z)s"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
+    <joint name="mot_%(refID)s_joint" type="continuous">
+      <parent link="ref_%(refID)s_link"/>
+      <child link="ref_%(refID)s_link_hub"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+    </joint>
+    
+"""
+
 link_template = """
     <link name="ref_%(refID)s_link">
       <inertial>
@@ -53,6 +110,15 @@ link_template = """
 joint_template = """
     <joint name="ref_%(refID)s_joint" type="%(joint_type)s">
       <parent link="%(parent_link)s"/>
+      <child link="%(child_link)s"/>
+      <origin xyz="%(origin_x)s %(origin_y)s %(origin_z)s" rpy="%(origin_roll)s %(origin_pitch)s %(origin_yaw)s" />
+      <axis xyz="%(axis_x)s %(axis_y)s %(axis_z)s" />
+    </joint>
+"""
+
+motor_joint_template = """
+    <joint name="ref_%(refID)s_joint" type="%(joint_type)s">
+      <parent link="%(parent_link)s_hub"/>
       <child link="%(child_link)s"/>
       <origin xyz="%(origin_x)s %(origin_y)s %(origin_z)s" rpy="%(origin_roll)s %(origin_pitch)s %(origin_yaw)s" />
       <axis xyz="%(axis_x)s %(axis_y)s %(axis_z)s" />
@@ -158,7 +224,10 @@ def parseLXFML(handle, name):
       'dim_y' : 0,
       'dim_z' : 0,
     }
-    print link_template % d
+    if ldr_trans[refID]['ldraw'] == '53787':
+      print motor_template % d
+    else:
+      print link_template % d
 
   for refID in sorted(rigids.keys()):
     create_tree(refID, joints, rigids)
@@ -201,6 +270,9 @@ def parseLXFML(handle, name):
     'origin_yaw' : '%s' % str(1*rpy[2]),
     'axis_x' : 0, 'axis_y' : 0, 'axis_z' : 0,
     }
+    #if ldr_trans[parent_refID]['ldraw'] == '53787':
+    #  print motor_joint_template % d
+    #else:
     print joint_template % d
  
 
