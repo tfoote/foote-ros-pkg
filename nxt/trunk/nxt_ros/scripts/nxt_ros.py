@@ -32,27 +32,25 @@ class Motor:
         # create motor
         self.name = params['name']
         self.motor = nxt.motor.Motor(comm, eval(params['port']))
+        self.cmd = 0 #default command
 
         # create publisher
         self.pub = rospy.Publisher('joint_state', JointState)
         self.last_js = None
         
         # create subscriber
-        self.sub = rospy.Subscriber('joint_command', JointCommand, self.cmd_cb, None, 1)
+        self.sub = rospy.Subscriber('joint_command', JointCommand, self.cmd_cb, None, 2)
 
 
     def cmd_cb(self, msg):
         if msg.name == self.name:
-            my_lock.acquire()
+ 
             cmd = msg.effort / POWER_TO_NM
             if cmd > POWER_MAX:
                 cmd = POWER_MAX
             elif cmd < -POWER_MAX:
                 cmd = -POWER_MAX
-            
-            self.motor.run(int(cmd), 0)
-            my_lock.release()
-
+            self.cmd = cmd  #save command
 
     def trigger(self):
         js = JointState()
@@ -70,6 +68,9 @@ class Motor:
             js.velocity.append(vel)
         self.pub.publish(js)
         self.last_js = js
+
+        # send command
+        self.motor.run(int(self.cmd), 0)
 
 
 
@@ -264,7 +265,7 @@ def main():
         for c in components:
             c.trigger()
         my_lock.release()
-        rospy.sleep(0.01)
+        rospy.sleep(0.1)
 
 
 
