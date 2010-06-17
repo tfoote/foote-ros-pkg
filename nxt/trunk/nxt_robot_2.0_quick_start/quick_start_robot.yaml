@@ -1,14 +1,14 @@
 nxt_robot:
   - type: motor
-    name: r_wheel
+    name: mot_39_joint
     port: PORT_A
 
   - type: motor
-    name: l_wheel
+    name: mot_11_joint
     port: PORT_B
 
   - type: motor
-    name: front_motor
+    name: mot_3_joint
     port: PORT_C
 
   - type: gyro
@@ -17,8 +17,5 @@ nxt_robot:
     port: PORT_3
     offset: 0
 
-  - type: accelerometer
-    name: accel
-    frame_id: accel_frame
-    port: PORT_2
+
 
