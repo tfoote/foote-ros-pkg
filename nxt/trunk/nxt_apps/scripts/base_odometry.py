@@ -51,7 +51,7 @@ class BaseOdometry:
             self.r_pos = position[self.r_joint]
             self.l_pos = position[self.l_joint]
             self.pose = addDelta(self.pose, self.pose.M * twist)
-            self.br.sendTransform(self.pose.p, self.pose.M.GetQuaternion(), rospy.Time.now(), 'base_link', 'odom')
+            self.br.sendTransform(self.pose.p, self.pose.M.GetQuaternion(), rospy.Time.now(), 'ref_0_link', 'odom')
 
 def main():
     rospy.init_node('base_odometry')

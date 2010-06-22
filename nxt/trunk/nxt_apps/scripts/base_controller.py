@@ -42,6 +42,7 @@ class BaseController:
 
 
     def jnt_state_cb(self, msg):
+        feedback_factor = 0
         velocity = {}
         for name, vel in zip(msg.name, msg.velocity):
             velocity[name] = vel
@@ -50,12 +51,12 @@ class BaseController:
         
         l_cmd = JointCommand()
         l_cmd.name = self.l_joint
-        l_cmd.effort = K_TRANS*(self.vel_trans_desi - self.vel_trans) - K_ROT*(self.vel_rot_desi - self.vel_rot)
+        l_cmd.effort = K_TRANS*(self.vel_trans_desi - feedback_factor*self.vel_trans) - K_ROT*(self.vel_rot_desi - feedback_factor*self.vel_rot)
         self.pub.publish(l_cmd)
 
         r_cmd = JointCommand()
         r_cmd.name = self.r_joint
-        r_cmd.effort = K_TRANS*(self.vel_trans_desi - self.vel_trans) + K_ROT*(self.vel_rot_desi - self.vel_rot)
+        r_cmd.effort = K_TRANS*(self.vel_trans_desi - feedback_factor*self.vel_trans) + K_ROT*(self.vel_rot_desi - feedback_factor*self.vel_rot)
         self.pub.publish(r_cmd)
 
 
