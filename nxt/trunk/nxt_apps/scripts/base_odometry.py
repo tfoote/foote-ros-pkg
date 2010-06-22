@@ -19,8 +19,8 @@ class BaseOdometry:
         self.initialized = False
 
         # get joint name
-        self.l_joint = rospy.get_param('name', 'l_wheel')
-        self.r_joint = rospy.get_param('name', 'r_wheel')
+        self.l_joint = rospy.get_param('name', 'mot_39_joint')
+        self.r_joint = rospy.get_param('name', 'mot_11_joint')
 
         # joint interaction
         rospy.Subscriber('joint_states', JointState, self.jnt_state_cb)

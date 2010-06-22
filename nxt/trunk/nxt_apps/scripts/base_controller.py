@@ -12,7 +12,7 @@ from nxt_msgs.msg import Range, JointCommand
 
 RADIUS = 2.0
 K_ROT = 0.0775
-K_TRANS = 0.5
+K_TRANS = 0.055
 
 class BaseController:
     def __init__(self):
@@ -24,8 +24,8 @@ class BaseController:
 
 
         # get joint name
-        self.l_joint = rospy.get_param('name', 'l_wheel')
-        self.r_joint = rospy.get_param('name', 'r_wheel')
+        self.l_joint = rospy.get_param('name', 'mot_39_joint')
+        self.r_joint = rospy.get_param('name', 'mot_11_joint')
         
         # joint interaction
         self.pub = rospy.Publisher('joint_command', JointCommand)
