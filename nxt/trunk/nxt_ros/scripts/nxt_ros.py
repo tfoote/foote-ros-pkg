@@ -10,7 +10,7 @@ from nxt.sensor import Type
 import nxt.sensor 
 import nxt.motor 
 import thread
-from sensor_msgs.msg import JointState
+from sensor_msgs.msg import JointState, Imu
 from std_msgs.msg import Bool
 from nxt_msgs.msg import Range, Contact, JointCommand, Color, Gyro, Accelerometer
 
@@ -122,7 +122,11 @@ class GyroSensor:
         # create publisher
         self.pub = rospy.Publisher(params['name'], Gyro)
 
+        # create publisher
+        self.pub2 = rospy.Publisher(params['name']+"_imu", Imu)
+
     def trigger(self):
+        sample = self.gyro.get_sample()
         gs = Gyro()
         gs.header.frame_id = self.frame_id
         gs.header.stamp = rospy.Time.now()
@@ -131,9 +135,18 @@ class GyroSensor:
         gs.calibration_offset.z = self.offset
         gs.angular_velocity.x = 0.0
         gs.angular_velocity.y = 0.0
-        gs.angular_velocity.z = (self.gyro.get_sample()-self.offset)*math.pi/180.0
+        gs.angular_velocity.z = (sample-self.offset)*math.pi/180.0
         gs.angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 1]
         self.pub.publish(gs)
+
+        imu = Imu()
+        imu.header.frame_id = self.frame_id
+        imu.header.stamp = rospy.Time.now()
+        imu.angular_velocity.x = 0.0
+        imu.angular_velocity.y = 0.0
+        imu.angular_velocity.z = (sample-self.offset)*math.pi/180.0
+        imu.angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 1]
+        self.pub2.publish(imu)
 
 class AccelerometerSensor:
     def __init__(self, params, comm):
