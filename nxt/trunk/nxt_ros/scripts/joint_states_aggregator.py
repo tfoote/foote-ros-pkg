@@ -22,7 +22,7 @@ class JSAggregator:
         # create publisher
         self.pub = rospy.Publisher('joint_states', JointState)
         self.observed_states = {}
-                 
+        self.updates_since_publish = 0
         
     def callback(self, data):
         num_joints = len(data.name)
@@ -48,6 +48,12 @@ class JSAggregator:
             del self.observed_states[td]
 
 
+        # Only publish if there has been as many updates as there are joints, otherwise odom, gets zero deltas and the robot jerks around. 
+        if self.updates_since_publish < len(self.observed_states.keys()):
+            self.updates_since_publish += 1
+            return
+
+        self.updates_since_publish = 0
         msg_out = JointState()
         msg_out.header = data.header        
         for k, v in self.observed_states.iteritems():
