@@ -1,10 +1,10 @@
 nxt_robot:
   - type: motor
-    name: mot_39_joint
+    name: r_wheel_joint
     port: PORT_A
 
   - type: motor
-    name: mot_11_joint
+    name: l_wheel_joint
     port: PORT_B
 
   - type: motor

@@ -24,8 +24,8 @@ class BaseController:
 
 
         # get joint name
-        self.l_joint = rospy.get_param('name', 'mot_39_joint')
-        self.r_joint = rospy.get_param('name', 'mot_11_joint')
+        self.l_joint = rospy.get_param('name', 'l_wheel_joint')
+        self.r_joint = rospy.get_param('name', 'r_wheel_joint')
         
         # joint interaction
         self.pub = rospy.Publisher('joint_command', JointCommand)
