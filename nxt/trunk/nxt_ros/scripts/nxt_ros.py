@@ -123,12 +123,19 @@ class GyroSensor:
         self.prev_time = rospy.Time.now()
 
         # calibrate
-        # rospy.loginfo("Calibrating Gyro. Don't move the robot now")
-        # sample1 = self.gyro.get_sample()        
-        # rospy.sleep(2.0)
-        # sample2 = self.gyro.get_sample()        
-        # self.offset = (sample2 - sample1)/2.0
-        # rospy.loginfo("Gyro calibrated with offset %f"%self.offset)
+        rospy.loginfo("Calibrating Gyro. Don't move the robot now")
+        start_time = rospy.Time.now()
+        cal_duration = rospy.Duration(2.0)
+        offset = 0
+        tmp_time = rospy.Time.now()
+        while rospy.Time.now() < start_time + cal_duration:
+            rospy.sleep(0.01)
+            sample = self.gyro.get_sample()
+            now = rospy.Time.now()
+            offset += (sample * (now - tmp_time).to_sec())
+            tmp_time = now
+        self.offset = offset / (tmp_time - start_time).to_sec()
+        rospy.loginfo("Gyro calibrated with offset %f"%self.offset)
 
         # create publisher
         self.pub = rospy.Publisher(params['name'], Gyro)

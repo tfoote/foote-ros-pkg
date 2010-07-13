@@ -1,0 +1,1850 @@
+<robot name=quick_start>
+
+    <link name="base_footprint">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6558.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_1_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32524.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_2_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6558.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_3_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/53787.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="ref_3_link_hub">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/servo_hubs.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
+    <joint name="l_wheel_joint" type="continuous">
+      <parent link="ref_3_link"/>
+      <child link="ref_3_link_hub"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+    </joint>
+    
+
+
+    <link name="ref_4_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_5_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/40490.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_6_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_7_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_8_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_9_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6629.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_10_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/3749.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_11_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/53787.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="ref_11_link_hub">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/servo_hubs.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
+    <joint name="middle_joint" type="continuous">
+      <parent link="ref_11_link"/>
+      <child link="ref_11_link_hub"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+    </joint>
+    
+
+
+    <link name="ref_12_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/3705.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_13_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32123.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_14_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/56145.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_15_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/44309.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_16_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_17_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6558.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_18_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32526.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_19_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_20_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32073.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_21_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/3713.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_22_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/42003.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_23_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/42003.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_24_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/3705.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_25_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/3713.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_26_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32498.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_27_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32525.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_28_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32138.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_29_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32525.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_30_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6558.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_31_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32140.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_32_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6558.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_33_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32526.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_34_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6558.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_35_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/40490.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_36_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_37_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_38_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_39_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/53787.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="ref_39_link_hub">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/servo_hubs.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
+    <joint name="r_wheel_joint" type="continuous">
+      <parent link="ref_39_link"/>
+      <child link="ref_39_link_hub"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+    </joint>
+    
+
+
+    <link name="ref_40_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/3749.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_41_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6629.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_42_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/3705.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_43_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/56145.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_44_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/44309.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_45_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32123.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_46_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_47_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/6558.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_48_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32526.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_49_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_50_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_51_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/32525.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_52_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_53_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <link name="ref_54_link">
+      <inertial>
+        <mass value="0.010000" />
+        <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+        <origin xyz="0.0 0.0 0" />
+        <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+      </inertial>
+      <visual>
+        <!-- visual origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://nxt_description/meshes/parts/2780.dae" scale=" 0.0004  0.0004  0.0004"/>
+        </geometry>
+      </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0 0 0"/>
+        </geometry>
+      </collision>
+    </link>
+
+
+    <joint name="ref_0_joint" type="fixed">
+      <parent link="base_footprint"/>
+      <child link="ref_3_link"/>
+      <origin xyz="-4.57763671875e-09 0.0159999938965 -0.015799987793" rpy="-3.14159265359 -0.0 -4.7124" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_1_joint" type="fixed">
+      <parent link="ref_3_link"/>
+      <child link="ref_2_link"/>
+      <origin xyz="-3.81469726563e-09 -0.00799996948242 -0.015799987793" rpy="-3.14159265359 -0.0 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_2_joint" type="fixed">
+      <parent link="ref_2_link"/>
+      <child link="ref_1_link"/>
+      <origin xyz="0.0079999961853 0.008 -5e-05" rpy="0.0 1.57079632679 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_3_joint" type="fixed">
+      <parent link="ref_1_link"/>
+      <child link="ref_54_link"/>
+      <origin xyz="0.0159501724243 -0.123999871826 0.031999647522" rpy="1.57079632679 -0.0 -1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_4_joint" type="fixed">
+      <parent link="ref_54_link"/>
+      <child link="ref_51_link"/>
+      <origin xyz="0.00400022888184 -0.0399999740601 -4.95635986328e-05" rpy="3.14159265359 1.57079632679 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_5_joint" type="fixed">
+      <parent link="ref_51_link"/>
+      <child link="ref_52_link"/>
+      <origin xyz="-4.9836725016e-05 0.0240000185013 -0.00399994764329" rpy="3.14159265359 1.57079632679 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_6_joint" type="fixed">
+      <parent link="ref_52_link"/>
+      <child link="ref_53_link"/>
+      <origin xyz="-0.00799994354248 -0.0160000900269 1.38092041016e-07" rpy="-0.0 -0.0 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_7_joint" type="fixed">
+      <parent link="ref_3_link"/>
+      <child link="ref_25_link"/>
+      <origin xyz="2.25067138672e-07 -0.180129669189 -0.00799762268066" rpy="-1.57079632679 1.13256307865e-05 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_8_joint" type="fixed">
+      <parent link="ref_25_link"/>
+      <child link="ref_23_link"/>
+      <origin xyz="0.0159999678022 0.0160021564368 0.0521297271729" rpy="-1.57079632679 -0.0 -1.13256301115e-05" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_9_joint" type="fixed">
+      <parent link="ref_23_link"/>
+      <child link="ref_22_link"/>
+      <origin xyz="-0.0319999984741 -6.103515625e-09 -6.103515625e-09" rpy="-0.0 -0.0 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_10_joint" type="fixed">
+      <parent link="ref_22_link"/>
+      <child link="ref_21_link"/>
+      <origin xyz="0.0159999847412 -7.06207275391e-05 0.00779985656738" rpy="-0.0 -0.0 1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_11_joint" type="fixed">
+      <parent link="ref_21_link"/>
+      <child link="ref_20_link"/>
+      <origin xyz="-6.103515625e-09 6.103515625e-09 -3.05175799227e-09" rpy="-0.0 -0.0 -1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_12_joint" type="fixed">
+      <parent link="ref_20_link"/>
+      <child link="ref_19_link"/>
+      <origin xyz="0.0160000946045 0.00407064208984 -0.0159998382568" rpy="-1.32242748797e-05 -0.0 1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_13_joint" type="fixed">
+      <parent link="ref_19_link"/>
+      <child link="ref_18_link"/>
+      <origin xyz="0.004 0.000250007019225 0.0161999972026" rpy="-1.57079632679 -1.32242748797e-05 1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_14_joint" type="fixed">
+      <parent link="ref_18_link"/>
+      <child link="ref_17_link"/>
+      <origin xyz="-0.0162505126953 0.032199775672 0.0079998861313" rpy="1.57080961926 -1.57079632679 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_15_joint" type="fixed">
+      <parent link="ref_17_link"/>
+      <child link="ref_16_link"/>
+      <origin xyz="0.0720000152588 0.00400001736311 0.0159997120353" rpy="-0.0 1.32924659468e-05 1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_16_joint" type="fixed">
+      <parent link="ref_16_link"/>
+      <child link="ref_15_link"/>
+      <origin xyz="0.0216001586914 -0.016000012207 -0.0157998161316" rpy="-1.16712678976e-05 -0.0 1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_17_joint" type="fixed">
+      <parent link="ref_15_link"/>
+      <child link="ref_14_link"/>
+      <origin xyz="1.220703125e-08 3.05176671449e-09 -7.62903882302e-10" rpy="9.09494702444e-13 -0.0 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_18_joint" type="fixed">
+      <parent link="ref_14_link"/>
+      <child link="ref_13_link"/>
+      <origin xyz="-3.0517578125e-08 -0.0107999992825 -0.000199999072383" rpy="-9.09494754699e-13 -0.0 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_19_joint" type="fixed">
+      <parent link="ref_13_link"/>
+      <child link="ref_10_link"/>
+      <origin xyz="-0.00799992675781 -0.0107999841579 0.0160000262952" rpy="-0.0 -9.09494755064e-13 -1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_20_joint" type="fixed">
+      <parent link="ref_10_link"/>
+      <child link="ref_8_link"/>
+      <origin xyz="-3.35702263791e-08 -0.0160000427246 7.62935535034e-08" rpy="-0.0 1.16712662924e-05 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_21_joint" type="fixed">
+      <parent link="ref_8_link"/>
+      <child link="ref_6_link"/>
+      <origin xyz="-0.0240002109528 -0.00799991760254 -0.0240000896454" rpy="-0.0 -0.0 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_22_joint" type="fixed">
+      <parent link="ref_6_link"/>
+      <child link="ref_5_link"/>
+      <origin xyz="0.00400037651062 0.0319999549866 -4.99706268311e-05" rpy="3.14159265359 1.57079632679 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_23_joint" type="fixed">
+      <parent link="ref_6_link"/>
+      <child link="ref_46_link"/>
+      <origin xyz="-0.0480002437592 0.00799975585938 0.0239999279022" rpy="-0.0 -0.0 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_24_joint" type="fixed">
+      <parent link="ref_46_link"/>
+      <child link="ref_45_link"/>
+      <origin xyz="-0.0100004943848 -0.0239998443604 -0.015999924469" rpy="-1.56270098366e-05 -0.0 -1.57080662244" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_25_joint" type="fixed">
+      <parent link="ref_45_link"/>
+      <child link="ref_44_link"/>
+      <origin xyz="1.32982501641e-09 -0.0108000092289 0.00019999908676" rpy="-3.57959204367e-22 -3.08097515143e-26 8.37106779904e-22" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_26_joint" type="fixed">
+      <parent link="ref_45_link"/>
+      <child link="ref_47_link"/>
+      <origin xyz="-0.0880000342453 0.022000171248 3.18619889074e-07" rpy="1.5627009835e-05 -1.60890211133e-10 1.02956491872e-05" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_27_joint" type="fixed">
+      <parent link="ref_6_link"/>
+      <child link="ref_7_link"/>
+      <origin xyz="0.00800062904358 0.0560000297546 8.65936279297e-08" rpy="-0.0 -0.0 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_28_joint" type="fixed">
+      <parent link="ref_6_link"/>
+      <child link="ref_50_link"/>
+      <origin xyz="-0.0439996974945 0.0759997039795 0.00799997825623" rpy="-1.03693910201e-05 -0.0 1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_29_joint" type="fixed">
+      <parent link="ref_10_link"/>
+      <child link="ref_9_link"/>
+      <origin xyz="-0.00400010141748 -0.0482454444885 0.0319608786067" rpy="-1.57078171302 0.645750255814 -1.57078753226" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_30_joint" type="fixed">
+      <parent link="ref_10_link"/>
+      <child link="ref_11_link"/>
+      <origin xyz="0.00399985328697 0.0079998840332 -0.0157997160425" rpy="-3.14159265359 -2.30403202263e-07 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_31_joint" type="fixed">
+      <parent link="ref_10_link"/>
+      <child link="ref_12_link"/>
+      <origin xyz="-0.00959997805436 0.00799989013672 -0.0160000258317" rpy="-0.0 1.16712662924e-05 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_32_joint" type="fixed">
+      <parent link="ref_10_link"/>
+      <child link="ref_36_link"/>
+      <origin xyz="0.0480004571048 -0.00799991760254 -0.023999349747" rpy="-0.0 1.16712662924e-05 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_33_joint" type="fixed">
+      <parent link="ref_36_link"/>
+      <child link="ref_34_link"/>
+      <origin xyz="-0.00400015869141 0.0399999401093 -1.0871887207e-07" rpy="-0.0 -0.0 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_34_joint" type="fixed">
+      <parent link="ref_34_link"/>
+      <child link="ref_30_link"/>
+      <origin xyz="-0.0160001281738 -0.00792944717407 0.0400001438141" rpy="-0.0 -0.0 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_35_joint" type="fixed">
+      <parent link="ref_30_link"/>
+      <child link="ref_27_link"/>
+      <origin xyz="0.0080000141263 0.0399999950409 -5.10589599609e-05" rpy="1.57079632679 1.57075457489 -1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_36_joint" type="fixed">
+      <parent link="ref_27_link"/>
+      <child link="ref_26_link"/>
+      <origin xyz="0.00774985109949 -0.0358001868715 0.00800142172549" rpy="0.205687565412 -1.57074242849 1.36503284167" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_37_joint" type="fixed">
+      <parent link="ref_27_link"/>
+      <child link="ref_29_link"/>
+      <origin xyz="-8.30050531688e-07 6.6088762023e-07 0.0159999942622" rpy="-4.18755334002e-05 -1.74838310029e-09 -4.17519003284e-05" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_38_joint" type="fixed">
+      <parent link="ref_27_link"/>
+      <child link="ref_42_link"/>
+      <origin xyz="0.0319534229921 0.103930185773 0.0535963761057" rpy="1.5708380787 1.57075445127 -1.57083807869" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_39_joint" type="fixed">
+      <parent link="ref_27_link"/>
+      <child link="ref_37_link"/>
+      <origin xyz="0.0399519918765 0.0719285333259 0.019996971563" rpy="1.5708380787 1.57075445127 -1.57083807869" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_40_joint" type="fixed">
+      <parent link="ref_27_link"/>
+      <child link="ref_28_link"/>
+      <origin xyz="-0.000250156423897 -0.0361996575393 0.00800152237688" rpy="3.14153947194 -1.57075445127 1.5707545749" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_41_joint" type="fixed">
+      <parent link="ref_27_link"/>
+      <child link="ref_41_link"/>
+      <origin xyz="-0.0160097094333 0.047686603218 0.0479973977175" rpy="-6.01115840514e-06 -3.34450449879e-05 -0.925094223234" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_42_joint" type="fixed">
+      <parent link="ref_30_link"/>
+      <child link="ref_31_link"/>
+      <origin xyz="1.73187255859e-07 -0.000249959182739 -0.023800177002" rpy="1.57079632679 -0.0 -1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_43_joint" type="fixed">
+      <parent link="ref_31_link"/>
+      <child link="ref_38_link"/>
+      <origin xyz="-0.00832046257014 -0.0162001189947 0.0200002623558" rpy="-1.57079632679 1.57079632679 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_44_joint" type="fixed">
+      <parent link="ref_38_link"/>
+      <child link="ref_39_link"/>
+      <origin xyz="-0.0120006072998 -0.0719998703003 0.00820019950867" rpy="-3.14159265359 1.5396542947e-05 -1.04458704296e-05" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_45_joint" type="fixed">
+      <parent link="ref_39_link"/>
+      <child link="ref_40_link"/>
+      <origin xyz="-0.00400000334148 -0.00799989718133 -0.0157997743818" rpy="3.14159265343 1.5396542947e-05 -1.04458704296e-05" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_46_joint" type="fixed">
+      <parent link="ref_31_link"/>
+      <child link="ref_32_link"/>
+      <origin xyz="-0.000249953812366 0.0157999096155 1.28173812845e-07" rpy="-1.57079632679 -1.57079632679 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_47_joint" type="fixed">
+      <parent link="ref_31_link"/>
+      <child link="ref_33_link"/>
+      <origin xyz="-0.000570605400729 0.0159999767303 0.00800008068084" rpy="-0.0 -0.0 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_48_joint" type="fixed">
+      <parent link="ref_34_link"/>
+      <child link="ref_35_link"/>
+      <origin xyz="-9.765625e-08 0.00800003471375 -4.9845123291e-05" rpy="0.0 1.57079632679 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_49_joint" type="fixed">
+      <parent link="ref_17_link"/>
+      <child link="ref_48_link"/>
+      <origin xyz="-0.00799977111816 -0.0477500114297 0.032200455818" rpy="-1.57079632679 3.21129350531e-06 1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_50_joint" type="fixed">
+      <parent link="ref_17_link"/>
+      <child link="ref_49_link"/>
+      <origin xyz="-0.00399981384277 -0.0480000390847 0.0160004429171" rpy="3.15701254251e-06 -0.0 -3.14159265359" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_51_joint" type="fixed">
+      <parent link="ref_23_link"/>
+      <child link="ref_24_link"/>
+      <origin xyz="-0.0159999237061 0.0521296051025 -0.00400233764648" rpy="2.56617217953 1.57077648957 0.994078913433" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_52_joint" type="fixed">
+      <parent link="ref_23_link"/>
+      <child link="ref_43_link"/>
+      <origin xyz="-0.0728007568359 -0.0879997894287 -0.0239998970032" rpy="1.56268488341e-05 -0.0 1.57079632679" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+
+    <joint name="ref_53_joint" type="fixed">
+      <parent link="ref_3_link"/>
+      <child link="ref_4_link"/>
+      <origin xyz="0.0119999912262 -0.0640000335693 0.00820002975464" rpy="-3.14159265359 -0.0 -0.0" />
+      <axis xyz="0 0 0" />
+    </joint>
+
+</robot>

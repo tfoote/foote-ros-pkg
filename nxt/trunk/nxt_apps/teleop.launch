@@ -3,7 +3,9 @@
  <node pkg="nxt_apps" type="base_controller.py" name="base_controller"/>
  <node pkg="nxt_apps" type="base_odometry.py" name="base_odometry" output="screen"/>
 
- <node pkg="tf" type="static_transform_publisher" name="base_link_offset" args=".025 -.0 0.016 0 0 -.707 .707 base_link ref_0_link 100"/>
+ <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+   <remap from="imu_data" to="gyro_imu" />
+ </node>
 
  <!-- joy node -->
   <node respawn="true" pkg="joy"

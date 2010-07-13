@@ -8,7 +8,9 @@ import thread
 import tf
 from PyKDL import *
 from sensor_msgs.msg import JointState
+from nav_msgs.msg import Odometry
 from nxt_msgs.msg import Range, JointCommand
+from tf_conversions import posemath
 
 
 WHEEL_RADIUS = 0.044/2.0
@@ -19,14 +21,17 @@ class BaseOdometry:
         self.initialized = False
 
         # get joint name
-        self.l_joint = rospy.get_param('name', 'l_wheel_joint')
-        self.r_joint = rospy.get_param('name', 'r_wheel_joint')
+        self.l_joint = rospy.get_param('l_wheel_joint', 'l_wheel_joint')
+        self.r_joint = rospy.get_param('r_wheel_joint', 'r_wheel_joint')
 
         # joint interaction
         rospy.Subscriber('joint_states', JointState, self.jnt_state_cb)
 
         # tf broadcaster
         self.br = tf.TransformBroadcaster()
+
+        # publish results on topic
+        self.pub = rospy.Publisher('odom', Odometry)
 
         self.initialized = False
 
@@ -52,6 +57,17 @@ class BaseOdometry:
             self.l_pos = position[self.l_joint]
             self.pose = addDelta(self.pose, self.pose.M * twist)
             self.br.sendTransform(self.pose.p, self.pose.M.GetQuaternion(), rospy.Time.now(), 'base_link', 'odom')
+
+            odom = Odometry()
+            odom.header.stamp = rospy.Time.now()
+            odom.pose.pose = posemath.toMsg(self.pose)
+            odom.pose.covariance = [0.00001, 0, 0, 0, 0, 0,
+                                    0, 0.00001, 0, 0, 0, 0, 
+                                    0, 0, 10.0000, 0, 0, 0,
+                                    0, 0, 0, 1.00000, 0, 0,
+                                    0, 0, 0, 0, 1.00000, 0,
+                                    0, 0, 0, 0, 0, 1.00000]            
+            self.pub.publish(odom)
 
 def main():
     rospy.init_node('base_odometry')

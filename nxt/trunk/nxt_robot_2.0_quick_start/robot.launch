@@ -1,9 +1,5 @@
 <launch>
-
-  <!--param name="robot_description" command="$(find xacro)/xacro.py '$(find nxt_robot_2.0_quick_start)/robot_model.urdf.xacro'" /-->
-
-  <param name="robot_description" command="$(find nxt_lxf2urdf)/lxf2urdf.py '$(find nxt_robot_2.0_quick_start)/quick_start.lxf'"/>
-
+  <param name="robot_description" textfile="$(find nxt_robot_2.0_quick_start)/robot.xml"/>
 
   <node pkg="nxt_ros" type="joint_states_aggregator.py" name="js_agg" output="screen" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
