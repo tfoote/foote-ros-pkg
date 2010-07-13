@@ -13,6 +13,7 @@ import thread
 from sensor_msgs.msg import JointState, Imu
 from std_msgs.msg import Bool
 from nxt_msgs.msg import Range, Contact, JointCommand, Color, Gyro, Accelerometer
+from PyKDL import Rotation
 
 POWER_TO_NM = 0.01
 POWER_MAX = 125
@@ -117,7 +118,17 @@ class GyroSensor:
         #create gyro sensor
         self.gyro = nxt.sensor.GyroSensor(comm, eval(params['port']))
         self.frame_id = params['frame_id']
-        self.offset = params['offset']
+        self.orientation = 0.0
+        self.offset = 0.0
+        self.prev_time = rospy.Time.now()
+
+        # calibrate
+        # rospy.loginfo("Calibrating Gyro. Don't move the robot now")
+        # sample1 = self.gyro.get_sample()        
+        # rospy.sleep(2.0)
+        # sample2 = self.gyro.get_sample()        
+        # self.offset = (sample2 - sample1)/2.0
+        # rospy.loginfo("Gyro calibrated with offset %f"%self.offset)
 
         # create publisher
         self.pub = rospy.Publisher(params['name'], Gyro)
@@ -146,6 +157,10 @@ class GyroSensor:
         imu.angular_velocity.y = 0.0
         imu.angular_velocity.z = (sample-self.offset)*math.pi/180.0
         imu.angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 1]
+        imu.orientation_covariance = [0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.1]
+        self.orientation += imu.angular_velocity.z * (imu.header.stamp - self.prev_time).to_sec()
+        self.prev_time = imu.header.stamp
+        (imu.orientation.x, imu.orientation.y, imu.orientation.z, imu.orientation.w) = Rotation.RotZ(self.orientation).GetQuaternion()
         self.pub2.publish(imu)
 
 class AccelerometerSensor:
