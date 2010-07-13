@@ -227,7 +227,7 @@ class IntensitySensor:
             self.color = 'green'
         elif self.color_r == 0.0 and self.color_g == 0.0 and self.color_b == 1.0:
             self.color = 'blue'
-        elif self.color_r == 1.0 and self.color_g == 1.0 and self.color_b == 1.0:
+        elif self.color_r == 0.0 and self.color_g == 0.0 and self.color_b == 0.0:
             self.color = 'off'
         else:
             rospy.logerr('Invalid RGB values specifies for intensity color sensor')
