@@ -58,6 +58,11 @@ class BaseOdometry:
             self.pose = addDelta(self.pose, self.pose.M * twist)
             self.br.sendTransform(self.pose.p, self.pose.M.GetQuaternion(), rospy.Time.now(), 'base_link', 'odom')
 
+            
+            self.rot_covar = 1.0
+            if delta_rot == 0:
+                self.rot_covar = 0.00000000001
+        
             odom = Odometry()
             odom.header.stamp = rospy.Time.now()
             odom.pose.pose = posemath.toMsg(self.pose)
@@ -66,7 +71,7 @@ class BaseOdometry:
                                     0, 0, 10.0000, 0, 0, 0,
                                     0, 0, 0, 1.00000, 0, 0,
                                     0, 0, 0, 0, 1.00000, 0,
-                                    0, 0, 0, 0, 0, 1.00000]            
+                                    0, 0, 0, 0, 0, self.rot_covar]   
             self.pub.publish(odom)
 
 def main():
