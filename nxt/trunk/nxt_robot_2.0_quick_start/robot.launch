@@ -1,5 +1,6 @@
 <launch>
-  <rosparam ns="robot_description" command="load" file="$(find nxt_robot_2.0_quick_start)/out.urdf"/>
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find nxt_robot_2.0_quick_start)/robot_model.urdf.xacro'" />
+
   <node pkg="nxt_ros" type="joint_states_aggregator.py" name="js_agg" output="screen" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
     <param name="publish_frequency" value="100.0"/>
