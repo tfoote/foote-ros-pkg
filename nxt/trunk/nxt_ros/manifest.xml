@@ -1,7 +1,10 @@
 <package>
   <description brief="nxt_ros">
 
-     nxt_ros
+     nxt_ros is the robot_state_publisher for the nxt. nxt_ros published the nxt sensor/servo data over 
+     ROS and published command back to the nxt brick for servo control and active sensors. nxt_ros will 
+     first try to connect using USB and then try connecting over bluetooth An nxt robot is defined by 
+     the nxt_ros.yaml file. 
 
   </description>
   <author>Wim Meeussen</author>
