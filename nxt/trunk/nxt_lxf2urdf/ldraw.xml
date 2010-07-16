@@ -1982,12 +1982,6 @@
 <Brick ldraw="m50990.dat" lego="50990" />
 <Transformation ldraw="m50990.dat" tx="0" ty="0" tz="0" ax="0" ay="1" az="0" angle="3.141593"/>  
   
-
-  
-
-  
-  
-  
   
 	<!--  Electric Mindstorms NXT (Complete Shortcut)   -->
   	<Transformation ldraw="53788.dat" tx="2.4" ty="0" tz="4.8" ax="0" ay="1" az="0" angle="1.570796"/>
@@ -2000,6 +1994,9 @@
   
 	<!--  Electric Mindstorms NXT Light Sensor (Complete)   -->
   	<Transformation ldraw="55969.dat" tx="-0.4" ty="0" tz="-0.8" ax="0" ay="1" az="0" angle="-1.570796"/>  
+
+	<!--  Electric Mindstorms NXT Color Sensor (Complete)   -->
+  	<Transformation ldraw="64892.dat" tx="-0.4" ty="0" tz="-0.8" ax="0" ay="1" az="0" angle="-1.570796"/>  
   
  	<!--  Electric Mindstorms NXT Touch Sensor (Complete)   -->
  	 <Brick ldraw="53793.dat" lego="55967" />

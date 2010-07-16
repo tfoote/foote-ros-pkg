@@ -217,14 +217,12 @@ def parseLXFML(handle, name):
       count=count+1
 
   for refID in sorted(bricks.keys()):
-    #print rigid
     designID = ldr_trans[refID]['ldraw']#bricks[refID]['designID']
 
     ldrID =ldr_trans[refID]['ldraw']
     rot_x=rot_y=rot_z=0
     if ldrID == '6629' or  ldrID == '32348' or ldrID == '32140' or ldrID == '32526':
       rot_y = 3.14159
-
 
     scale =0.0004
     d = {
