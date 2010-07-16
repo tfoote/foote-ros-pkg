@@ -277,10 +277,10 @@ def parseLXFML(handle, name):
 
     shift_x=shift_y=shift_z=0
     rot_x=rot_y=rot_z=0
-    if ldr_trans[child_refID]['ldraw'] == '53792':
-      shift_y= -0.026
-      shift_z= 0.018
-      rot_z = -1.57079633
+#    if ldr_trans[child_refID]['ldraw'] == '53792':
+#      shift_y= -0.026
+#      shift_z= 0.018
+#      rot_z = -1.57079633
     d = {
     'refID' : refID,
     'joint_type' : joint_type,
