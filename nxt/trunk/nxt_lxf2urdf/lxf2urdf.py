@@ -93,7 +93,7 @@ link_template = """
       </inertial>
       <visual>
         <!-- visual origin is defined w.r.t. link local coordinate system -->
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="%(rot_x)s %(rot_y)s %(rot_z)s" />
         <geometry>
           <mesh filename="%(mesh)s" scale="%(m_scale)s %(m_scale)s %(m_scale)s"/>
         </geometry>
@@ -204,15 +204,6 @@ def parseLXFML(handle, name):
       j.append(r)
     joints.append(j)
 
-#  transformations = {}
-#  for transformation in ldraw_doc.getElementsByTagName('Transformation'):
-#    t = {}
-
-#    t['ldraw'] = transformation.getAttribute('ldraw').strip('.dat')
-#    t['t'] = [float(transformation.getAttribute('tx')), float(transformation.getAttribute('ty')), float(transformation.getAttribute('tz'))]
-#    t['axis'] = [float(transformation.getAttribute('ax')), float(transformation.getAttribute('ay')), float(transformation.getAttribute('az'))]
-#    t['angle'] = float(transformation.getAttribute('angle'))
-#    transformations[t['ldraw']] = t
 
   ldr_trans={}
   count=0
@@ -229,6 +220,12 @@ def parseLXFML(handle, name):
     #print rigid
     designID = ldr_trans[refID]['ldraw']#bricks[refID]['designID']
 
+    ldrID =ldr_trans[refID]['ldraw']
+    rot_x=rot_y=rot_z=0
+    if ldrID == '6629' or  ldrID == '32348' or ldrID == '32140' or ldrID == '32526':
+      rot_y = 3.14159
+
+
     scale =0.0004
     d = {
       'refID' : refID,
@@ -243,6 +240,9 @@ def parseLXFML(handle, name):
       'dim_x' : 0,
       'dim_y' : 0,
       'dim_z' : 0,
+      'rot_x': '%s' % str(rot_x),
+      'rot_y': '%s' % str(rot_y),
+      'rot_z': '%s' % str(rot_z),
     }
     if ldr_trans[refID]['ldraw'] == '53787':
       print motor_template % d
