@@ -11,7 +11,8 @@ import numpy
 from numpy.linalg import inv
 
 import transformations as TF
-tree=[]
+rigid_tree=[]
+brick_tree=[]
 
 def parseInts(s):
   if s:
@@ -79,7 +80,7 @@ motor_template = """
       <origin xyz="0 0 0" rpy="0 0 0" />
       <axis xyz="1 0 0" />
     </joint>
-    
+
 """
 
 link_template = """
@@ -116,14 +117,32 @@ joint_template = """
     </joint>
 """
 
-motor_joint_template = """
-    <joint name="ref_%(refID)s_joint" type="%(joint_type)s">
-      <parent link="%(parent_link)s_hub"/>
-      <child link="%(child_link)s"/>
-      <origin xyz="%(origin_x)s %(origin_y)s %(origin_z)s" rpy="%(origin_roll)s %(origin_pitch)s %(origin_yaw)s" />
-      <axis xyz="%(axis_x)s %(axis_y)s %(axis_z)s" />
-    </joint>
+ultrasonic_link = """
+  <!--THIS IS THE ULTRASONIC LINK RENAME ME-->
+  <link name="ref_%(refID)s_link">
+    <inertial>
+      <mass value="0.023900" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz=" -0.026 0 -0.018" rpy="0 0 1.57079633" />
+      <geometry>
+        <mesh filename="%(mesh)s" scale="%(m_scale)s %(m_scale)s %(m_scale)s"/>
+      </geometry>
+    </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="%(bound_x)s %(bound_y)s %(bound_z)s" rpy="%(bound_roll)s %(bound_pitch)s %(bound_yaw)s" />
+        <geometry>
+          <box size="%(dim_x)s %(dim_y)s %(dim_z)s"/>
+        </geometry>
+      </collision>
+  </link>
 """
+
 
 def parseLXFML(handle, name):
   #print "Parsing file %s" % handle.name
@@ -142,6 +161,7 @@ def parseLXFML(handle, name):
     b['refID']= int(brick.getAttribute('refID'))
     b['parts'] = []
     b['designID'] = int(brick.getAttribute('designID'))
+    b['handled']=False
     i = parseInts(brick.getAttribute('itemNos'))
     if i:
       b['itemNos'] = i
@@ -201,12 +221,11 @@ def parseLXFML(handle, name):
       ldr= [x for x in line.split(' ')]
       l={}
       l['ldraw'] = ldr[14].strip('.dat\r\n')
-      l['transformation'] = [float(ldr[2]), float(ldr[3]), float(ldr[4]), float(ldr[5]), float(ldr[6]), float(ldr[7]), float(ldr[8]), float(ldr[9]), float(ldr[10]), float(ldr[11]), float(ldr[12]), float(ldr[13])]    
+      l['transformation'] = [float(ldr[2]), float(ldr[3]), float(ldr[4]), float(ldr[5]), float(ldr[6]), float(ldr[7]), float(ldr[8]), float(ldr[9]), float(ldr[10]), float(ldr[11]), float(ldr[12]), float(ldr[13])]
       ldr_trans[count]=l
-      count=count+1 
+      count=count+1
 
-  for refID in sorted(rigids.keys()):
-    rigid = rigids[refID]
+  for refID in sorted(bricks.keys()):
     #print rigid
     designID = ldr_trans[refID]['ldraw']#bricks[refID]['designID']
 
@@ -227,15 +246,16 @@ def parseLXFML(handle, name):
     }
     if ldr_trans[refID]['ldraw'] == '53787':
       print motor_template % d
+    elif ldr_trans[refID]['ldraw'] == '53792':
+      print ultrasonic_link % d
     else:
       print link_template % d
 
-  for refID in sorted(rigids.keys()):
-    create_tree(refID, joints, rigids)
-        
+  create_rigid_tree(0, joints, rigids)
+  create_brick_tree(rigids, bricks, bones)
 
   #for refID, joint_list in enumerate(joints):
-  for refID, branch in enumerate(tree):
+  for refID, branch in enumerate(brick_tree):
     joint_type = "fixed"
     #for rigid in rigids[branch[1]]['boneRefs']:
     #print rigid
@@ -246,7 +266,7 @@ def parseLXFML(handle, name):
     #parent_refID = branch[0]#joint_list[1]['rigidRef']
 
     #all units are in CM
-    #the models are in LDU which are 0.4mm 
+    #the models are in LDU which are 0.4mm
     #let's compute some transforms
     world_to_c = homogeneous_matrix(ldr_trans[child_refID]['transformation'])
     world_to_p = homogeneous_matrix(ldr_trans[parent_refID]['transformation'])
@@ -254,50 +274,60 @@ def parseLXFML(handle, name):
     #now let's get the stuff for the URDF
     p_to_c = world_to_p.I*world_to_c
     #print p_to_c
-    #print p_to_c  
-    rpy = TF.euler_from_matrix(p_to_c, 'sxzy') 
-    
+    #print p_to_c
+    rpy = TF.euler_from_matrix(p_to_c, 'sxzy')
 
+    shift_x=shift_y=shift_z=0
+    rot_x=rot_y=rot_z=0
+    if ldr_trans[child_refID]['ldraw'] == '53792':
+      shift_y= -0.026
+      shift_z= 0.018
+      rot_z = -1.57079633
     d = {
     'refID' : refID,
     'joint_type' : joint_type,
     'parent_link' : 'ref_%s_link' % parent_refID,
     'child_link' : 'ref_%s_link' % child_refID,
-    'origin_x' : '%s' % str(-1*float(p_to_c[0,3])*scale),
-    'origin_y' : '%s'% str(1*float(p_to_c[2,3])*scale),
-    'origin_z' : '%s' % str(-1*float(p_to_c[1,3])*scale),
-    'origin_roll' : '%s' % str(1*rpy[0]),
-    'origin_pitch' : '%s' % str(-1*rpy[1]),
-    'origin_yaw' : '%s' % str(1*rpy[2]),
+    'origin_x' : '%s' % str(-1*float(p_to_c[0,3])*scale + shift_x),
+    'origin_y' : '%s'% str(1*float(p_to_c[2,3])*scale + shift_y),
+    'origin_z' : '%s' % str(-1*float(p_to_c[1,3])*scale +shift_z),
+    'origin_roll' : '%s' % str(1*rpy[0] +rot_x),
+    'origin_pitch' : '%s' % str(-1*rpy[1]+rot_y),
+    'origin_yaw' : '%s' % str(1*rpy[2]+rot_z),
     'axis_x' : 0, 'axis_y' : 0, 'axis_z' : 0,
     }
-    #if ldr_trans[parent_refID]['ldraw'] == '53787':
-    #  print motor_joint_template % d
-    #else:
+
+
     print joint_template % d
- 
+
 
   print "</robot>"
 
-def create_tree(refID, joints, rigids):
+def create_rigid_tree(refID, joints, rigids):
   if not rigids[refID]['handled']:
     rigids[refID]['handled']=True
     parent =refID
-#    print parent 
     for joint_list in joints:
       if joint_list[0]['rigidRef'] == parent:
         if not rigids[joint_list[1]['rigidRef']]['handled']:
-#          print "child", joint_list[1]['rigidRef']
-          tree.append([parent, joint_list[1]['rigidRef']])
-          create_tree(joint_list[1]['rigidRef'], joints, rigids)
-          #rigids[joint_list[1]['rigidRef']]['handled']=True    
+          rigid_tree.append([parent, joint_list[1]['rigidRef']])
+          create_rigid_tree(joint_list[1]['rigidRef'], joints, rigids)
       if joint_list[1]['rigidRef'] == parent:
         if not rigids[joint_list[0]['rigidRef']]['handled']:
-#          print "child", joint_list[0]['rigidRef']
-          tree.append([parent, joint_list[0]['rigidRef']])
-          create_tree(joint_list[0]['rigidRef'], joints, rigids)
-          #rigids[joint_list[0]['rigidRef']]['handled']=True
-          
+          rigid_tree.append([parent, joint_list[0]['rigidRef']])
+          create_rigid_tree(joint_list[0]['rigidRef'], joints, rigids)
+
+def create_brick_tree(rigids, bricks, bones):
+  for branch in rigid_tree:
+    parent_brick = bones[rigids[branch[0]]['boneRefs'][0]]['parent']['parent']['refID']
+    for bone in rigids[branch[1]]['boneRefs']:
+      child_brick = bones[bone]['parent']['parent']['refID']
+      if not bricks[child_brick]['handled']:
+        brick_tree.append([parent_brick,child_brick])
+        bricks[child_brick]['handled']=True
+#        print "parent_brick", parent_brick, "child_brick", child_brick
+
+
 
 def homogeneous_matrix(transform):
   tmp = numpy.ones((4,4))
