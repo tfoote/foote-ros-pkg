@@ -74,7 +74,7 @@
 
 
   <!--THIS IS THE SENSOR LINK RENAME ME-->
-  <link name="ref_3_link">
+  <link name="accel_link">
     <inertial>
       <mass value="0.023900" />
       <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
@@ -220,7 +220,7 @@
 
 
   <!--THIS IS THE SENSOR LINK RENAME ME-->
-  <link name="ref_9_link">
+  <link name="gyro_link">
     <inertial>
       <mass value="0.023900" />
       <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
@@ -2686,7 +2686,7 @@
 
     <joint name="ref_2_joint" type="fixed">
       <parent link="ref_0_link"/>
-      <child link="ref_3_link"/>
+      <child link="accel_link"/>
       <origin xyz="0.0240000045776 0.021 0.018" rpy="0.0 0.0 1.57079632679" />
       <axis xyz="0 0 0" />
     </joint>
@@ -2709,9 +2709,9 @@
 
 
     <joint name="ref_5_joint" type="fixed">
-      <parent link="ref_5_link"/>
+      <parent link="ref_4_link"/>
       <child link="ref_6_link"/>
-      <origin xyz="0.0 -0.00800001831055 -0.0002" rpy="0.0 0.0 -3.14159265359" />
+      <origin xyz="0.0 0.01600001831055 0" rpy="0.0 0.0 0" />
       <axis xyz="0 0 0" />
     </joint>
 
@@ -2734,7 +2734,7 @@
 
     <joint name="ref_8_joint" type="fixed">
       <parent link="ref_6_link"/>
-      <child link="ref_9_link"/>
+      <child link="gyro_link"/>
       <origin xyz="-0.0240000015259 -0.019 0.018" rpy="0.0 0.0 1.57079632679" />
       <axis xyz="0 0 0" />
     </joint>
