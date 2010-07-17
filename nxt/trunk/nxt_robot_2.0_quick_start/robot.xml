@@ -123,7 +123,7 @@
 
 
   <!--THIS IS THE ULTRASONIC LINK RENAME ME-->
-  <link name="ref_5_link">
+  <link name="ultrasonic_link">
     <inertial>
       <mass value="0.023900" />
       <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
@@ -2702,8 +2702,8 @@
 
     <joint name="ref_4_joint" type="fixed">
       <parent link="ref_4_link"/>
-      <child link="ref_5_link"/>
-      <origin xyz="0.0 0.00800000610352 0.0002" rpy="0.0 0.0 -3.14159265359" />
+      <child link="ultrasonic_link"/>
+      <origin xyz="0.0 0.03400000610352 0.018" rpy="0.0 0.0 1.57079632679" />
       <axis xyz="0 0 0" />
     </joint>
 
