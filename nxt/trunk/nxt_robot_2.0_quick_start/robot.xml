@@ -315,7 +315,7 @@
     </link>
 
     <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
-    <joint name="mot_11_joint" type="continuous">
+    <joint name="m_motor_joint" type="continuous">
       <parent link="ref_11_link"/>
       <child link="ref_11_link_hub"/>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -515,7 +515,7 @@
     </link>
 
     <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
-    <joint name="mot_18_joint" type="continuous">
+    <joint name="r_motor_joint" type="continuous">
       <parent link="ref_18_link"/>
       <child link="ref_18_link_hub"/>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -691,7 +691,7 @@
     </link>
 
     <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
-    <joint name="mot_24_joint" type="continuous">
+    <joint name="l_motor_joint" type="continuous">
       <parent link="ref_24_link"/>
       <child link="ref_24_link_hub"/>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -3285,31 +3285,31 @@
 
 
     <joint name="ref_77_joint" type="fixed">
-      <parent link="ref_24_link"/>
+      <parent link="ref_24_link_hub"/>
       <child link="ref_79_link"/>
-      <origin xyz="-0.0135999953902 6.27180865693e-08 0.00020025516928" rpy="3.14159265343 1.5396542947e-05 -1.04458704296e-05" />
+      <origin xyz="-0.0135999953902 0 0" rpy="0 0 0" />
       <axis xyz="0 0 0" />
     </joint>
 
 
     <joint name="ref_78_joint" type="fixed">
-      <parent link="ref_24_link"/>
+      <parent link="ref_24_link_hub"/>
       <child link="ref_80_link"/>
-      <origin xyz="-0.0248000045733 4.84863453724e-08 2.50608749614e-07" rpy="-1.57050969656 -1.57079580134 3.14158220772" />
+      <origin xyz="-0.0248000045733 0 0" rpy="-3.14158220772 0 -1.57079632679" />
       <axis xyz="0 0 0" />
     </joint>
 
 
     <joint name="ref_79_joint" type="fixed">
-      <parent link="ref_24_link"/>
+      <parent link="ref_24_link_hub"/>
       <child link="ref_81_link"/>
-      <origin xyz="-0.0243000045731 5.85221992186e-08 2.52065751575e-07" rpy="3.14159242312 2.3129157772e-12 1.57079617657" />
+      <origin xyz="-0.0243000045731 0 0" rpy="3.14159242312 0  1.57079617657" />
       <axis xyz="0 0 0" />
     </joint>
 
-
+    <!--changes this one too -->
     <joint name="ref_80_joint" type="fixed">
-      <parent link="ref_24_link"/>
+      <parent link="ref_24_link_hub"/>
       <child link="ref_82_link"/>
       <origin xyz="-0.0139999923388 3.33270669292e-08 0.000200252172577" rpy="3.14159242312 2.3129157772e-12 1.57079617657" />
       <axis xyz="0 0 0" />
