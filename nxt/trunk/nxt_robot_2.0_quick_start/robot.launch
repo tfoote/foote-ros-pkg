@@ -1,12 +1,12 @@
 <launch>
-  <param name="robot_description" textfile="$(find nxt_robot_2.0_quick_start)/robot.xml"/>
+  <param name="robot_description" textfile="$(find nxt_robot_2.0_quick_start)/robot_model.urdf"/>
 
   <node pkg="nxt_ros" type="joint_states_aggregator.py" name="js_agg" output="screen" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
     <param name="publish_frequency" value="100.0"/>
   </node>
 
-  <node pkg="nxt_ros" type="nxt_ros.py" name="nxt_ros" output="screen" respawn="true" >
+  <node pkg="nxt_ros" type="nxt_ros.py" name="nxt_ros" output="screen" respawn="true">
     <rosparam command="load" file="$(find nxt_robot_2.0_quick_start)/quick_start_robot.yaml" />    
     <!--param name="host" value="00:16:53:0D:29:63"/-->
   </node>	 
