@@ -54,9 +54,13 @@ NXTUltrasonciDisplay::NXTUltrasonciDisplay( const std::string& name, rviz::Visua
 
   cone_ = new ogre_tools::Shape(ogre_tools::Shape::Cone, vis_manager_->getSceneManager(), scene_node_);
 
-  scene_node_->setVisible( true );
+  scene_node_->setVisible( false );
 
   setAlpha( 0.5f );
+  Ogre::Vector3 scale( 0, 0, 0);
+  rviz::scaleRobotToOgre( scale );
+  cone_->setScale(scale);
+  cone_->setColor(color_.r_, color_.g_, color_.b_, alpha_);
 
   tf_filter_.connectInput(sub_);
   tf_filter_.registerCallback(boost::bind(&NXTUltrasonciDisplay::incomingMessage, this, _1));
@@ -179,7 +183,7 @@ void NXTUltrasonciDisplay::processMessage(const nxt_msgs::Range::ConstPtr& msg)
 
   cone_->setPosition(position);
   cone_->setOrientation(orientation); 
-  Ogre::Vector3 scale( msg->spread_angle, msg->spread_angle, msg ->range);
+  Ogre::Vector3 scale( msg->spread_angle, msg->spread_angle, msg->range);
   rviz::scaleRobotToOgre( scale );
   cone_->setScale(scale);
   cone_->setColor(color_.r_, color_.g_, color_.b_, alpha_);
