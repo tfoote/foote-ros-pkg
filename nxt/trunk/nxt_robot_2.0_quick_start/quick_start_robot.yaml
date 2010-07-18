@@ -8,7 +8,7 @@ nxt_robot:
     port: PORT_B
 
   - type: motor
-    name: mot_3_joint
+    name: m_wheel_joint
     port: PORT_C
 
   - type: gyro
