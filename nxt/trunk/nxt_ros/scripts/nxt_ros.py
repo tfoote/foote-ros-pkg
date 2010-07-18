@@ -108,7 +108,7 @@ class UltraSonicSensor:
         ds.header.frame_id = self.frame_id
         ds.header.stamp = rospy.Time.now()
         ds.range = self.ultrasonic.get_sample()/100.0
-        ds.spread_angle = 0.05
+        ds.spread_angle = 0.04
         ds.range_min = 0.0
         ds.range_max = 2.54
         self.pub.publish(ds)
