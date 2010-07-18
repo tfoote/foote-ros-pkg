@@ -1,7 +1,13 @@
 <package>
   <description brief="nxt_robot_2.0_quick_start">
 
-     nxt_robot_2.0_quick_start
+     The nxt_robot_2.0_quick_start package provides a starting nxt robot. For instructions on building
+     the nxt robot load the quick_start.lxf into the LEGO Digital Designer 
+     <a href="http://ldd.lego.com/">(ldd.lego.com)</a> and select the building guide mode. This robot 
+     use the <a href"http://mindstorms.lego.com/en-us//Products/Ultrasonic+Sensor/9846.aspx"> nxt lego ultrasonic sensor</a>,
+     the <a href="http://www.hitechnic.com/cgi-bin/commerce.cgi?preadd=action&key=NGY1044" hitechnic gryo sensor</a>, 
+     and the <a href="http://www.hitechnic.com/cgi-bin/commerce.cgi?preadd=action&key=NAC1040"> hitechnic 
+     acclerometer sensor</a>.
 
   </description>
   <author>Melonee Wise</author>
