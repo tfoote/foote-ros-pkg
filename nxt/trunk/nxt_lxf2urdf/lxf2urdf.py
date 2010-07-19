@@ -143,6 +143,33 @@ ultrasonic_link = """
   </link>
 """
 
+generic_sensor_link = """
+  <!--THIS IS THE SENSOR LINK RENAME ME-->
+  <link name="ref_%(refID)s_link">
+    <inertial>
+      <mass value="0.023900" />
+      <!-- center of mass (com) is defined w.r.t. link local coordinate system -->
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.01" ixy="0.0"  ixz="0.0"  iyy="0.01"  iyz="0.0"  izz="0.01" />
+    </inertial>
+    <visual>
+      <!-- visual origin is defined w.r.t. link local coordinate system -->
+      <origin xyz=" -0.013 0 -0.018" rpy="0 0 1.57079633" />
+      <geometry>
+        <mesh filename="%(mesh)s" scale="%(m_scale)s %(m_scale)s %(m_scale)s"/>
+      </geometry>
+    </visual>
+      <collision>
+        <!-- collision origin is defined w.r.t. link local coordinate system -->
+        <origin xyz="%(bound_x)s %(bound_y)s %(bound_z)s" rpy="%(bound_roll)s %(bound_pitch)s %(bound_yaw)s" />
+        <geometry>
+          <box size="%(dim_x)s %(dim_y)s %(dim_z)s"/>
+        </geometry>
+      </collision>
+  </link>
+"""
+
+
 
 def parseLXFML(handle, name):
   #print "Parsing file %s" % handle.name
@@ -246,6 +273,8 @@ def parseLXFML(handle, name):
       print motor_template % d
     elif ldr_trans[refID]['ldraw'] == '53792':
       print ultrasonic_link % d
+    elif ldr_trans[refID]['ldraw'] == '1044' or ldr_trans[refID]['ldraw'] == '64892':
+      print generic_sensor_link % d
     else:
       print link_template % d
 
