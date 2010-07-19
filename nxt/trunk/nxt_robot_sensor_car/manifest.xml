@@ -1,0 +1,15 @@
+<package>
+  <description brief="nxt_robot_sensor_car">
+
+     nxt_robot_sensor_car
+
+  </description>
+  <author>Melonee Wise</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/nxt_robot_sensor_car</url>
+  <depend package="nxt_ros"/>
+
+</package>
+
+
