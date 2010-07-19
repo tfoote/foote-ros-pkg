@@ -28,8 +28,46 @@ def check_params(ns, params):
     return True
 
 
-class Motor:
+# base class for sensors
+class Device:
+    def __init__(self, params):
+        self.desired_period = 1.0 / params['desired_frequency']
+        self.period = self.desired_period
+        self.initialized = False
+        self.name = params['name']
+
+    def needs_trigger(self):
+        # initialize
+        if not self.initialized:
+            self.initialized = True
+            self.last_run = rospy.Time.now()
+            rospy.loginfo('Initializing %s'%self.name)
+            return False
+        # compute frequence
+        now = rospy.Time.now()
+        period = 0.9 * self.period + 0.1 * (now - self.last_run).to_sec() 
+        
+        # check period
+        if period > self.desired_period * 1.2:
+            rospy.logwarn("%s not reaching desired frequency: actual %f, desired %f"%(self.name, 1.0/period, 1.0/self.desired_period))
+        elif period > self.desired_period * 1.5:
+            rospy.logerr("%s not reaching desired frequency: actual %f, desired %f"%(self.name, 1.0/period, 1.0/self.desired_period))
+
+        return period > self.desired_period
+
+
+    def do_trigger(self):
+        rospy.logdebug('Trigger %s with current frequency %f'%(self.name, 1.0/self.period))
+        now = rospy.Time.now()
+        self.period = 0.9 * self.period + 0.1 * (now - self.last_run).to_sec() 
+        self.last_run = now
+        self.trigger()
+        rospy.loginfo('Trigger %s took %f mili-seconds'%(self.name, (rospy.Time.now() - now).to_sec()*1000))
+
+
+class Motor(Device):
     def __init__(self, params, comm):
+        Device.__init__(self, params)
         # create motor
         self.name = params['name']
         self.motor = nxt.motor.Motor(comm, eval(params['port']))
@@ -76,8 +114,9 @@ class Motor:
 
 
 
-class TouchSensor:
+class TouchSensor(Device):
     def __init__(self, params, comm):
+        Device.__init__(self, params)
         # create touch sensor
         self.touch = nxt.sensor.TouchSensor(comm, eval(params['port']))
         self.frame_id = params['frame_id']
@@ -94,8 +133,9 @@ class TouchSensor:
 
 
 
-class UltraSonicSensor:
+class UltraSonicSensor(Device):
     def __init__(self, params, comm):
+        Device.__init__(self, params)
         # create ultrasonic sensor
         self.ultrasonic = nxt.sensor.UltrasonicSensor(comm, eval(params['port']))
         self.frame_id = params['frame_id']
@@ -113,8 +153,9 @@ class UltraSonicSensor:
         ds.range_max = 2.54
         self.pub.publish(ds)
 
-class GyroSensor:
+class GyroSensor(Device):
     def __init__(self, params, comm):
+        Device.__init__(self, params)
         #create gyro sensor
         self.gyro = nxt.sensor.GyroSensor(comm, eval(params['port']))
         self.frame_id = params['frame_id']
@@ -170,8 +211,9 @@ class GyroSensor:
         (imu.orientation.x, imu.orientation.y, imu.orientation.z, imu.orientation.w) = Rotation.RotZ(self.orientation).GetQuaternion()
         self.pub2.publish(imu)
 
-class AccelerometerSensor:
+class AccelerometerSensor(Device):
     def __init__(self, params, comm):
+        Device.__init__(self, params)
         #create gyro sensor
         self.accel = nxt.sensor.AccelerometerSensor(comm, eval(params['port']))
         self.frame_id = params['frame_id']
@@ -190,8 +232,9 @@ class AccelerometerSensor:
         gs.linear_acceleration_covariance = [1, 0, 0, 0, 1, 0, 0, 0, 1]
         self.pub.publish(gs)
 
-class ColorSensor:
+class ColorSensor(Device):
     def __init__(self, params, comm):
+        Device.__init__(self, params)
         # create color sensor
         self.color = nxt.sensor.ColorSensor(comm, eval(params['port']))
         self.frame_id = params['frame_id']
@@ -234,8 +277,9 @@ class ColorSensor:
         self.pub.publish(co)
 
 
-class IntensitySensor:
+class IntensitySensor(Device):
     def __init__(self, params, comm):
+        Device.__init__(self, params)
         # create intensity sensor
         self.intensity = nxt.sensor.ColorSensor(comm, eval(params['port']))
         self.frame_id = params['frame_id']
@@ -267,8 +311,10 @@ class IntensitySensor:
         co.intensity = self.intensity.get_reflected_light(self.color)
         self.pub.publish(co)
 
+
+
 def main():
-    ns = 'nxt_robot'
+    ns = 'nxt_robot' 
     rospy.init_node('nxt_ros')
     host = rospy.get_param("~host", None)
     sock = nxt.locator.find_one_brick(host)
@@ -295,12 +341,20 @@ def main():
         else:
             rospy.logerr('Invalid sensor/actuator type %s'%c['type'])
 
+    callback_handle_frequency = 10.0
+    last_callback_handle = rospy.Time.now()
     while not rospy.is_shutdown():
         my_lock.acquire()
+        triggered = False
         for c in components:
-            c.trigger()
+            if c.needs_trigger() and not triggered:
+                c.do_trigger()
+                triggered = True
         my_lock.release()
-        rospy.sleep(0.1)
+        now = rospy.Time.now()
+        if (now - last_callback_handle).to_sec() > 1.0/callback_handle_frequency:
+            last_callback_handle = now
+            rospy.sleep(0.01)
 
 
 

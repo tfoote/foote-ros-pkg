@@ -1,11 +1,18 @@
 <launch>
 
+ <!-- base controller -->
  <node pkg="nxt_apps" type="base_controller.py" name="base_controller"/>
+
+ <!-- base odometry -->
  <node pkg="nxt_apps" type="base_odometry.py" name="base_odometry" output="screen"/>
 
+ <!-- robot pose ekf -->
  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
    <remap from="imu_data" to="gyro_imu" />
  </node>
+
+ <!-- fixed transform -->
+ <node pkg="tf" type="static_transform_publisher" name="base_footprint_fixed_publisher" args="0 0 0 0 0 0 base_footprint base_link 100"/>
 
  <!-- joy node -->
   <node respawn="true" pkg="joy"
@@ -13,7 +20,6 @@
     <param name="dev" type="string" value="/dev/input/js0" />
     <param name="deadzone" value="0.12" />
   </node>
-
 
  <!-- Axes -->
   <param name="axis_linear" value="3" type="int"/>

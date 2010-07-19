@@ -15,6 +15,7 @@ from tf_conversions import posemath
 
 WHEEL_RADIUS = 0.044/2.0
 WHEEL_BASIS  = 0.11/2.0
+PUBLISH_TF = False
 
 class BaseOdometry:
     def __init__(self):
@@ -28,7 +29,8 @@ class BaseOdometry:
         rospy.Subscriber('joint_states', JointState, self.jnt_state_cb)
 
         # tf broadcaster
-        self.br = tf.TransformBroadcaster()
+        if PUBLISH_TF:
+            self.br = tf.TransformBroadcaster()
 
         # publish results on topic
         self.pub = rospy.Publisher('odom', Odometry)
@@ -56,7 +58,8 @@ class BaseOdometry:
             self.r_pos = position[self.r_joint]
             self.l_pos = position[self.l_joint]
             self.pose = addDelta(self.pose, self.pose.M * twist)
-            self.br.sendTransform(self.pose.p, self.pose.M.GetQuaternion(), rospy.Time.now(), 'base_link', 'odom')
+            if PUBLISH_TF:
+                self.br.sendTransform(self.pose.p, self.pose.M.GetQuaternion(), rospy.Time.now(), 'base_link', 'odom')
 
             
             self.rot_covar = 1.0
