@@ -17,5 +17,9 @@ nxt_robot:
     port: PORT_3
     offset: 0
 
+  - type: ultrasonic
+    frame_id: ultrasonic_link
+    name: ultrasonic_sensor
+    port: PORT_2
 
 

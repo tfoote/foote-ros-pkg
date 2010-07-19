@@ -324,7 +324,7 @@
     </link>
 
     <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
-    <joint name="m_motor_joint" type="continuous">
+    <joint name="m_wheel_joint" type="continuous">
       <parent link="ref_11_link"/>
       <child link="ref_11_link_hub"/>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -524,7 +524,7 @@
     </link>
 
     <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
-    <joint name="r_motor_joint" type="continuous">
+    <joint name="l_wheel_joint" type="continuous">
       <parent link="ref_18_link"/>
       <child link="ref_18_link_hub"/>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -700,7 +700,7 @@
     </link>
 
     <!--THIS IS THE MOTOR JOINT RENAME AND FIX BY 180 WHEN NEEDED-->
-    <joint name="l_motor_joint" type="continuous">
+    <joint name="r_wheel_joint" type="continuous">
       <parent link="ref_24_link"/>
       <child link="ref_24_link_hub"/>
       <origin xyz="0 0 0" rpy="0 0 0" />
