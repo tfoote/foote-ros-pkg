@@ -41,7 +41,7 @@ class Device:
         if not self.initialized:
             self.initialized = True
             self.last_run = rospy.Time.now()
-            rospy.loginfo('Initializing %s'%self.name)
+            rospy.logdebug('Initializing %s'%self.name)
             return False
         # compute frequence
         now = rospy.Time.now()
@@ -62,7 +62,7 @@ class Device:
         self.period = 0.9 * self.period + 0.1 * (now - self.last_run).to_sec() 
         self.last_run = now
         self.trigger()
-        rospy.loginfo('Trigger %s took %f mili-seconds'%(self.name, (rospy.Time.now() - now).to_sec()*1000))
+        rospy.logdebug('Trigger %s took %f mili-seconds'%(self.name, (rospy.Time.now() - now).to_sec()*1000))
 
 
 class Motor(Device):
