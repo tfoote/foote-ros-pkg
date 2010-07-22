@@ -1,5 +1,11 @@
 <launch>
 
+ <!-- point cloud converter -->
+ <node pkg="nxt_apps" type="range_to_pointcloud.py" name="range_to_pointcloud">
+  <remap from="range_topic" to="ultrasonic_sensor" />
+  <remap from="cloud_topic" to="point_cloud" />
+ </node>
+
  <!-- base controller -->
  <node pkg="nxt_apps" type="base_controller.py" name="base_controller"/>
 
