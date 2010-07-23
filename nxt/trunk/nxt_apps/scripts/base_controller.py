@@ -10,9 +10,12 @@ from geometry_msgs.msg import Twist
 from nxt_msgs.msg import Range, JointCommand
 
 
-RADIUS = 2.0
-K_ROT = 0.0775
-K_TRANS = 0.055
+WHEEL_RADIUS = 0.044/2.0
+WHEEL_BASIS  = 0.11/2.0
+VEL_TO_EFF = 0.5
+K_ROT = 0.075/VEL_TO_EFF
+K_TRANS = 0.055/VEL_TO_EFF
+
 
 class BaseController:
     def __init__(self):
@@ -37,26 +40,32 @@ class BaseController:
 
 
     def cmd_vel_cb(self, msg):
-        self.vel_rot_desi = msg.angular.z*10
-        self.vel_trans_desi = msg.linear.x*20
+        self.vel_rot_desi = msg.angular.z
+        self.vel_trans_desi = msg.linear.x
 
 
     def jnt_state_cb(self, msg):
-        feedback_factor = 0
         velocity = {}
         for name, vel in zip(msg.name, msg.velocity):
             velocity[name] = vel
-        self.vel_trans = 0.5*self.vel_trans + 0.5*(velocity[self.r_joint] + velocity[self.l_joint])/2.0
-        self.vel_rot   = 0.5*self.vel_rot   + 0.5*(velocity[self.r_joint] - velocity[self.l_joint])/RADIUS
+
+        # lowpass for measured velocity
+        self.vel_trans = 0.5*self.vel_trans + 0.5*(velocity[self.r_joint] + velocity[self.l_joint])*WHEEL_RADIUS/2.0
+        self.vel_rot =   0.5*self.vel_rot   + 0.5*(velocity[self.r_joint] - velocity[self.l_joint])*WHEEL_RADIUS/(2.0*WHEEL_BASIS)
+
+        # velocity commands
+        vel_trans = self.vel_trans_desi + K_TRANS*(self.vel_trans_desi - self.vel_trans)
+        vel_rot = self.vel_rot_desi + K_ROT*(self.vel_rot_desi - self.vel_rot)
         
+        # wheel commands
         l_cmd = JointCommand()
         l_cmd.name = self.l_joint
-        l_cmd.effort = K_TRANS*(self.vel_trans_desi - feedback_factor*self.vel_trans) - K_ROT*(self.vel_rot_desi - feedback_factor*self.vel_rot)
+        l_cmd.effort = VEL_TO_EFF*(vel_trans/WHEEL_RADIUS - vel_rot*WHEEL_BASIS/WHEEL_RADIUS)
         self.pub.publish(l_cmd)
 
         r_cmd = JointCommand()
         r_cmd.name = self.r_joint
-        r_cmd.effort = K_TRANS*(self.vel_trans_desi - feedback_factor*self.vel_trans) + K_ROT*(self.vel_rot_desi - feedback_factor*self.vel_rot)
+        r_cmd.effort = VEL_TO_EFF*(vel_trans/WHEEL_RADIUS + vel_rot*WHEEL_BASIS/WHEEL_RADIUS)
         self.pub.publish(r_cmd)
 
 
