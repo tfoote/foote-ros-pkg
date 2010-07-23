@@ -1,5 +1,45 @@
 <launch>
-  <include file="$(find nxt_apps)/teleop.launch"/>
+  <!-- point cloud converter -->
+  <node pkg="nxt_apps" type="range_to_pointcloud.py" name="range_to_pointcloud">
+    <remap from="range_topic" to="ultrasonic_sensor" />
+    <remap from="cloud_topic" to="point_cloud" />
+  </node>
+
+  <!-- base controller -->
+  <node pkg="nxt_apps" type="base_controller.py" name="base_controller"/>
+
+  <!-- base odometry -->
+  <node pkg="nxt_apps" type="base_odometry.py" name="base_odometry" output="screen"/>
+
+  <!-- robot pose ekf -->
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+    <remap from="imu_data" to="gyro_imu" />
+  </node>
+
+  <!-- fixed transform -->
+  <node pkg="tf" type="static_transform_publisher" name="base_footprint_fixed_publisher" args="0 0 0 0 0 0 base_footprint base_link 100"/>
+
+  <!-- joy node -->
+  <node respawn="true" pkg="joy"
+        type="joy_node" name="nxt_joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+    <param name="autorepeat_rate" value="10.0" />
+  </node>
+
+
+  <!-- Axes -->
+  <param name="axis_linear" value="3" type="int"/>
+  <param name="axis_angular" value="0" type="int"/>
+  <param name="scale_linear" value="1" type="double"/>
+  <param name="scale_angular" value="1" type="double"/>
+
+  <node pkg="pr2_teleop" type="teleop_pr2" name="pr2_teleop" output="screen">
+    <remap from="cmd_vel" to="teleop_cmd_vel"/>
+    <rosparam file="$(find nxt_robot_sensor_car)/teleop.yaml" command="load" />
+  </node>
+
+
   
   <node pkg="assisted_teleop" name="assisted_teleop" type="assisted_teleop" respawn="false" output="screen">
     <rosparam file="$(find nxt_robot_sensor_car)/assisted_teleop.yaml" command="load" />
