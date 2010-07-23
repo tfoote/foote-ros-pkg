@@ -183,7 +183,7 @@ void NXTUltrasonciDisplay::processMessage(const nxt_msgs::Range::ConstPtr& msg)
 
   cone_->setPosition(position);
   cone_->setOrientation(orientation); 
-  Ogre::Vector3 scale( msg->spread_angle, msg->spread_angle, msg->range);
+  Ogre::Vector3 scale( sin(msg->spread_angle) * msg->range, sin(msg->spread_angle) * msg->range , msg->range);
   rviz::scaleRobotToOgre( scale );
   cone_->setScale(scale);
   cone_->setColor(color_.r_, color_.g_, color_.b_, alpha_);
