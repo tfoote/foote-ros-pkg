@@ -139,6 +139,9 @@ class UltraSonicSensor(Device):
         # create ultrasonic sensor
         self.ultrasonic = nxt.sensor.UltrasonicSensor(comm, eval(params['port']))
         self.frame_id = params['frame_id']
+        self.spread = params['spread_angle']
+        self.min_range = params['min_range']
+        self.max_range = params['max_range']
 
         # create publisher
         self.pub = rospy.Publisher(params['name'], Range)
@@ -147,10 +150,10 @@ class UltraSonicSensor(Device):
         ds = Range()
         ds.header.frame_id = self.frame_id
         ds.header.stamp = rospy.Time.now()
-        ds.range = self.ultrasonic.get_sample()/100.0
-        ds.spread_angle = 0.04
-        ds.range_min = 0.0
-        ds.range_max = 2.54
+        ds.range = max(min(self.ultrasonic.get_sample()/100.0, self.max_range), self.min_range)
+        ds.spread_angle = self.spread
+        ds.range_min = self.min_range
+        ds.range_max = self.max_range
         self.pub.publish(ds)
 
 class GyroSensor(Device):
