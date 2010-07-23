@@ -33,6 +33,8 @@
   <param name="scale_linear" value="1" type="double"/>
   <param name="scale_angular" value="1" type="double"/>
 
-  <node pkg="nxt_apps" type="nxt_teleop_joy" name="teleop"/>
+  <node pkg="pr2_teleop" type="teleop_pr2" name="pr2_teleop" output="screen">
+    <rosparam file="$(find nxt_apps)/teleop.yaml" command="load" />
+  </node>
 
 </launch>
