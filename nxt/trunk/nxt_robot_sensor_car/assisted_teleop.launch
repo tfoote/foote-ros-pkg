@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find nxt_apps)/teleop.launch"/>
+  
+  <node pkg="assisted_teleop" name="assisted_teleop" type="assisted_teleop" respawn="false" output="screen">
+    <rosparam file="$(find nxt_robot_sensor_car)/assisted_teleop.yaml" command="load" />
+  </node>
+</launch>
