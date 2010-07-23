@@ -20,9 +20,10 @@ class Converter:
         pnt.header = msg.header
         angle_step = 1.0/(msg.range*100.0)
         angle = -msg.spread_angle
-        while angle < msg.spread_angle:
-            pnt.points.append(Point32(msg.range*cos(angle), msg.range*sin(angle), 0))
-            angle += angle_step
+        if msg.range < msg.range_max and msg.range > msg.range_min:
+            while angle < msg.spread_angle:
+                pnt.points.append(Point32(msg.range*cos(angle), msg.range*sin(angle), 0))
+                angle += angle_step
         self.pub.publish(pnt)
 
 def main():
