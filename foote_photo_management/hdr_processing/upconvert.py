@@ -25,7 +25,8 @@ parser.add_option("-o", "--outdir", dest="outdir",
 if not options.outdir:
     parser.warn("Using outdir of '.'")
 
-os.makedirs(options.outdir)
+if not os.path.exists(options.outdir):
+    os.makedirs(options.outdir)
 
 for a in args:
     if not os.path.exists(a):
@@ -38,4 +39,4 @@ for a in args:
     run(cmd)
 
     cmd = "exiftool -tagsfromfile %s -overwrite_original_in_place -exif:all %s"%(a, outfile)
-    #run(cmd)
+    run(cmd)
