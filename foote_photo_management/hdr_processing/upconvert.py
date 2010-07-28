@@ -16,6 +16,8 @@ def run(cmd_str):
 parser = OptionParser()
 parser.add_option("-o", "--outdir", dest="outdir",
                   help="write files to outdir", metavar="DIRECTORY")
+parser.add_option("-i", "--indir", dest="indir",
+                  help="read files from indir", metavar="DIRECTORY")
 #parser.add_option("-q", "--quiet",
 #                  action="store_false", dest="verbose", default=True,
 #                  help="don't print status messages to stdout")
@@ -28,11 +30,21 @@ if not options.outdir:
 if not os.path.exists(options.outdir):
     os.makedirs(options.outdir)
 
+files = []
+
 for a in args:
     if not os.path.exists(a):
         print "Argument '%s' invalid"%a
         continue
-    basename = os.path.basename(a)
+    files.append(a)
+
+if options.indir:
+    for a in os.listdir(options.indir):
+        if os.path.isfile(a):
+            files.append(a)
+
+for f in files:
+    basename = os.path.basename(f)
     (filename, ext) = os.path.splitext(basename)
     outfile = "%s"%os.path.join(options.outdir, filename+".tiff")
     cmd = "convert %s %s"%(a, outfile)
