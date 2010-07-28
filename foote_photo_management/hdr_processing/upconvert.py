@@ -39,16 +39,22 @@ for a in args:
     files.append(a)
 
 if options.indir:
-    for a in os.listdir(options.indir):
+    for a in [os.path.join(options.indir, e) for e in os.listdir(options.indir)]:
         if os.path.isfile(a):
             files.append(a)
+        else:
+            print a, "is not a file"
 
 for f in files:
     basename = os.path.basename(f)
     (filename, ext) = os.path.splitext(basename)
     outfile = "%s"%os.path.join(options.outdir, filename+".tiff")
-    cmd = "convert %s %s"%(a, outfile)
-    run(cmd)
 
-    cmd = "exiftool -tagsfromfile %s -overwrite_original_in_place -exif:all %s"%(a, outfile)
-    run(cmd)
+    try:
+        cmd = "convert %s %s"%(f, outfile)
+        run(cmd)
+        
+        cmd = "exiftool -tagsfromfile %s -overwrite_original_in_place -exif:all %s"%(f, outfile)
+        run(cmd)
+    except CalledProcessError, ex:
+        print "Failed %s"%ex
