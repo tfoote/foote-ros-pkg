@@ -57,12 +57,19 @@ class Device:
 
 
     def do_trigger(self):
-        rospy.logdebug('Trigger %s with current frequency %f'%(self.name, 1.0/self.period))
-        now = rospy.Time.now()
-        self.period = 0.9 * self.period + 0.1 * (now - self.last_run).to_sec() 
-        self.last_run = now
-        self.trigger()
-        rospy.logdebug('Trigger %s took %f mili-seconds'%(self.name, (rospy.Time.now() - now).to_sec()*1000))
+        try:
+          rospy.logdebug('Trigger %s with current frequency %f'%(self.name, 1.0/self.period))
+          now = rospy.Time.now()
+          self.period = 0.9 * self.period + 0.1 * (now - self.last_run).to_sec() 
+          self.last_run = now
+          self.trigger()
+          rospy.logdebug('Trigger %s took %f mili-seconds'%(self.name, (rospy.Time.now() - now).to_sec()*1000))
+        except nxt.error.DirProtError: 
+          rospy.logwarn("caught an exception nxt.error.DirProtError")
+          pass
+        except nxt.error.I2CError:
+          rospy.logwarn("caught an exception nxt.error.I2CError")
+          pass
 
 
 class Motor(Device):
@@ -155,6 +162,7 @@ class UltraSonicSensor(Device):
         ds.range_min = self.min_range
         ds.range_max = self.max_range
         self.pub.publish(ds)
+ 
 
 class GyroSensor(Device):
     def __init__(self, params, comm):
