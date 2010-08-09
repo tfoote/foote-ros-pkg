@@ -35,7 +35,7 @@ using namespace nxt_rviz_plugin;
 
 extern "C" void rvizPluginInit(rviz::TypeRegistry* reg)
 {
-  reg->registerDisplay<NXTUltrasonciDisplay>("nxt_rviz_plugin::NXTUltrasonciDisplay");
+  reg->registerDisplay<NXTUltrasonicDisplay>("nxt_rviz_plugin::NXTUltrasonicDisplay");
 
 }
 

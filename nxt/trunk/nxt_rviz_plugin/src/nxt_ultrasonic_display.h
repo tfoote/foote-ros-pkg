@@ -57,14 +57,14 @@ namespace nxt_rviz_plugin
 {
 
 /**
- * \class NXTUltrasonciDisplay
+ * \class NXTUltrasonicDisplay
  * \brief Displays a nxt_msgs::Range message
  */
-class NXTUltrasonciDisplay : public rviz::Display
+class NXTUltrasonicDisplay : public rviz::Display
 {
 public:
-  NXTUltrasonciDisplay( const std::string& name, rviz::VisualizationManager* manager );
-  virtual ~NXTUltrasonciDisplay();
+  NXTUltrasonicDisplay( const std::string& name, rviz::VisualizationManager* manager );
+  virtual ~NXTUltrasonicDisplay();
 
   void setTopic( const std::string& topic );
   const std::string& getTopic() { return topic_; }

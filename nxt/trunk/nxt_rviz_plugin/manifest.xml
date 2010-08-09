@@ -1,7 +1,7 @@
 <package>
   <description brief="nxt_rviz_plugin">
 
-     nxt_rviz_plugin
+     nxt_rviz_plugin provides plugins for rviz for visualizing data coming from the nxt sensors. 
 
   </description>
   <author>Melonee Wise</author>

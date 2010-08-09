@@ -44,7 +44,7 @@
 
 namespace nxt_rviz_plugin
 {
-NXTUltrasonciDisplay::NXTUltrasonciDisplay( const std::string& name, rviz::VisualizationManager* manager )
+NXTUltrasonicDisplay::NXTUltrasonicDisplay( const std::string& name, rviz::VisualizationManager* manager )
 : Display( name, manager )
 , color_( 0.1f, 1.0f, 0.0f )
 , messages_received_(0)
@@ -63,25 +63,25 @@ NXTUltrasonciDisplay::NXTUltrasonciDisplay( const std::string& name, rviz::Visua
   cone_->setColor(color_.r_, color_.g_, color_.b_, alpha_);
 
   tf_filter_.connectInput(sub_);
-  tf_filter_.registerCallback(boost::bind(&NXTUltrasonciDisplay::incomingMessage, this, _1));
+  tf_filter_.registerCallback(boost::bind(&NXTUltrasonicDisplay::incomingMessage, this, _1));
   vis_manager_->getFrameManager()->registerFilterForTransformStatusCheck(tf_filter_, this);
 }
 
-NXTUltrasonciDisplay::~NXTUltrasonciDisplay()
+NXTUltrasonicDisplay::~NXTUltrasonicDisplay()
 {
   unsubscribe();
   clear();
   delete cone_;
 }
 
-void NXTUltrasonciDisplay::clear()
+void NXTUltrasonicDisplay::clear()
 {
 
   messages_received_ = 0;
   setStatus(rviz::status_levels::Warn, "Topic", "No messages received");
 }
 
-void NXTUltrasonciDisplay::setTopic( const std::string& topic )
+void NXTUltrasonicDisplay::setTopic( const std::string& topic )
 {
   unsubscribe();
 
@@ -94,7 +94,7 @@ void NXTUltrasonciDisplay::setTopic( const std::string& topic )
   causeRender();
 }
 
-void NXTUltrasonciDisplay::setColor( const rviz::Color& color )
+void NXTUltrasonicDisplay::setColor( const rviz::Color& color )
 {
   color_ = color;
 
@@ -104,7 +104,7 @@ void NXTUltrasonciDisplay::setColor( const rviz::Color& color )
   causeRender();
 }
 
-void NXTUltrasonciDisplay::setAlpha( float alpha )
+void NXTUltrasonicDisplay::setAlpha( float alpha )
 {
   alpha_ = alpha;
 
@@ -114,7 +114,7 @@ void NXTUltrasonciDisplay::setAlpha( float alpha )
   causeRender();
 }
 
-void NXTUltrasonciDisplay::subscribe()
+void NXTUltrasonicDisplay::subscribe()
 {
   if ( !isEnabled() )
   {
@@ -124,37 +124,37 @@ void NXTUltrasonciDisplay::subscribe()
   sub_.subscribe(update_nh_, topic_, 10);
 }
 
-void NXTUltrasonciDisplay::unsubscribe()
+void NXTUltrasonicDisplay::unsubscribe()
 {
   sub_.unsubscribe();
 }
 
-void NXTUltrasonciDisplay::onEnable()
+void NXTUltrasonicDisplay::onEnable()
 {
   scene_node_->setVisible( true );
   subscribe();
 }
 
-void NXTUltrasonciDisplay::onDisable()
+void NXTUltrasonicDisplay::onDisable()
 {
   unsubscribe();
   clear();
   scene_node_->setVisible( false );
 }
 
-void NXTUltrasonciDisplay::fixedFrameChanged()
+void NXTUltrasonicDisplay::fixedFrameChanged()
 {
   clear();
 
   tf_filter_.setTargetFrame( fixed_frame_ );
 }
 
-void NXTUltrasonciDisplay::update(float wall_dt, float ros_dt)
+void NXTUltrasonicDisplay::update(float wall_dt, float ros_dt)
 {
 }
 
 
-void NXTUltrasonciDisplay::processMessage(const nxt_msgs::Range::ConstPtr& msg)
+void NXTUltrasonicDisplay::processMessage(const nxt_msgs::Range::ConstPtr& msg)
 {
   if (!msg)
   {
@@ -190,33 +190,33 @@ void NXTUltrasonciDisplay::processMessage(const nxt_msgs::Range::ConstPtr& msg)
 
 }
 
-void NXTUltrasonciDisplay::incomingMessage(const nxt_msgs::Range::ConstPtr& msg)
+void NXTUltrasonicDisplay::incomingMessage(const nxt_msgs::Range::ConstPtr& msg)
 {
   processMessage(msg);
 }
 
-void NXTUltrasonciDisplay::reset()
+void NXTUltrasonicDisplay::reset()
 {
   Display::reset();
   clear();
 }
 
-void NXTUltrasonciDisplay::createProperties()
+void NXTUltrasonicDisplay::createProperties()
 {
-  topic_property_ = property_manager_->createProperty<rviz::ROSTopicStringProperty>( "Topic", property_prefix_, boost::bind( &NXTUltrasonciDisplay::getTopic, this ),
-                                                                                boost::bind( &NXTUltrasonciDisplay::setTopic, this, _1 ), parent_category_, this );
+  topic_property_ = property_manager_->createProperty<rviz::ROSTopicStringProperty>( "Topic", property_prefix_, boost::bind( &NXTUltrasonicDisplay::getTopic, this ),
+                                                                                boost::bind( &NXTUltrasonicDisplay::setTopic, this, _1 ), parent_category_, this );
   setPropertyHelpText(topic_property_, "nxt_msgs::Range topic to subscribe to.");
   rviz::ROSTopicStringPropertyPtr topic_prop = topic_property_.lock();
   topic_prop->setMessageType(ros::message_traits::datatype<nxt_msgs::Range>());
-  color_property_ = property_manager_->createProperty<rviz::ColorProperty>( "Color", property_prefix_, boost::bind( &NXTUltrasonciDisplay::getColor, this ),
-                                                                      boost::bind( &NXTUltrasonciDisplay::setColor, this, _1 ), parent_category_, this );
+  color_property_ = property_manager_->createProperty<rviz::ColorProperty>( "Color", property_prefix_, boost::bind( &NXTUltrasonicDisplay::getColor, this ),
+                                                                      boost::bind( &NXTUltrasonicDisplay::setColor, this, _1 ), parent_category_, this );
   setPropertyHelpText(color_property_, "Color to draw the range.");
-  alpha_property_ = property_manager_->createProperty<rviz::FloatProperty>( "Alpha", property_prefix_, boost::bind( &NXTUltrasonciDisplay::getAlpha, this ),
-                                                                       boost::bind( &NXTUltrasonciDisplay::setAlpha, this, _1 ), parent_category_, this );
+  alpha_property_ = property_manager_->createProperty<rviz::FloatProperty>( "Alpha", property_prefix_, boost::bind( &NXTUltrasonicDisplay::getAlpha, this ),
+                                                                       boost::bind( &NXTUltrasonicDisplay::setAlpha, this, _1 ), parent_category_, this );
   setPropertyHelpText(alpha_property_, "Amount of transparency to apply to the range.");
 }
 
-const char* NXTUltrasonciDisplay::getDescription()
+const char* NXTUltrasonicDisplay::getDescription()
 {
   return "Displays data from a nxt_msgs::Range message as a cone.";
 }
