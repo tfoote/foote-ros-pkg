@@ -1,7 +1,0 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
-rospack(phidget_text)
-rospack_add_executable(mykit mykit.cc)
-rospack_add_executable(display display_msg.cc)
-rospack_add_executable(demo_text demo_text.cc)
-rospack_add_executable(send send_string.cc)
