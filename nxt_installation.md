@@ -1,0 +1,1 @@
+Please visit http://www.ros.org/wiki/nxt/Installation
